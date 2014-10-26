@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fontastic.s3.amazonaws.com/9PU7jTBDVcLA5EWPJuNzJC/icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+	<header>
+		<a href="exercises.html"><i class="icon-chevron-left"></i></a>
+		<h2>Pinnen bij het winkelcentrum</h2>
+	</header>
+
+	<form id="detailExercise" action="exercises.html">
+		<label for="fearFactor">Plaats in hierarchie na oefening</label>
+      	<input type="range" name="fearFactor" id="fearFactor" value="50" min="0" max="100">
+
+      	<!-- <div data-role="fieldcontain"> -->
+		    <fieldset>
+		    	<legend>Benodigde tijd tot afronding</legend>
+		         	<label for="0-1minuut">0-1 minuut</label>
+		         	<input type="radio" name="tijdAfronding" id="0-1minuut" checked="checked" />
+
+		         	<label for="1-5minuten">1-5 minuten</label>
+		         	<input type="radio" name="tijdAfronding" id="1-5minuten"  />
+
+		         	<label for="5+minuten">5+ minuten</label>
+		         	<input type="radio" name="tijdAfronding" id="5+minuten"  />
+		    </fieldset>
+		<!-- </div>		 -->
+		<label for="ervaring">Ervaring oefening</label>
+		<textarea name="ervaring" id="ervaring" rows="7" cols="42"></textarea>
+
+		<div id="addFile">
+			<a href="#">Videoboodschap toevoegen <i class="icon-plus"></i></a>
+		</div>
+		<input type="submit" value="Resultaat indienen"><i class="icon-chevron-right"></i>
+	</form>
+</body>
+</html>
