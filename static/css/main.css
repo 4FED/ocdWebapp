@@ -1,4 +1,4 @@
-section, .userForm{
+section, .userForm, .doctorEl{
 	display: none;
 }
 section.active, form.active{

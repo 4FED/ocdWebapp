@@ -18,14 +18,15 @@ var ocdWebApp = ocdWebApp || {};
 		    user.set("initials", initials);
 		    user.set("firstname", firstname);
 		    user.set("surname", surname);
+		    user.set("isDoctor", false);
 
 		    user.signUp(null, {
 			    success: function(object) {
-				    console.log("succes");
+				    alert("nieuwe gebruiker is aangemaakt, druk ok om door te gaan naar de app");
 				    window.location.href = "http://localhost/4fed/Webapp/#user/login";
 			    },
 			    error: function(model, error) {
-			    	console.log('Failed to create new object, with error code: ' + error.message);
+			    	alert('Failed to create new object, with error code: ' + error.message);
 			    }
 			});
 		},
@@ -47,8 +48,12 @@ var ocdWebApp = ocdWebApp || {};
 		update: function () {
 			// body...
 		},
-		delete: function () {
-			// body...
+		logout: function () {
+			Parse.User.logOut();
+			window.location.href = "http://localhost/4fed/Webapp/#user/login";
+			alert("gebruiker wordt uitgelogd");
+			sessionStorage.clear();
+			localStorage.clear();
 		}
 	};
 })();

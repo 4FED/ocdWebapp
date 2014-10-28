@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Login</title>
+		<title>OCD App</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fontastic.s3.amazonaws.com/9PU7jTBDVcLA5EWPJuNzJC/icons.css" rel="stylesheet">
 		<link rel="stylesheet" href="static/css/style.css">
@@ -41,19 +41,19 @@
 		<section class="home content">
 			<header>
 				<h1 id="home">OCD App</h1>
+				<button onclick="return ocdWebApp.User.logout();"><i class=icon-sign-out></i></button>
 			</header>
 			<nav>
-				<a href="#exercises/summary"><figure><img src="images/exercises.png" alt=""><figcaption>Exposures</figcaption></figure></a><a href="contacts.html"><figure><img src="images/contacts.png" alt=""><figcaption>Beheerders</figcaption></figure></a><a href="progress.html"><figure><img src="images/progress.png" alt=""><figcaption>Voortgang</figcaption></figure></a><a href="settings.html"><figure><img src="images/settings.png" alt=""><figcaption>Instellingen</figcaption></figure></a>
+				<a href="#exercises/exercisesSummary"><figure><img src="images/exercises.png" alt=""><figcaption>Exposures</figcaption></figure></a><a href="#doctors/doctorsSummary"><figure><img src="images/contacts.png" alt=""><figcaption>Beheerders</figcaption></figure></a><a href="progress.html"><figure><img src="images/progress.png" alt=""><figcaption>Voortgang</figcaption></figure></a><a href="settings.html"><figure><img src="images/settings.png" alt=""><figcaption>Instellingen</figcaption></figure></a>
 			</nav>
 		</section>
 
 		<section class="exercises content">
-
-			<section class="summary exercisesEl">
+			<section class="exercisesSummary exercisesEl">
 				<header>
 					<a href="#home"><i class="icon-chevron-left"></i></a>
 					<h1>exposure</h1>
-					<a href="#exercises/new"><i class="icon-plus"></i></a>	
+					<a href="#exercises/newExercises"><i class="icon-plus"></i></a>	
 				</header>
 		
 				<table class="exercises">
@@ -63,16 +63,36 @@
 				  	</tr>
 				  	<tbody class="exercisesTable">
 					  	<tr>
-					    	<td data-bind="title" class="left"><a href="startExercise.html"></a></td>
+					    	<td class="left"><a data-bind="myLink"><i data-bind="title"></i></a></td>
 					    	<td data-bind="fearFactor" class="right"></td>
 					  	</tr>
 				  	</tbody> 
 				</table>
 			</section>
 
-			<section class="new exercisesEl">
+			<section class="detailExercise exercisesEL">
+				<header>
+					<a href="#exercises/exercisesSummary"><i class="icon-chevron-left"></i></a>
+					<h2 data-bind="title"></h2>
+				</header>
+
+				<form id="startExercise" action="">
+					<div id="controle">
+						<input type="number" value="50" min="0" max="100">
+					</div>
+					<h4>Motivatie Bericht</h4>
+					<p>
+						"Vertrouw op je eigen handelen en laat de gedachten varen. erken je handeling en ga door met waar je mee bezig was."<br />
+						- Dr. Jansen
+					</p>
+
+					<input type="button" value="Begin exposure"><i class="icon-chevron-right"></i>
+				</form>				
+			</section>
+			
+			<section class="newExercises exercisesEl">
 				<header id = "newExercise">
-					<a href="#exercises/summary"><i class="icon-chevron-left"></i></a>
+					<a href="#exercises/exercisesSummary"><i class="icon-chevron-left"></i></a>
 					<h1>Nieuwe oefening</h1>
 				</header>
 
@@ -92,7 +112,52 @@
 		      		<input type="button" onClick="return ocdWebApp.Exercise.create();" data-inline="true" value="Oefening toevoegen">
 				</form>
 			</section>
+		</section>
 
+		<section class="doctors content">
+			<header>
+				<a href="#home"><i class="icon-chevron-left"></i></a>
+				<h1>Beheerders</h1>
+				<a href="#doctors/newDoctor"><i class="icon-plus"></i></a>
+			</header>
+
+			<section class="doctorsSummary">
+				<table class="doctorsTable"  cellspacing="0" cellpadding="0">
+				  <tr data-bind = "doctorID">
+				    <td class="left"><img src="images/contactsIcon.png" alt=""></td>
+				    <td class="right">
+					    <h3 data-bind="firstname"></h3>
+					    <a href="#"><i class="icon-remove"></i></a>
+					    <p>OCD Therapeut aan het AMC ziekenhuis te Amsterdam</p>
+					    <div id="share">
+						    <p>Gegevens automatisch doorsturen</p>
+						    <label>
+						    <input type="checkbox" class="ios-switch green" /><div><div></div></div>
+						    </label>
+					    </div>
+				    </td>
+				  </tr>
+				</table>
+			</section>
+			<section class="newDoctor doctorEl">
+				<header>
+					<h1>BeheerdersToevoegen</h1>
+					<a href="#doctors/doctorsSummary"><i class="icon-remove"></i></a>
+				</header>
+
+				<label for="searchField">Email/ID</label>
+				<input type="text" id="searchField" name="searchField" />
+				<input type="button" name="search" value="Zoek" onClick="return ocdWebApp.Doctor.get('search');"><i class="icon-chevron-right"></i>
+				<table class="doctorsResultTable" cellspacing="0" cellpadding="0">
+					<tr>
+					    <td class="left"><img src="images/contactsIcon.png" alt=""></td>
+					    <td class="right">
+						    <h3 data-bind="firstname"></h3>
+						    <input type="button" id="send" value="Uitnodiging versturen" data-bind = "doctorID" onclick="">
+					    </td>
+					</tr>
+				</table>
+			</section>
 		</section>
 
 		<script src="static/js/vendor/myFunctions.js"></script>		
@@ -102,6 +167,7 @@
 		<script src="static/js/vendor/parse-1.3.1.min.js"></script>		
 		<script src="static/js/user.js"></script>
 		<script src="static/js/exercise.js"></script>
+		<script src="static/js/doctor.js"></script>
         <script src="static/js/app.js"></script>
 	</body>
 </html>

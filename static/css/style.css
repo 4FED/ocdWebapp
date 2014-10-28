@@ -53,6 +53,14 @@ h1#home{
 	margin-left: auto;
 	margin-right: auto;
 }
+header > button{
+	background-color: #4b4b4b;
+	border: none;
+	color: white;
+	font-size: 2em;
+	float: right;
+	padding: 1em;
+}
 nav{
 	width: 65%;
 	display: block;
@@ -91,34 +99,49 @@ table.exercises{
   	border-spacing: 0;
   	font-size: 1em;
 }
+table.exercises tbody{
+	width: 100%;
+	display: block;
+}
 table.exercises th{
-	height: 10%;
+	padding: 0px;
+	height: 3em;
+	border-spacing: 0px;
 	color: 	white;
 	background-color: #969696;
   	font-size: 1.5em;	
 }
 table.exercises th.right{
-	height: 10%;
+	width: 19%;
+	height: 3em;
 	border-left: 0.12em solid #4b4b4b;
 	border-bottom: 0px;
 	text-align: left;
 }
 table.exercises tr{
+	width: 100%;
+	display: block;
+	padding: 0;
+	border-spacing: 0;
 	height: 10%;
 	line-height: 2.5em;
 }
 table.exercises .left{
-	height: 10%;
-	width: 70%;
+	height: 3em;
+	width: 40%;
 	text-align: left;	
 	border-bottom: 0.12em solid #969696;
 }
 table.exercises .right{
+	width: 15%;
+	height: 3em;
 	text-align: center;
-	height: 10%;
-	width: 30%;	
+	width: 19%;	
 	border-left: 0.12em solid #969696;
 	border-bottom: 0.12em solid #969696;
+}
+.exercisesTable .left{
+	padding-right: 6.2em;
 }
 /*-----------------------newExercise------------------------------*/
 input[type="text"]{
@@ -186,56 +209,131 @@ form#detailExercise input[type="submit"] + i.icon-chevron-right{
 	font-size: 2em;	
 	background-color: #f0f0f0;
 }
-/*----------------------------contacts-------------------------------*/
-table.contacts{
+/*----------------------------contactsTable-------------------------------*/
+table.doctorsTable{
 	height: 70%;
 	width: 100%;
 	border-collapse: collapse;
   	border-spacing: 0;
   	font-size: 1em;
 }
-table.contacts tr{
+table.doctorsTable tr{
 	height: 20%;
 }
-table.contacts .left{
+table.doctorsTable .left,{
 	width: 20%;
 	text-align: center;	
 	border-bottom: 0.12em solid #969696;
 }
-table.contacts .left img{
+table.doctorsTable .left img{
 	width: 40%;
 }
-table.contacts .right{	
+table.doctorsTable .right{	
   	padding: 1em 1em 1em 1em;
 	vertical-align: top;
 	width: 70%;	
 	border-left: 0.12em solid #969696;
 	border-bottom: 0.12em solid #969696;
 }
-table.contacts .right .icon-remove{
+table.doctorsTable .right .icon-remove{
 	float: right;
 	font-size: 1.5em;
 }
-table.contacts .right h3{
+table.doctorsTable .right h3{
 	display: inline-block;
 	margin: 0;
 }
-table.contacts .right p{
+table.doctorsTable .right p{
 	margin: 0;
 	padding-top: 0.5em;
 }
-table.contacts .right > label{
+table.doctorsTable .right > label{
 	display: inline-block;
 }
-table.contacts .right div#share{
+table.doctorsTable .right div#share{
 	margin-top: 0.5em;
 	width: 100%;
 	border-top: 1px dotted black; 
 }
-table.contacts .right div#share p{
+table.doctorsTable .right div#share p{
 	width: 80%;
 	display: inline-block;
 }
+
+/*-------------------------------------NewDoctor----------------------------------*/
+section.newDoctor{
+	background-color: #f0f0f0;
+	box-shadow: 0px 0px 100px 30px #000;
+	position: absolute;
+	width: 90%;
+	height: 90%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+section.newDoctor input[name="searchField"]{
+	width: 90%;
+	margin: auto;
+	border: 1px solid #969696;
+}
+section.newDoctor input[type="button"]{
+	width: 80%;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	height: 3em;
+	background-color: #4b4b4b;
+	border: none;
+	color: white;
+	text-align: left; 
+}
+section.newDoctor i.icon-chevron-right{
+	width: 10%;
+	height: 2.5em;
+	line-height: 2.5em;
+	background-color: #4b4b4b;
+	color: white;
+	text-align: center;
+	display: inline-block;
+	vertical-align: middle;
+}
+table.doctorsResultTable{
+	width: 100%;
+	border-collapse: collapse;
+  	border-spacing: 0;
+  	font-size: 1em;  	
+}
+table.doctorsResultTable td{
+	padding: 0px;
+}
+table.doctorsResultTable tr{
+	height: 5em;
+	border-bottom: 0.12em solid #969696;
+}
+table.doctorsResultTable .left{
+	width: 20%;
+	text-align: center;	
+	border-right: 0.12em solid #969696;
+}
+table.doctorsResultTable .left img{
+	width: 40%;
+}
+table.doctorsResultTable .right{
+	padding-bottom: 0;
+	display: inline-block;
+	vertical-align: bottom;
+}
+table.doctorsResultTable .right input[type="button"]{
+	width: 100%;
+	border: none;
+	background-color: green;
+	color: white;
+	height: 2em;
+	vertical-align: bottom;
+} 
 /*--------------------------------------StartExcercise---------------------------------*/
 form#startExercise label[for="controle"]{
 }

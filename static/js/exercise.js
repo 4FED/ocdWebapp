@@ -4,11 +4,10 @@ var ocdWebApp = ocdWebApp || {};
 
 	ocdWebApp.Exercise = {
 		init: function (type) {
+			var Exercise = Parse.Object.extend("exercise");
 			if (type == "post") {
-				var Exercise = Parse.Object.extend("exercise");
 				return new Exercise();
 			} else if(type == "get"){
-				var Exercise = Parse.Object.extend("exercise");
 				return new Parse.Query(Exercise);
 			} 
 		},
@@ -31,6 +30,7 @@ var ocdWebApp = ocdWebApp || {};
 			  success: function(exercise) {
 			    // Execute any logic that should take place after the object is saved.
 			    alert('New exercise created with name: ' + exercise.title);
+				ocdWebApp.Exercise.read(true);
 			  },
 			  error: function(exercise, error) {
 			    // Execute any logic that should take place if the save fails.
@@ -39,30 +39,44 @@ var ocdWebApp = ocdWebApp || {};
 			  }
 			});
 		},
-		read: function () {
-			var exerciseQuery = this.init("get");
-			exerciseQuery.equalTo("userID", Parse.User.current().id);
-			exerciseQuery.find({
-			  success: function(exercises) {
-			  	for (var i = 0; i < exercises.length; i++) {
-			  		var exercise = new Object();
-			  		exercise.title = exercises[i].get("title");
-				    exercise.category = exercises[i].get("category");
-				    exercise.responsePrevention = exercises[i].get("responsePrevention");
-				    exercise.fearFactor = exercises[i].get("fearFactor");
-				    ocdWebApp.Exercise.content.push(exercise);
-			    }
-			  	SHOTGUN.fire('getExercises');
-			  },
-			  error: function(exercises, error) {
-			    console.log('get exercises failed ' + error.message);
-			  }
-			});
+		read: function (newEl) {
+			if (sessionStorage.getItem("exercises") && newEl == null) {
+				ocdWebApp.Exercise.content = JSON.parse(sessionStorage.getItem("exercises"));				
+				SHOTGUN.fire('getExercises');
+			}else{
+				ocdWebApp.Exercise.content = [];
+				var exerciseQuery = this.init("get");
+				exerciseQuery.equalTo("userID", Parse.User.current().id);
+				exerciseQuery.find({
+				  success: function(exercises) {
+				  	for (var i = 0; i < exercises.length; i++) {
+				  		var exercise = new Object();
+				  		exercise.title = exercises[i].get("title");
+					    exercise.category = exercises[i].get("category");
+					    exercise.responsePrevention = exercises[i].get("responsePrevention");
+					    exercise.fearFactor = exercises[i].get("fearFactor");
+					    ocdWebApp.Exercise.content.push(exercise);
+				    }
+				    var content  = JSON.stringify( ocdWebApp.Exercise.content);
+				    sessionStorage.setItem("exercises", content);
+				  	SHOTGUN.fire('getExercises');
+				  },
+				  error: function(exercises, error) {
+				    console.log('get exercises failed ' + error.message);
+				  }
+				});
+			}
 			
 		},
 		delete: function () {
 			// body...
 		},
-		content: [],
+		content: [
+		],
+		directives: {
+		    myLink:{
+		    	href: function() { return "#exercises/" + this.category; }
+		    }
+  		}
 	};
 })();
