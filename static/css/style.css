@@ -29,13 +29,13 @@ section.user{
 	width: 100%;
 	text-align: center;
 }
-input[type="text"]{
+input[type="text"], input[type="password"]{
 	border: none;
 	height: 3em;
-	width: 80%;
-	margin: 0 auto 0 auto;
+	width: 95%;
 	display: block;
 	background-color: #f0f0f0;
+	border: solid 1px #969696;
 }
 form[name="loginForm"] label{
 	margin: 0;
@@ -144,7 +144,7 @@ table.exercises .right{
 	padding-right: 6.2em;
 }
 /*-----------------------newExercise------------------------------*/
-input[type="text"]{
+.newExercisesForm input[type="text"]{
 	width: 100%;
 }
 /*-------------------------postExposure----------------------------*/

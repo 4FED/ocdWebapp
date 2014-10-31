@@ -17,7 +17,7 @@
 				<label for="email">Email</label>
 				<input type="text" name="email" required>
 				<label for="password">Wachtwoord</label>
-				<input type="text" name="password" requierd>
+				<input type="password" name="password" requierd>
 				<input type="button" value="Log in" onClick="return ocdWebApp.User.login();" id="loginButton" class="button">
 				<a href="#user/register">klik hier om te registreren</a>
 			</form>
@@ -78,7 +78,7 @@
 
 				<form id="startExercise" action="">
 					<div id="controle">
-						<input type="number" value="50" min="0" max="100">
+						<input data-bind="myValue" type="number" value="" min="0" max="100">
 					</div>
 					<h4>Motivatie Bericht</h4>
 					<p>
@@ -89,7 +89,37 @@
 					<input type="button" value="Begin exposure"><i class="icon-chevron-right"></i>
 				</form>				
 			</section>
-			
+
+			<section class="postExposure">
+				<header>
+					<a href="exercises.html"><i class="icon-chevron-left"></i></a>
+					<h2 data-bind="title"></h2>
+				</header>
+
+				<form id="detailExercise">
+					<label for="fearFactor">Plaats in hierarchie na oefening</label>
+			      	<input type="range" name="fearFactor" id="fearFactor" value="50" min="0" max="100">
+					    <fieldset>
+					    	<legend>Benodigde tijd tot afronding</legend>
+					         	<label for="0-1minuut">0-1 minuut</label>
+					         	<input type="radio" name="tijdAfronding" id="0-1minuut" checked="checked" />
+
+					         	<label for="1-5minuten">1-5 minuten</label>
+					         	<input type="radio" name="tijdAfronding" id="1-5minuten"  />
+
+					         	<label for="5+minuten">5+ minuten</label>
+					         	<input type="radio" name="tijdAfronding" id="5+minuten"  />
+					    </fieldset>
+					<label for="ervaring">Ervaring oefening</label>
+					<textarea name="ervaring" id="ervaring" rows="7" cols="42"></textarea>
+
+					<div id="addFile">
+						<a href="#">Videoboodschap toevoegen <i class="icon-plus"></i></a>
+					</div>
+					<input type="button" value="Resultaat indienen"><i class="icon-chevron-right"></i>
+				</form>
+			</section>
+
 			<section class="newExercises exercisesEl">
 				<header id = "newExercise">
 					<a href="#exercises/exercisesSummary"><i class="icon-chevron-left"></i></a>

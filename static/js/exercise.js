@@ -51,6 +51,7 @@ var ocdWebApp = ocdWebApp || {};
 				  success: function(exercises) {
 				  	for (var i = 0; i < exercises.length; i++) {
 				  		var exercise = new Object();
+				  		exercise.number = i;
 				  		exercise.title = exercises[i].get("title");
 					    exercise.category = exercises[i].get("category");
 					    exercise.responsePrevention = exercises[i].get("responsePrevention");
@@ -75,8 +76,11 @@ var ocdWebApp = ocdWebApp || {};
 		],
 		directives: {
 		    myLink:{
-		    	href: function() { return "#exercises/" + this.category; }
-		    }
+		    	href: function() { return "#exercises/detail/" + this.number; }
+		    },
+		    myValue:{
+		    	value: function() { return this.fearFactor; }
+		    },
   		}
 	};
 })();
