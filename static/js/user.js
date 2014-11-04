@@ -22,8 +22,8 @@ var ocdWebApp = ocdWebApp || {};
 
 		    user.signUp(null, {
 			    success: function(object) {
-				    alert("nieuwe gebruiker is aangemaakt, druk ok om door te gaan naar de app");
-				    window.location.href = "http://localhost/4fed/Webapp/#user/login";
+				    alert("nieuwe gebruiker is aangemaakt, vergeet niet je email te verifiseren");
+				    ocdWebApp.User.logout();
 			    },
 			    error: function(model, error) {
 			    	alert('Failed to create new object, with error code: ' + error.message);
@@ -51,7 +51,6 @@ var ocdWebApp = ocdWebApp || {};
 		logout: function () {
 			Parse.User.logOut();
 			window.location.href = "http://localhost/4fed/Webapp/#user/login";
-			alert("gebruiker wordt uitgelogd");
 			sessionStorage.clear();
 			localStorage.clear();
 		}

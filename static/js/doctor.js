@@ -3,7 +3,9 @@ var ocdWebApp = ocdWebApp || {};
 	Parse.initialize("e2pCNYD20d5ynvUPKyUud5G20evDRI4pmHiqrvPw", "6IEcqXamMkjJsssIaFPiTDKH1azNB6wOtR5kuAIP");
 
 	ocdWebApp.Doctor = {
-		set: function (order) {
+		set: function () {
+
+			var order = document.getElementById("doctorOrderNumber").value 
 			var currentUser = Parse.User.current();
 			var doctorID = this.content[order].id;
 			currentUser.set("hasDoctor", doctorID);
@@ -28,12 +30,12 @@ var ocdWebApp = ocdWebApp || {};
 					success: function(doctors) {
 					  	for (var i = 0; i < doctors.length; i++) {
 					  		var doctor = new Object();
-					  		console.log(doctors[i]);
-					  		doctor.order = "ocdWebApp.Doctor.set("+i+");";
+					  		doctor.order = i;
 						    doctor.firstname = doctors[i].get("firstname");
 						    doctor.id = doctors[i].id;
 						   	ocdWebApp.Doctor.content.push(doctor);
 						}
+				  		myFunctions.disableLoader();
 						SHOTGUN.fire("getDoctors");
 					},
 					error: function(doctors, error) {
@@ -57,6 +59,7 @@ var ocdWebApp = ocdWebApp || {};
 						    ocdWebApp.Doctor.content.push(doctor);
 						    console.log(doctor.firstname);
 						}
+				  		myFunctions.disableLoader();
 						SHOTGUN.fire("getDoctors");
 					},
 					error: function(doctors, error) {
@@ -66,13 +69,24 @@ var ocdWebApp = ocdWebApp || {};
 
 			}
 		},
-		delete: function () {
+		remove: function () {
+			var user = Parse.User.current();
+			user.set("hasDoctor", "");
+			user.save(null, {
+				success: function(user) {
+					alert("doctor is removed");
+					window.location.reload();
+				},
+				error: function() {
+					alert("removing doctor failed " + error.message);
+				}
+			});
 		},
 		content: [
 		],
 		directives: {
 		    doctorID: { 
-		        onclick: function() { return this.order; }
+		        value: function() { return this.order; }
 		     },
 		    myLink:{
 		    	href: function() { return "#movies/" + myFunctions.cleanStrings(this.title); }

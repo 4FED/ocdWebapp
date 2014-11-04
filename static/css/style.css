@@ -1,3 +1,24 @@
+.footerbutton{
+	width: 90%;
+	background-color: #f0f0f0;
+	border: none;
+	height: 3em;
+	margin-top: 1em;
+	text-align: left;
+	display: inline-block;
+	vertical-align: bottom;
+}
+.footerbutton + i{
+	width: 9%;
+	display: inline-block;
+	height: 1.25em;
+	color: #969696;
+	text-align: center;
+	font-size: 2em;	
+	background-color: #f0f0f0;
+}
+
+
 header h2{
 	width: 85%;
 	display: inline-block;
@@ -92,80 +113,97 @@ nav > a > figure > figcaption{
 	vertical-align: bottom;
 }
 /*---------------------------------exercises----------------------------------------*/
-table.exercises{
+.exercises{
+	table-layout: fixed;
 	height: 70%;
 	width: 100%;
 	border-collapse: collapse;
   	border-spacing: 0;
   	font-size: 1em;
 }
-table.exercises tbody{
+.exercises .exercisesList{
 	width: 100%;
 	display: block;
 }
-table.exercises th{
-	padding: 0px;
+.exercises h3{
+	display: inline-block;
 	height: 3em;
-	border-spacing: 0px;
 	color: 	white;
 	background-color: #969696;
   	font-size: 1.5em;	
-}
-table.exercises th.right{
-	width: 19%;
-	height: 3em;
-	border-left: 0.12em solid #4b4b4b;
-	border-bottom: 0px;
-	text-align: left;
-}
-table.exercises tr{
-	width: 100%;
-	display: block;
+	margin: 0;
 	padding: 0;
-	border-spacing: 0;
-	height: 10%;
-	line-height: 2.5em;
+	vertical-align: top;
+	border-bottom: 0.12em solid #969696;
 }
-table.exercises .left{
-	height: 3em;
-	width: 40%;
+.exercises h3:first-child{
+	width: 70%;
 	text-align: left;	
-	border-bottom: 0.12em solid #969696;
 }
-table.exercises .right{
-	width: 15%;
+.exercises h3:nth-child(2){
+	width: 29%;
+	border-left: 0.12em solid #4b4b4b;
+	text-align: left;	
+}
+.exercises .exercisesList p{
+	display: inline-block;
 	height: 3em;
-	text-align: center;
-	width: 19%;	
-	border-left: 0.12em solid #969696;
+	line-height: 3em;
+	margin: 0;
+	padding: 0;	
 	border-bottom: 0.12em solid #969696;
 }
-.exercisesTable .left{
-	padding-right: 6.2em;
+.exercises .exercisesList p:nth-child(1n){
+	width: 68%;
+	text-align: left;
+	padding: 0 0 0 2%;
+}
+.exercises .exercisesList p:nth-child(2n){
+	width: 27%;
+	text-align: center;
+	border-left: 0.12em solid #969696;	
 }
 /*-----------------------newExercise------------------------------*/
 .newExercisesForm input[type="text"]{
 	width: 100%;
+	margin-top: 0.5em; 
+	margin-bottom: 0.5em;
+}
+.newExercisesForm input[type="range"]{
+	width: 100%;
+}
+.newExercisesForm select{
+	width: 100%;
+	margin-top: 0.5em; 
+	margin-bottom: 0.5em;
+	height: 3em;
+	background-color: #969696;
+	color: white;
+}
+.newExercisesForm label{
+	display: block;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 }
 /*-------------------------postExposure----------------------------*/
-form#detailExercise > label{
+form#postExposureForm > label{
 	text-align: center;
 	display: block;
 }
-form#detailExercise fieldset{
+form#postExposureForm fieldset{
 	padding: 0;
 	border: none;
 	border-bottom: 1px dotted #969696; 
 }
-form#detailExercise fieldset legend{
+form#postExposureForm fieldset legend{
 	border-top: 1px solid #969696;
 	width: 100%;
 }
-form#detailExercise fieldset label{
+form#postExposureForm fieldset label{
 	display: inline-block;
 	width: 90%;
 }
-form#detailExercise input[type="range"]{
+form#postExposureForm input[type="range"]{
 	width: 100%;
 }
 input#ervaring{
@@ -190,26 +228,8 @@ div#addFile i{
 	margin-left: 15%;
 	
 }
-form#detailExercise input[type="submit"]{
-	width: 90%;
-	background-color: #f0f0f0;
-	border: none;
-	height: 3em;
-	margin-top: 1em;
-	text-align: left;
-	display: inline-block;
-	vertical-align: bottom;
-}
-form#detailExercise input[type="submit"] + i.icon-chevron-right{
-	width: 9%;
-	display: inline-block;
-	height: 1.25em;
-	color: #969696;
-	text-align: center;
-	font-size: 2em;	
-	background-color: #f0f0f0;
-}
-/*----------------------------contactsTable-------------------------------*/
+
+/*----------------------------doctorsTable-------------------------------*/
 table.doctorsTable{
 	height: 70%;
 	width: 100%;
@@ -259,7 +279,6 @@ table.doctorsTable .right div#share p{
 	width: 80%;
 	display: inline-block;
 }
-
 /*-------------------------------------NewDoctor----------------------------------*/
 section.newDoctor{
 	background-color: #f0f0f0;
@@ -395,6 +414,12 @@ form#startExercise input[type="submit"] + i.icon-chevron-right{
 	text-align: center;
 	font-size: 2em;	
 	background-color: #f0f0f0;
+}
+/*-------------------------------------Progress--------------------------------------*/
+#progressChart{
+	width: 100% !important;
+        max-width: 800px;
+    height: auto !important;
 }
 /*--------------------------------------SliderButton-----------------------------------*/
 input[type="checkbox"] { 

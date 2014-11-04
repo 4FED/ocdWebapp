@@ -27,3 +27,12 @@ header{
 	color: white;
 	font-size: 0.85em;
 }
+.loaderIcon{
+	position: absolute;
+	width: 50px;
+	top: 50%;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+}

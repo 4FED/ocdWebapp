@@ -1,4 +1,9 @@
 var ocdWebApp = ocdWebApp || {};
+window.onload = function (){	
+	ocdWebApp.router.init();
+	myFunctions.AddClickEvent(".eventButton");
+};
+
 (function () {
 	Parse.initialize("e2pCNYD20d5ynvUPKyUud5G20evDRI4pmHiqrvPw", "6IEcqXamMkjJsssIaFPiTDKH1azNB6wOtR5kuAIP");
 
@@ -6,17 +11,21 @@ var ocdWebApp = ocdWebApp || {};
 	// Router object
 	// sets router parameters
 	var sections = {
-		exercisesSummary: function () {
-			Transparency.render(myFunctions.getOneEl(".exercisesTable"), ocdWebApp.Exercise.content, ocdWebApp.Exercise.directives);
+		exercisesSummary: function (){
+			Transparency.render(myFunctions.getOneEl(".exercisesList"), ocdWebApp.Exercise.content, ocdWebApp.Exercise.directives);
 		},
-		exerciseDetail: function(id){
+		exerciseDetail: function  (id){
 			Transparency.render(myFunctions.getOneEl(".detailExercise"), ocdWebApp.Exercise.content[id], ocdWebApp.Exercise.directives);
+			Transparency.render(myFunctions.getOneEl(".postExposure"), ocdWebApp.Exercise.content[id], ocdWebApp.Exercise.directives);
 		},
-		doctorsSummary: function  () {			
+		doctorsSummary: function (){			
 			Transparency.render(myFunctions.getOneEl(".doctorsTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
 		},
 		doctorsResult: function (){
 			Transparency.render(myFunctions.getOneEl(".doctorsResultTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
+		},
+		progress: function() {
+			ocdWebApp.Progress.init();
 		},
 		toggle: function (show, hide) {
 			var show = myFunctions.getOneEl("." + show);
@@ -29,7 +38,7 @@ var ocdWebApp = ocdWebApp || {};
 		} 
 	};
 
-	var router = {
+	ocdWebApp.router = {
 		init: function () {
 			routie({
 	    		'user/:type': function (type) {
@@ -50,6 +59,7 @@ var ocdWebApp = ocdWebApp || {};
 	    			if (Parse.User.current()) {
 		    			sections.toggle("exercises", "content");
 		    			sections.toggle(type, "exercisesEl");
+		    			myFunctions.showSliderVal("#newExercisesSlider","#newExercisesSliderOutput");
 		    			if ("exercisesSummary") {
 		    				SHOTGUN.listen('getExercises', sections.exercisesSummary);
 		    				ocdWebApp.Exercise.read();
@@ -62,6 +72,8 @@ var ocdWebApp = ocdWebApp || {};
 	    			sections.exerciseDetail(id);
 		    		sections.toggle("exercises", "content");
 		    		sections.toggle("detailExercise", "exercisesEl");
+					ocdWebApp.Exercise.finish(ocdWebApp.Exercise.content[id].id);
+					myFunctions.showSliderVal("#postExposureSlider", "#postExposureSliderOutput");
 	    		},
 	    		'doctors/:type': function(type) {
 	    			if (Parse.User.current()) {
@@ -77,17 +89,14 @@ var ocdWebApp = ocdWebApp || {};
 	    				window.location.replace("http://localhost/4fed/Webapp/#user/login");
 	    			};
 	    		},
+	    		progress: function () {
+	    			sections.toggle("progress", "content");
+	    			sections.progress();
+	    		},
 	    		'': function () {
 	    			window.location.replace("http://localhost/4fed/Webapp/#user/login");
 	    		}
 			});
 		} 
 	};
-
-
-	// movieApp.Sections Object
-	// Sets templater
-	// toggle's movieApp.sections
-	router.init();
-
 })();
