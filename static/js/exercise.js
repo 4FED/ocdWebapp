@@ -47,37 +47,22 @@ var ocdWebApp = ocdWebApp || {};
 
 			}else{
 				ocdWebApp.Exercise.content = [];
-				var exerciseQuery = this.init("get");
-				exerciseQuery.equalTo("userID", Parse.User.current().id);
+				var worker = new Worker("static/js/exerciseWorker.js");
+				worker.postMessage(Parse.User.current().id);
+				worker.onmessage = function (e){
+					console.log(e.data);
+					throw new Error("worked");
+					 // ocdWebApp.Exercise.content = _.sortBy(e.data, function(sorted){
+			   // 			 return -sorted.fearFactor;
+					// });
 
-				exerciseQuery.find({
-				  success: function(exercises) {
-				  	for (var i = 0; i < exercises.length; i++) {
-				  		var exercise = new Object();
-				  		exercise.number = i;
-				  		exercise.id = exercises[i].id;
-				  		exercise.title = exercises[i].get("title");
-					    exercise.category = exercises[i].get("category");
-					    exercise.responsePrevention = exercises[i].get("responsePrevention");
-					    exercise.fearFactor = exercises[i].get("fearFactor");
-					    ocdWebApp.Exercise.content.push(exercise);
-				    }
-
-				    ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
-			   			 return -sorted.fearFactor;
-					});
-
-				    var content  = JSON.stringify(ocdWebApp.Exercise.content);
+					var content  = JSON.stringify(ocdWebApp.Exercise.content);
 				    sessionStorage.setItem("exercises", content);
 
 				  	myFunctions.disableLoader();
 
 				  	SHOTGUN.fire('getExercises');
-				  },
-				  error: function(exercises, error) {
-				    console.log('get exercises failed ' + error.message);
-				  }
-				});
+				};
 			}
 			
 		},
