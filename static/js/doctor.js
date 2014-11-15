@@ -23,9 +23,9 @@ var ocdWebApp = ocdWebApp || {};
 				ocdWebApp.Doctor.content = [];
 
 				var doctorQuery = new Parse.Query(Parse.User);
-				var email = document.getElementById("searchField").value;
+				var username = document.getElementById("searchField").value;
 				doctorQuery.equalTo("isDoctor", true);
-				doctorQuery.equalTo("email", email);
+				doctorQuery.equalTo("username", username);
 				doctorQuery.find({
 					success: function(doctors) {
 					  	for (var i = 0; i < doctors.length; i++) {

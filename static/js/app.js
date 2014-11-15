@@ -40,13 +40,13 @@ window.onload = function (){
 
 	ocdWebApp.router = {
 		init: function () {
-			var reroute = window.location.replace("https://oege.ie.hva.nl/~schrava001/4FED/webApp/#user/login");
+			var reroute = window.location.replace("http://localhost/4fed/Webapp/#user/login");
 			routie({
 	    		'user/:type': function (type) {
 	    			sections.toggle("user", "content");
 	    			sections.toggle(type, "userForm");
 	    			if (type == "login" && Parse.User.current()) {	    				
-				    	window.location.href = "https://oege.ie.hva.nl/~schrava001/4FED/webApp/#home";
+				    	window.location.href = "http://localhost/4fed/Webapp/webApp/#home";
 	    			};
 	    		},
 	    		home: function() {	
