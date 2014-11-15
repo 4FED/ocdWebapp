@@ -40,19 +40,20 @@ window.onload = function (){
 
 	ocdWebApp.router = {
 		init: function () {
+			var reroute = window.location.replace("https://oege.ie.hva.nl/~schrava001/4FED/webApp/#user/login");
 			routie({
 	    		'user/:type': function (type) {
 	    			sections.toggle("user", "content");
 	    			sections.toggle(type, "userForm");
 	    			if (type == "login" && Parse.User.current()) {	    				
-				    	window.location.href = "http://localhost/4fed/Webapp/#home";
+				    	window.location.href = "https://oege.ie.hva.nl/~schrava001/4FED/webApp/#home";
 	    			};
 	    		},
 	    		home: function() {	
 	    			if (Parse.User.current()) {
 	    				sections.toggle("home", "content");
 	    			}else{
-	    				window.location.replace("http://localhost/4fed/Webapp/#user/login");
+	    				reroute;
 	    			};
 	    		},
 	    		'exercises/:type': function(type) {
@@ -65,7 +66,7 @@ window.onload = function (){
 		    				ocdWebApp.Exercise.read();
 		    			}
 	    			}else{
-	    				window.location.replace("http://localhost/4fed/Webapp/#user/login");	    				
+	    				reroute;	    				
 	    			};
 	    		},
 	    		'exercises/detail/:id': function(id){
@@ -86,7 +87,7 @@ window.onload = function (){
 		    				SHOTGUN.listen('getDoctors', sections.doctorsResult);
 		    			}
 	    			}else{
-	    				window.location.replace("http://localhost/4fed/Webapp/#user/login");
+	    				reroute;
 	    			};
 	    		},
 	    		progress: function () {
@@ -94,7 +95,7 @@ window.onload = function (){
 	    			sections.progress();
 	    		},
 	    		'': function () {
-	    			window.location.replace("http://localhost/4fed/Webapp/#user/login");
+	    			reroute;
 	    		}
 			});
 		} 
