@@ -69,6 +69,10 @@ form[name="loginForm"] label{
 	display: block;
 	float: 	right;	
 }
+input[type="file"]{
+	display: block;
+	margin: 0.5em;
+}
 /*---------------------------------home-------------------------------------------------*/
 h1#home{
 	margin-left: auto;

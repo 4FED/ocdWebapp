@@ -11,23 +11,33 @@ var ocdWebApp = ocdWebApp || {};
 		    var initials = document.registerForm.initials.value;
 		    var firstname = document.registerForm.firstname.value;
 		    var surname = document.registerForm.surname.value;
+		    var fileUploadControl = document.getElementById("profilePicture");
+		    if (fileUploadControl.files.length > 0) {
+		    	var file = fileUploadControl.files[0];
+		  		var name = "profilePicture.png";		 
+		  		var parseFile = new Parse.File(name, file);
+		  	};
+		  	parseFile.save().then(function(profilePicture) {			  
+			    user.set("username", email);
+			    user.set("email", email);
+			    user.set("password", password);
+			    user.set("initials", initials);
+			    user.set("firstname", firstname);
+			    user.set("surname", surname);
+			    user.set("profilePicture", profilePicture)
+			    user.set("isDoctor", false);
 
-		    user.set("username", email);
-		    user.set("email", email);
-		    user.set("password", password);
-		    user.set("initials", initials);
-		    user.set("firstname", firstname);
-		    user.set("surname", surname);
-		    user.set("isDoctor", false);
-
-		    user.signUp(null, {
-			    success: function(object) {
-				    alert("nieuwe gebruiker is aangemaakt, vergeet niet je email te verifiseren");
-				    ocdWebApp.User.logout();
-			    },
-			    error: function(model, error) {
-			    	alert('Failed to create new object, with error code: ' + error.message);
-			    }
+			    user.signUp(null, {
+				    success: function(object) {
+					    alert("nieuwe gebruiker is aangemaakt, vergeet niet je email te verifiseren");
+					    ocdWebApp.User.logout();
+				    },
+				    error: function(model, error) {
+				    	alert('Failed to create new object, with error code: ' + error.message);
+				    }
+				});
+			}, function(error) {
+			  // The file either could not be read, or could not be saved to Parse.
 			});
 		},
 		login: function () {	

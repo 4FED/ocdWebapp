@@ -46,7 +46,7 @@ window.onload = function (){
 	    			sections.toggle("user", "content");
 	    			sections.toggle(type, "userForm");
 	    			if (type == "login" && Parse.User.current()) {	    				
-				    	window.location.href = "http://localhost/4fed/Webapp/webApp/#home";
+				    	window.location.href = "http://localhost/4fed/Webapp/#home";
 	    			};
 	    		},
 	    		home: function() {	
