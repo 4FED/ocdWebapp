@@ -61,11 +61,13 @@ var ocdWebApp = ocdWebApp || {};
 					    exercise.responsePrevention = exercises[i].get("responsePrevention");
 					    exercise.fearFactor = exercises[i].get("fearFactor");
 					    ocdWebApp.Exercise.content.push(exercise);
-				    }
+				    } 
+				    
+				    //Set exercises with _.each function, refactor after, see Dashboard!!
 
-				    ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
-			   			 return -sorted.fearFactor;
-					});
+				 //    ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
+			  //  			 return -sorted.fearFactor;
+					// });
 
 				    var content  = JSON.stringify(ocdWebApp.Exercise.content);
 				    sessionStorage.setItem("exercises", content);
@@ -123,6 +125,21 @@ var ocdWebApp = ocdWebApp || {};
 		    myValue:{
 		    	value: function() { return this.fearFactor; }
 		    },
+		    myCategory:{
+		    	text: function () {
+					switch(this.category){
+						case "0":
+							return "Niet controleren";
+							break;
+						case "1":
+							return "Niet handen wassen";
+							break;
+						case "2":
+							return "Genormaliseerd uitvoeren";
+							break;
+		    		};
+		    	}
+  			}
   		}
 	};
 })();

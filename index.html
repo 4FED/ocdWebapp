@@ -6,21 +6,22 @@
 		<!-- <link rel="stylesheet" href="static/css/style_old.css"> -->
 		<link rel="stylesheet" href="static/css/style.css">
 		<link rel="stylesheet" href="static/css/main.css">
+		<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		<div class="container">
 			<section id="login" class="user content">
 				<hr />
-				<span class="exit">&times;</span>
+				<span class="exit"><a href="#users/login">&times;</a></span>
 				<span id="logo_fidence"></span>				
 				<form name="loginForm" class="login userForm">
 					<input type="text" name="email"
 					placeholder="Emailadres/ID" required>
 					<input type="password" name="password" placeholder="Wachtwoord" requierd>
 					<input type="button" value="Log in" id="loginButton" class="button eventButton">
-				</form>
 			<button>Wachtwoord vergeten?</button>
-
+				</form>
+			<div id="registreer">
 				<form name="registerForm" class="register userForm">
 					<input type="text" name="initials" placeholder="Initialen" requierd>
 					<input type="text" name="firstname" placeholder="Voornaam" requierd>
@@ -30,174 +31,237 @@
 					<input type="password" name="passwordChecker" placeholder="Wachtwoord bevestigen" requierd>
 					<input type="file" name="profilePicture" id="profilePicture">
 					<input type="button" value="ACCOUNT AANMAKEN" id="registreerButton" class="button eventButton">
-					<a href="#users/login">Cancel</a>
 				</form>
+			</div>
 			</section>
 
 
-			<section class="home content">
-				<header>
-					<h1 id="home">OCD App</h1>
-					<button class="eventButton" id="logoutButton"><i class=icon-sign-out></i></button>
-				</header>
+			<section id="hoofdmenu" class="home content">
 				<nav>
-					<a href="#exercises/exercisesSummary"><figure><img src="images/exercises.png" alt=""><figcaption>Exposures</figcaption></figure></a><a href="#doctors/doctorsSummary"><figure><img src="images/contacts.png" alt=""><figcaption>Beheerders</figcaption></figure></a><a href="#progress"><figure><img src="images/progress.png" alt=""><figcaption>Voortgang</figcaption></figure></a><!-- <a href="settings.html"><figure><img src="images/settings.png" alt=""><figcaption>Instellingen</figcaption></figure></a> -->
+					<ul>
+						<li><span id="search"></span></li>
+						<li><span id="logo_fidence"></span></li>
+						<li><span id="menu"></span></li>
+					</ul>
 				</nav>
+			
+				<ul>	
+					<li><span id="user"></span>[Gebruiker]<span class="arrow"></span></li>
+					<li><span id="exposures"></span><a href="#exercises/exercisesSummary">Exposures</a><span class="arrow"></span></li>
+					<li><span id="progress"></span><a href="#progress">Voortgang</a><span class="arrow"></span></li>
+					<li><span id="administrators"></span><a href="#doctors/doctorsSummary">Beheerders</a><span class="arrow"></span></li>
+					<li><span id="settings"></span><a href="#settings">Instellingen</a><span class="arrow"></span></li>
+					<li><button class="eventButton" id="logoutButton"><i class=icon-sign-out></i></button></li>
+				</ul>
 			</section>
 
 			<section class="exercises content">
-				<section class="exercisesSummary exercisesEl">
-					<header>
-						<a href="#home"><i class="icon-chevron-left"></i></a>
-						<h1>exposure</h1>
-						<a href="#exercises/newExercises"><i class="icon-plus"></i></a>	
-					</header>				
+				<section id="exposures" class="exercisesSummary exercisesEl">
+					<nav>
+						<ul>
+							<li><a href="#home"><span id="back"></span></a></li>
+							<li><h2>Exposures</h2></li>
+							<li><a href="#exercises/newExercises"><span id="add_exposure"></a></span></li>
+							<hr />
+						</ul>
+					</nav>				
 					
 					<img src="images/loader.gif" class="loaderIcon">
 
-					<div class="exercises">
-					    	<h3 class="left">Titel</h3
-					    	><h3 class="right">Graad <i class="icon-chevron-down"></i></h3>
+					<ul class="exercises">
+					    	<li>TITEL<span class="graad">GRAAD &#x025BE;</span></li>
 					  	<div class="exercisesList">
-						    	<p class="left"><a data-bind="myLink"><i data-bind="title"></i></a></p
-						    	><p data-bind="fearFactor" class="right"></p>
+					  	<li><a data-bind="myLink"><i data-bind="title"></i></a><span class="graad" data-bind="fearFactor"></span></li>
 					  	</div> 
+					</ul>
+				</section>
+
+				<section id="exposures" class="detailExercise exercisesEL">
+					<nav>
+						<ul>
+							<li><a href="#exercises/exercisesSummary"><span id="back"></span></a></li>
+							<li><h2 id="oefening" data-bind="title"></h2></li>
+							<hr />
+						</ul>
+					</nav>
+					<div>
+						<form id="startExercise" action="">
+							<div id="exposure_tag">
+								<h3 id="tag_category_name" data-bind="myCategory"></h3>
+								<input id="fearFactorPre" data-bind="myValue" type="number" value="" min="0" max="100">
+							</div>
+							<h3>Motivatie Bericht</h3>
+							<p>
+								"Vertrouw op je eigen handelen en laat de gedachten varen. erken je handeling en ga door met waar je mee bezig was."<br />
+								- Dr. Jansen
+							</p>
+
+							<a href="#exercises/postExposure"><input type="button" class="footerbutton" value="Begin exposure"></a>
+						</form>			
+					</div>	
+				</section>
+
+				<section id="exposures" class="postExposure exercisesEl">
+					<nav>
+						<ul>
+							<li><a data-bind="myLink"><span id="back"></span></a></li>
+							<li><h2 id="oefening" data-bind="title"><h2></li>
+							<hr id="no_margin_bottom"/>		
+						</ul>
+					</nav>
+					<div id="success_box">
+						<ul>
+							<li><div><p class="success">GELUKT</p></div></li>
+							<li><div><p>NIET GELUKT</p></div></li>
+						</ul>
+					</div>
+					<div>
+						<form id="postExposureForm">
+							<h3>Plaats in hierarchie na oefening</h3>
+					      	<input id="postExposureSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
+					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput"></span>
+					      	<hr />
+						    <fieldset id="time_needed">
+						    	<legend>Benodigde tijd tot afronding</legend>
+						         	<input type="radio" name="tijdAfronding" id="0-1 minuut" checked="checked" />0 - 1 minuut<br />
+
+						         	<input type="radio" name="tijdAfronding" id="1-5 minuten"  />1 - 5 minuten<br />
+
+						         	<input type="radio" name="tijdAfronding" id="5+ minuten"  />5+ minuten
+						    </fieldset>
+							<hr />
+							<h3>Ervaring oefening</h3>
+							<textarea name="ervaring" id="postExposureErvaring" rows="7" cols="42" placeholder="[beschrijving ervaring]"></textarea>
+							<hr />
+														
+							<div id="addFile">
+								<h3>Videoboodschap toevoegen<span class="arrow"></span></h3>
+							</div>
+
+							<hr />
+							
+							<input class="footerbutton eventButton" type="button" value="Resultaat indienen" id="finishExerciseButton">
+						</form>
 					</div>
 				</section>
 
-				<section class="detailExercise exercisesEL">
-					<header>
-						<a href="#exercises/exercisesSummary"><i class="icon-chevron-left"></i></a>
-						<h2 data-bind="title"></h2>
-					</header>
+				<section id="exposures" class="newExercises exercisesEl">
+					<div>
+						<nav>
+							<ul>
+								<li><a href="#home"><span id="back"></span></a></li>
+								<li><h2 id="oefening">Nieuwe oefening toevoegen</h2></li>
+								<hr />
+							</ul>
+						</nav>	
 
-					<form id="startExercise" action="">
-						<div id="controle">
-							<input id="fearFactorPre" data-bind="myValue" type="number" value="" min="0" max="100">
-						</div>
-						<h4>Motivatie Bericht</h4>
-						<p>
-							"Vertrouw op je eigen handelen en laat de gedachten varen. erken je handeling en ga door met waar je mee bezig was."<br />
-							- Dr. Jansen
-						</p>
+						<form class="newExercisesForm" name="newExerciseForm">
+							<h3>Naam exposure</h3>	
+							<input type="text" name="title" placeholder="[naam  exposure]" requierd>
+							<hr />
+							<h3>Categorie</h3>
+							<select class="category" id="category" name="category">
+								<option value="0">Niet controleren</option>
+								<option value="1">Niet handen wassen</option>
+								<option value="2">Genormaliseerd uitvoeren</option>
+							</select>
+							<hr />
+							<h3>Responsepreventie</h3>	
+							<input type="text" name="responsePrevention" placeholder="[beschrijving responsepreventie]">
+							<hr />
+							<h3>Plaats in hierarchie</h3>
 
-						<a href="#exercises/postExposure"><input type="button" class="footerbutton" value="Begin exposure"><i class="icon-chevron-right"></i></a>
-					</form>				
-				</section>
-
-				<section class="postExposure exercisesEl">
-					<header>
-						<a data-bind="myLink"><i class="icon-chevron-left"></i></a>
-						<h2 data-bind="title"></h2>
-					</header>
-
-					<form id="postExposureForm">
-						<label for="fearFactor">Plaats in hierarchie na oefening</label>
-					      	<input id="postExposureSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput"></span>
-						    <fieldset>
-						    	<legend>Benodigde tijd tot afronding</legend>
-						         	<label for="0-1minuut">0-1 minuut</label>
-						         	<input type="radio" name="tijdAfronding" id="0-1 minuut" checked="checked" />
-
-						         	<label for="1-5minuten">1-5 minuten</label>
-						         	<input type="radio" name="tijdAfronding" id="1-5 minuten"  />
-
-						         	<label for="5+minuten">5+ minuten</label>
-						         	<input type="radio" name="tijdAfronding" id="5+ minuten"  />
-						    </fieldset>
-						<label for="ervaring">Ervaring oefening</label>
-						<textarea name="ervaring" id="postExposureErvaring" rows="7" cols="42"></textarea>
-
-						<div id="addFile">
-							<a>Videoboodschap toevoegen <i class="icon-plus"></i></a>
-						</div>
-						<input class="footerbutton eventButton" type="button" value="Resultaat indienen" id="finishExerciseButton"><i class="icon-chevron-right"></i>
-					</form>
-				</section>
-
-				<section class="newExercises exercisesEl">
-					<header id = "newExercise">
-						<a href="#exercises/exercisesSummary"><i class="icon-chevron-left"></i></a>
-						<h1>Nieuwe oefening</h1>
-					</header>
-
-					<form class="newExercisesForm" name="newExerciseForm">
-						<label for="title">Exposure</label>
-						<input type="text" name="title" requierd>
-						<label for="category">Categorie</label>
-						<select name="category" id="category" requierd>
-							<option value="0">Niet controleren</option>
-							<option value="1">Niet handen wassen</option>
-							<option value="2">Genormaliseerd uitvoeren</option>
-						</select>
-						<label for="responsePrevention">Responspreventie</label>
-						<input type="text" name="responsePrevention">
-						<label for="fearFactor">Plaats in hierarchie</label>
-
-					      	<input id="newExercisesSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-					      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput"></span>
-
-			      		<input type="button" class="eventButton footerButton" id="newExerciseButton"  data-inline="true" value="Oefening toevoegen"><i class="icon-plus"></i>
-					</form>
+						      	<input id="newExercisesSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
+						      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput"></span>
+							<hr />
+				      		<input type="button" class="eventButton footerButton" id="newExerciseButton"  data-inline="true" value="Oefening toevoegen">
+						</form>
+					</div>
 				</section>
 			</section>
 
-			<section class="doctors content">
-				<header>
-					<a href="#home"><i class="icon-chevron-left"></i></a>
-					<h1>Beheerders</h1>
-					<a href="#doctors/newDoctor"><i class="icon-plus"></i></a>
-				</header>
+			<section id="beheerders" class="doctors content">
+				<nav>
+					<ul>
+						<li><a href="#home"><span id="back"></span></a></li>
+						<li><h2>Beheerders</h2></li>	
+						<li><a href="#doctors/newDoctor"><span id="add_exposure"></a></span></li>
+						<hr id="no_margin_bottom"/>	
+					</ul>
+				</nav>
 				
 				<img src="images/loader.gif" class="loaderIcon">
 
-				<section class="doctorsSummary">
-					<table class="doctorsTable"  cellspacing="0" cellpadding="0">
-					  <tr data-bind = "doctorID">
-					    <td class="left"><img src="images/contactsIcon.png" alt=""></td>
-					    <td class="right">
-						    <h3 data-bind="firstname"></h3>
-						    <i class="icon-remove eventButton" id="removeDoctorButton"></i>
-						    <p>OCD Therapeut aan het AMC ziekenhuis te Amsterdam</p>
-						    <div id="share">
-							    <p>Gegevens automatisch doorsturen</p>
-							    <label>
-							    <input type="checkbox" class="ios-switch green" /><div><div></div></div>
-							    </label>
-						    </div>
-					    </td>
-					  </tr>
-					</table>
+				<section class="doctorsSummary doctorEl">
+				<ul>
+					<li>
+						<span class="remove eventButton" id="removeDoctorButton">&times;</span>
+						<img class="profileImg"src="">
+						<h4 data-bind="firstname"></h4>
+						<p>[Beschrijving beheerder]</p>
+					</li>
+				</ul>
+
 				</section>
 				<section class="newDoctor doctorEl">
-					<header>
-						<h1>BeheerdersToevoegen</h1>
-						<a href="#doctors/doctorsSummary"><i class="icon-remove"></i></a>
-					</header>
-
-					<label for="searchField">Email/ID</label>
-					<input type="text" id="searchField" name="searchField" />
-					<input type="button" class="eventButton" id="searchDoctorButton" name="search" value="Zoek"><i class="icon-chevron-right"></i>
-
-					<table class="doctorsResultTable" cellspacing="0" cellpadding="0">
-						<img src="images/loader.gif" class="loaderIcon">
-						<tr id="doctorOrderNumber" data-bind="doctorID">
-						    <td class="left"><img src="images/contactsIcon.png" alt=""></td>
-						    <td class="right">
-							    <h3 data-bind="firstname"></h3>
-							    <input type="button" class="eventButton" id="inviteDoctorButton" value="Uitnodiging versturen" />
-						    </td>
-						</tr>
-					</table>
+					<input type="text" id="searchField" name="searchField" placeholder="Zoek naar persoon"/>
+					<input type="button" class="eventButton" id="searchDoctorButton" name="search" value="Zoek">
+					<ul>
+						<li class="doctorsResultTable">
+							<img class="profileImg"src="">
+							<div class="beheerder">
+								<section id="doctorOrderNumber" data-bind="doctorID"></section>
+								<h4 data-bind="firstname"></h4>
+								<p>[Beschrijving beheerder]</p>
+								<div id="inviteDoctorButton" class="invitation eventButton">Uitnodiging versturen</div>
+							</div>
+						</li>
+					</ul>
 				</section>
 			</section>
-			<section class="progress content">
-					<header>
+			<section id="voortgang" class="progress content">
+				<nav>
+					<ul>
+						<li><a href="#home"><span id="back"></span></a></li>
+						<li><h2>Voortgang<h2></li>
+						<hr id="no_margin_bottom"/>		
+					</ul>
+				</nav>
+				<div>
+					<ul>
+						<li>
+							<div class="voortgang_brons"></div>
+
+								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
+						</li>
+						<li>
+							<div class="voortgang_brons"></div>
+
+								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
+						</li>
+						<li>
+							<div class="voortgang_brons"></div>
+
+								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
+						</li>
+						<li>
+							<div class="voortgang_brons"></div>
+
+								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
+						</li>
+						<li>
+							<div class="voortgang_brons"></div>
+
+								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
+						</li>
+
+					</ul>
+				</div>
+					<!-- <header>
 						<a href="#home"><i class="icon-chevron-left"></i></a>
 						<h1>voortgang</h1>
 					</header>.
-					<canvas id="progressChart"></canvas>
+					<canvas id="progressChart"></canvas> -->
 			</section>
 			
 			<script src="static/js/vendor/underscore-min.js"></script>

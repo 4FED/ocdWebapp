@@ -1,18 +1,3 @@
-body{
-	margin:0;
-	padding:0;
-	font-size:14pt;
-	background-color:#f0f0f0;
-	color:#ffffff;
-	font-family: 'Oxygen', sans-serif;
-	font-weight:300;
-	bottom:0;
-	top:0;
-	left:0;
-	right:0;
-	height:100%;
-}
-
 button{
 	font-family: 'Oxygen', sans-serif;
 	font-weight:300;
@@ -43,7 +28,7 @@ input:focus{
 		width:100%;
 		min-height:100%;
 		background-image: linear-gradient(to right top, #C15A5C 0%, #7AA19E 100%);
-		border-color:1px solid black;
+		border:1px solid transparent;
 	}
 
 	/*---------- LOGIN, REGISTREER & LOGIN-REGISTER---------*/
@@ -59,7 +44,7 @@ input:focus{
 		margin-bottom:3em;
 	}
 
-	section #login, .register{
+	section #login, #registreer{
 		margin:auto;
 		width:auto;
 	}
@@ -73,12 +58,12 @@ input:focus{
 		padding-bottom:2em;
 	}
 
-	#login, .register{
+	#login{
 		padding-top:30%;
 		padding-bottom:2em;
 	}
 
-	#login_registreer button, #login button, .register button {
+	#login_registreer button, #login button, #registreer button {
 	    width: 65%;
 	    height:2.8em;
 	    display: block;
@@ -94,7 +79,7 @@ input:focus{
 		font-size:14pt;		
 	}
 
-	#login_registreer button:active, #login button:active, .register button:active{
+	#login_registreer button:active, #login button:active, #registreer button:active{
 		
 	}
 
@@ -113,7 +98,7 @@ input:focus{
 		margin-right:0.3em;
 	}
 
-	#login input[type="text"], .register input[type="text"], #login input[type="password"], .register input[type="password"]  {
+	#login input[type="text"], #registreer input[type="text"], #login input[type="password"], #registreer input[type="password"]  {
 	    width: 65%;
 	    height:2.8em;
 	    display: block;
@@ -140,7 +125,7 @@ input:focus{
 		font-size:14pt;
 	}
 
-	.register input[type="button"] {
+	#registreer input[type="button"] {
 		width: 65%;
 	    height:4em;
 	    display: block;
@@ -153,11 +138,11 @@ input:focus{
 		font-size:10pt;
 	}
 
-	#login hr, .register hr{
+	#login hr, #registreer hr{
 		border-color:rgba(255,255,255, 0.2);
 	}
 
-	#login .exit, .register .exit{
+	#login .exit, #registreer .exit{
 		font-size:30pt;
 		color:rgba(255,255,255, 0.4);
 		margin-left:1em;
@@ -340,7 +325,6 @@ input:focus{
 		font-weight:300;
 		margin-left:auto;
 		margin-right:auto;
-		position:absolute;
 		margin-top:0;
 		left:0;
 		right:0;
@@ -361,7 +345,7 @@ input:focus{
 		font-size:11pt;
 	}
 
-	#exposures > ul li:first-of-type{
+	#exposures > ul > li:first-of-type{
 		font-weight:700;
 		font-size:10pt;
 		padding-bottom:0.5em;
@@ -394,7 +378,7 @@ input:focus{
 		color:rgba(255,255,255, 0.6);
 	}
 
-	#exposures button {
+	#exposures input[type="button"] {
 		width: 45%;
 	    height:3.5em;
 	    display: block;
@@ -413,7 +397,14 @@ input:focus{
 		font-weight:300;
 		margin:0;
 	}
-
+	#exposures input[type="text"]{
+		font-size:18pt;
+		font-weight:300;
+		margin:0;
+		background-color: transparent;
+		border: none;
+		width: 100%;
+	}
 	#exposures h3{
 		font-size:10pt;
 		margin:0;
@@ -423,7 +414,6 @@ input:focus{
 		font-size:10pt;
 		font-weight:300;
 		text-align:center;
-		padding:0.6em 0em 0em 0em;
 		margin:0;
 	}
 
@@ -443,23 +433,36 @@ input:focus{
 		font-size:10pt;
 		margin-top:0.5em;
 	}
+	#exposures #postExposureErvaring{
+		font-size:10pt;
+		margin-top:0.5em;
+		background-color: transparent;
+		border: none;
+		color: white;
+	}
 
-	#exposures > section{
+	#exposures > div{
 		padding:0em 1em 1em 1em
 	}
 
 	#exposures #oefening{
-		font-size:18pt;
+/*		font-size:18pt;
 		font-weight:300;
 		margin-left:auto;
 		margin-right:auto;
 		position:absolute;
 		margin-top:-0.5em;
 		left:0;
-		right:0;
+		right:0;*/
 		width:12.5em;
 	}
-
+	#exposures input[type="number"]{
+		margin-top: 0.25em;
+		background-color: transparent;
+		border: none;
+		text-align: center;
+		font-size: 3em;
+	}
 	#exposures #exposure_tag{
 		display:block;
 		background-image:url(../../images/icon_exposure_tag.svg);
@@ -606,17 +609,17 @@ input:focus{
 		width:4em;
 	}
 
-	#voortgang section{
+	#voortgang > div{
 		padding:1em;
 	}
 
-	#voortgang section ul{
+	#voortgang > div ul{
 		list-style-type:none;
 		flex-wrap:wrap;
 		padding-left:0;
 	}
 
-	#voortgang section li:nth-of-type(2n+1){
+	#voortgang > div li:nth-of-type(2n+1){
 		float:left;
 		display:block;
 		width:49%;
@@ -626,7 +629,7 @@ input:focus{
 		padding:0.8em, 0.8em, 0em, 0.8em;
 		text-align: center;
 	}
-	#voortgang section li:nth-of-type(2n+2){
+	#voortgang > div li:nth-of-type(2n+2){
 		float:left;
 		display:block;
 		width:49%;
@@ -636,12 +639,12 @@ input:focus{
 		text-align: center;
 	}
 
-	#voortgang section li p{
+	#voortgang > div li p{
 		font-size:10pt;
 		margin:0;
 	}
 
-	#voortgang section .graad_oefening{		
+	#voortgang > div .graad_oefening{		
 		font-size:36pt;
 		font-weight:700;
 	}
@@ -687,7 +690,7 @@ input:focus{
 		width:1em;
 		height:1em;
 		display:inline-block;
-
+		margin-left: 10em;
 	}	
 
 	#beheerders nav ul li h2{

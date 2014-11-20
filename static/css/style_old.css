@@ -45,7 +45,7 @@ section.user{
 	padding: 2%;
 }
 /*-------------------------------------login----------------------------------*/
-/*#title{
+#title{
 	margin-bottom: 20%;
 	width: 100%;
 	text-align: center;
@@ -72,7 +72,7 @@ form[name="loginForm"] label{
 input[type="file"]{
 	display: block;
 	margin: 0.5em;
-}*/
+}
 /*---------------------------------home-------------------------------------------------*/
 h1#home{
 	margin-left: auto;

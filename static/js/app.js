@@ -19,7 +19,7 @@ window.onload = function (){
 			Transparency.render(myFunctions.getOneEl(".postExposure"), ocdWebApp.Exercise.content[id], ocdWebApp.Exercise.directives);
 		},
 		doctorsSummary: function (){			
-			Transparency.render(myFunctions.getOneEl(".doctorsTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
+			Transparency.render(myFunctions.getOneEl(".doctorsSummary"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
 		},
 		doctorsResult: function (){
 			Transparency.render(myFunctions.getOneEl(".doctorsResultTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
@@ -84,6 +84,7 @@ window.onload = function (){
 		    				SHOTGUN.listen('getDoctors', sections.doctorsSummary);
 		    				ocdWebApp.Doctor.get("this");
 		    			} else if (type == "newDoctor") {
+		    				sections.doctorsResult();
 		    				SHOTGUN.listen('getDoctors', sections.doctorsResult);
 		    			}
 	    			}else{
