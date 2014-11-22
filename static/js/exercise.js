@@ -29,7 +29,8 @@ var ocdWebApp = ocdWebApp || {};
 		    exercise.save(null, {
 			  success: function(exercise) {
 			    // Execute any logic that should take place after the object is saved.
-			    alert('New exercise created with name: ' + exercise.title);
+			    alert('New exercise created with name: ' + exercise.get("title"));
+			    myFunctions.clearForm(document.newExerciseForm);
 				ocdWebApp.Exercise.read(true);
 			  },
 			  error: function(exercise, error) {
@@ -52,6 +53,10 @@ var ocdWebApp = ocdWebApp || {};
 
 				exerciseQuery.find({
 				  success: function(exercises) {
+
+				  	// _.each(exercises, function (exercise) {
+				  	// 	ocdWebApp.Exercise.content.push(exercise);
+				  	// });
 				  	for (var i = 0; i < exercises.length; i++) {
 				  		var exercise = new Object();
 				  		exercise.number = i;
@@ -105,7 +110,8 @@ var ocdWebApp = ocdWebApp || {};
 			  		success: function(exercise) {
 					    // Execute any logic that should take place after the object is saved.
 					    alert('exercise was finished: ' + exercise.exerciseId);
-					    window.location.replace("http://localhost/4fed/Webapp/#exercises/exercisesSummary");
+					    myFunctions.clearForm(document.postExposureForm);
+					    window.location.replace("http://localhost:8080/4fed/Webapp/#exercises/exercisesSummary");
 			 		},
 					error: function(exercise, error) {
 					    // Execute any logic that should take place if the save fails.
@@ -120,7 +126,7 @@ var ocdWebApp = ocdWebApp || {};
 		],
 		directives: {
 		    myLink:{
-		    	href: function() { return "#exercises/detail/" + this.number; }
+		    	href: function() { return "#exercises/detail/" + this.objectId; }
 		    },
 		    myValue:{
 		    	value: function() { return this.fearFactor; }

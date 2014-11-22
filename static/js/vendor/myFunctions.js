@@ -26,6 +26,7 @@ var myFunctions = {
 				break;
 			case "finishExerciseButton":
 				SHOTGUN.fire("finishExercise");
+				SHOTGUN.remove("finishExercise");
 				break;
 			case "searchDoctorButton":
 				ocdWebApp.Doctor.get('search');
@@ -47,31 +48,18 @@ var myFunctions = {
 	showSliderVal: function(slider, output){
 		var sliderInput = myFunctions.getOneEl(slider);	
 		var sliderOutput = myFunctions.getOneEl(output);
-		var selected = false;
-
-		sliderInput.onmousedown = function (e){
-			selected = true;				
-		}
-
-		sliderInput.onmouseup = sliderInput.onmouseout;
-
-		sliderInput.onmouseout = function () {
-			selected = false;
-			console.log("out");
-		}
-
-		sliderInput.onmousemove = function(e){
-			if (selected == false) return;
-			posX 						= e.clientX;
-    		posY 						= e.clientY;
-    		sliderOutput.style.position = 'absolute';
-    		sliderOutput.style.top 		= ''+posY+'px';
-    		sliderOutput.style.left 	= ''+posX+'px';
-		}
-		
     	sliderInput.oninput  = function () {
 			sliderOutput.innerHTML = sliderInput.value;
 		}	
+	},
+	clearForm: function (form) {
+		_.each(form.elements, function(el){
+			    	if (el.type == "range") {
+			    		el.value = 50;
+			    	} else if(el.type != "button") {			    		
+			    		el.value = null;
+			    	}
+			    })
 	},
 	disableLoader: function() {		
 		var loaderIcons = myFunctions.getAllEl(".loaderIcon");

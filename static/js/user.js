@@ -47,7 +47,7 @@ var ocdWebApp = ocdWebApp || {};
 			Parse.User.logIn(email, password, {
 			  success: function(user) {
 			  	console.log("succes" + user);
-				    window.location.href = "http://localhost/4fed/Webapp/#home";
+				    window.location.href = "http://localhost:8080/4fed/Webapp/#home";
 			  },
 			  error: function(user, error) {
 			    console.log('login Failed ' + error.message);
@@ -60,9 +60,22 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		logout: function () {
 			Parse.User.logOut();
-			window.location.href = "http://localhost/4fed/Webapp/#user/login";
+			window.location.href = "http://localhost:8080/4fed/Webapp/#startScreen";
 			sessionStorage.clear();
 			localStorage.clear();
+		},
+		directives: {
+		    myLink:{
+		    	href: function() { return "#exercises/detail/" + this.number; }
+		    },
+		    profilePicture:{
+		    	src: function(target) {
+		    		if (this.profilePicture) {
+		    			var backgroundImage = "url(" + this.profilePicture.url() + ")";
+		    			target.element.style.backgroundImage= backgroundImage;
+		    		}
+		    	}
+		    }
 		}
 	};
 })();
