@@ -11,6 +11,10 @@ window.onload = function (){
 	// Router object
 	// sets router parameters
 	var sections = {
+		mainMenu: function (){
+			userData = [{profilePicture: Parse.User.current().get("profilePicture"), firstname: Parse.User.current().get("firstname")}];
+			Transparency.render(myFunctions.getOneEl(".hoofdmenu"), userData, ocdWebApp.User.directives);
+		},
 		exercisesSummary: function (){
 			Transparency.render(myFunctions.getOneEl(".exercisesList"), ocdWebApp.Exercise.content, ocdWebApp.Exercise.directives);
 		},
@@ -19,7 +23,7 @@ window.onload = function (){
 			Transparency.render(myFunctions.getOneEl(".postExposure"), ocdWebApp.Exercise.content[id], ocdWebApp.Exercise.directives);
 		},
 		doctorsSummary: function (){			
-			Transparency.render(myFunctions.getOneEl(".doctorsTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
+			Transparency.render(myFunctions.getOneEl(".doctorsSummary"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
 		},
 		doctorsResult: function (){
 			Transparency.render(myFunctions.getOneEl(".doctorsResultTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
@@ -40,17 +44,18 @@ window.onload = function (){
 
 	ocdWebApp.router = {
 		init: function () {
-			var reroute = window.location.replace("http://localhost/4fed/Webapp/#user/login");
+			var reroute = window.location.href = "http://localhost:8080/4fed/Webapp/#startScreen";
 			routie({
 	    		'user/:type': function (type) {
 	    			sections.toggle("user", "content");
 	    			sections.toggle(type, "userForm");
 	    			if (type == "login" && Parse.User.current()) {	    				
-				    	window.location.href = "http://localhost/4fed/Webapp/#home";
+				    	window.location.href = "http://localhost:8080/4fed/Webapp/#home";
 	    			};
 	    		},
 	    		home: function() {	
 	    			if (Parse.User.current()) {
+	    				sections.mainMenu();
 	    				sections.toggle("home", "content");
 	    			}else{
 	    				reroute;
@@ -84,6 +89,7 @@ window.onload = function (){
 		    				SHOTGUN.listen('getDoctors', sections.doctorsSummary);
 		    				ocdWebApp.Doctor.get("this");
 		    			} else if (type == "newDoctor") {
+		    				sections.doctorsResult();
 		    				SHOTGUN.listen('getDoctors', sections.doctorsResult);
 		    			}
 	    			}else{
@@ -93,6 +99,13 @@ window.onload = function (){
 	    		progress: function () {
 	    			sections.toggle("progress", "content");
 	    			sections.progress();
+	    		},
+	    		startScreen: function() {
+		    		if (Parse.User.current()) {
+		    			window.location.href = "http://localhost:8080/4fed/Webapp/#home";
+		    		} else {
+		    			sections.toggle("startScreen", "content")
+		    		}
 	    		},
 	    		'': function () {
 	    			reroute;
