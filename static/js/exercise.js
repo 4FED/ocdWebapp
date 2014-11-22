@@ -54,26 +54,12 @@ var ocdWebApp = ocdWebApp || {};
 				exerciseQuery.find({
 				  success: function(exercises) {
 
-				  	// _.each(exercises, function (exercise) {
-				  	// 	ocdWebApp.Exercise.content.push(exercise);
-				  	// });
-				  	for (var i = 0; i < exercises.length; i++) {
-				  		var exercise = new Object();
-				  		exercise.number = i;
-				  		exercise.id = exercises[i].id;
-				  		exercise.title = exercises[i].get("title");
-					    exercise.category = exercises[i].get("category");
-					    exercise.responsePrevention = exercises[i].get("responsePrevention");
-					    exercise.fearFactor = exercises[i].get("fearFactor");
-					    ocdWebApp.Exercise.content.push(exercise);
-				    } 
-				    
-				    //Set exercises with _.each function, refactor after, see Dashboard!!
-
+				  	_.each(exercises, function (exercise) {
+				  		ocdWebApp.Exercise.content.push(exercise);
+				  	});
 				 //    ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
 			  //  			 return -sorted.fearFactor;
 					// });
-
 				    var content  = JSON.stringify(ocdWebApp.Exercise.content);
 				    sessionStorage.setItem("exercises", content);
 

@@ -16,11 +16,14 @@ window.onload = function (){
 			Transparency.render(myFunctions.getOneEl(".hoofdmenu"), userData, ocdWebApp.User.directives);
 		},
 		exercisesSummary: function (){
-			Transparency.render(myFunctions.getOneEl(".exercisesList"), ocdWebApp.Exercise.content, ocdWebApp.Exercise.directives);
+			Transparency.render(myFunctions.getOneEl(".exercisesList"), JSON.parse(sessionStorage.getItem("exercises")), ocdWebApp.Exercise.directives);
 		},
 		exerciseDetail: function  (id){
-			Transparency.render(myFunctions.getOneEl(".detailExercise"), ocdWebApp.Exercise.content[id], ocdWebApp.Exercise.directives);
-			Transparency.render(myFunctions.getOneEl(".postExposure"), ocdWebApp.Exercise.content[id], ocdWebApp.Exercise.directives);
+			var detailExercise = [];
+			detailExercise.push(_.find(ocdWebApp.Exercise.content, function (exercise) { return exercise.objectId == id }));
+
+			Transparency.render(myFunctions.getOneEl(".detailExercise"), detailExercise, ocdWebApp.Exercise.directives);
+			Transparency.render(myFunctions.getOneEl(".postExposure"), detailExercise, ocdWebApp.Exercise.directives);
 		},
 		doctorsSummary: function (){			
 			Transparency.render(myFunctions.getOneEl(".doctorsSummary"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
@@ -78,7 +81,7 @@ window.onload = function (){
 	    			sections.exerciseDetail(id);
 		    		sections.toggle("exercises", "content");
 		    		sections.toggle("detailExercise", "exercisesEl");
-					ocdWebApp.Exercise.finish(ocdWebApp.Exercise.content[id].id);
+					ocdWebApp.Exercise.finish(id);
 					myFunctions.showSliderVal("#postExposureSlider", "#postExposureSliderOutput");
 	    		},
 	    		'doctors/:type': function(type) {
