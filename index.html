@@ -10,16 +10,22 @@
 	</head>
 	<body>
 		<div class="container">
+			<section id="login_registreer" class="startScreen content">
+				<span id="logo_fidence"></span>			
+				<a href="#user/login"><button type="button" name="login">Log in<span class="arrow"></span></button></a>
+				<a href="#user/register"><button type="button" name="registreer">Registreer<span class="arrow"></span></button></a>
+			</section>
+
 			<section id="login" class="user content">
 				<hr />
-				<span class="exit"><a href="#users/login">&times;</a></span>
+				<span class="exit"><a href="#startScreen">&times;</a></span>
 				<span id="logo_fidence"></span>				
 				<form name="loginForm" class="login userForm">
 					<input type="text" name="email"
 					placeholder="Emailadres/ID" required>
 					<input type="password" name="password" placeholder="Wachtwoord" requierd>
 					<input type="button" value="Log in" id="loginButton" class="button eventButton">
-			<button>Wachtwoord vergeten?</button>
+				<button>Wachtwoord vergeten?</button>
 				</form>
 			<div id="registreer">
 				<form name="registerForm" class="register userForm">
@@ -45,12 +51,12 @@
 					</ul>
 				</nav>
 			
-				<ul>	
-					<li><span id="user"></span>[Gebruiker]<span class="arrow"></span></li>
+				<ul class="hoofdmenu">	
+					<li><span id="user" data-bind="profilePicture"></span><i data-bind="firstname"></i><span class="arrow"></span></li>
 					<li><span id="exposures"></span><a href="#exercises/exercisesSummary">Exposures</a><span class="arrow"></span></li>
 					<li><span id="progress"></span><a href="#progress">Voortgang</a><span class="arrow"></span></li>
 					<li><span id="administrators"></span><a href="#doctors/doctorsSummary">Beheerders</a><span class="arrow"></span></li>
-					<li><span id="settings"></span><a href="#settings">Instellingen</a><span class="arrow"></span></li>
+					<!-- <li><span id="settings"></span><a href="#settings">Instellingen</a><span class="arrow"></span></li> -->
 					<li><button class="eventButton" id="logoutButton"><i class=icon-sign-out></i></button></li>
 				</ul>
 			</section>
@@ -116,7 +122,7 @@
 						</ul>
 					</div>
 					<div>
-						<form id="postExposureForm">
+						<form name="postExposureForm" id="postExposureForm">
 							<h3>Plaats in hierarchie na oefening</h3>
 					      	<input id="postExposureSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
 					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput"></span>
@@ -149,7 +155,7 @@
 					<div>
 						<nav>
 							<ul>
-								<li><a href="#home"><span id="back"></span></a></li>
+								<li><a href="#exercises/exercisesSummary"><span id="back"></span></a></li>
 								<li><h2 id="oefening">Nieuwe oefening toevoegen</h2></li>
 								<hr />
 							</ul>
