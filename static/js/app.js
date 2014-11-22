@@ -47,6 +47,7 @@ window.onload = function (){
 
 	ocdWebApp.router = {
 		init: function () {
+			myFunctions.disableLoader();
 			var reroute = window.location.href = "http://localhost:8080/4fed/Webapp/#startScreen";
 			routie({
 	    		'user/:type': function (type) {

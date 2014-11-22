@@ -66,6 +66,12 @@ var myFunctions = {
 		_.each(loaderIcons, function (loaderIcon) {
 			loaderIcon.style.display = "none";
 		})				
+	},
+	enableLoader: function () {
+		var loaderIcons = myFunctions.getAllEl(".loaderIcon");
+		_.each(loaderIcons, function (loaderIcon) {
+			loaderIcon.style.display = "block";
+		})	
 	}	
 
 };	

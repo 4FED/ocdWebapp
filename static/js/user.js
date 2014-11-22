@@ -5,6 +5,7 @@ var ocdWebApp = ocdWebApp || {};
 	ocdWebApp.User = {
 		signUp: function () {
 			var user = new Parse.User();
+			myFunctions.enableLoader();
 
 		    var email = document.registerForm.email.value;
 		    var password = document.registerForm.password.value;
@@ -31,8 +32,11 @@ var ocdWebApp = ocdWebApp || {};
 				    success: function(object) {
 					    alert("nieuwe gebruiker is aangemaakt, vergeet niet je email te verifiseren");
 					    ocdWebApp.User.logout();
+					    myFunctions.clearForm(document.registerForm);
+					    myFunctions.disableLoader();
 				    },
 				    error: function(model, error) {
+				    	myFunctions.disableLoader();
 				    	alert('Failed to create new object, with error code: ' + error.message);
 				    }
 				});

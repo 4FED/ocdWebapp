@@ -13,7 +13,7 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		create: function () {
 			var exercise = this.init("post");
-
+			myFunctions.enableLoader();
 		    var userID =  Parse.User.current().id;
 		    var title = document.newExerciseForm.title.value;
 		    var responsePrevention =  document.newExerciseForm.responsePrevention.value;
@@ -32,8 +32,10 @@ var ocdWebApp = ocdWebApp || {};
 			    alert('New exercise created with name: ' + exercise.get("title"));
 			    myFunctions.clearForm(document.newExerciseForm);
 				ocdWebApp.Exercise.read(true);
+				myFunctions.disableLoader();
 			  },
 			  error: function(exercise, error) {
+			  	myFunctions.disableLoader();
 			    // Execute any logic that should take place if the save fails.
 			    // error is a Parse.Error with an error code and message.
 			    alert('Failed to create new object, with error code: ' + error.message);
@@ -41,6 +43,7 @@ var ocdWebApp = ocdWebApp || {};
 			});
 		},
 		read: function (newEl) {
+			myFunctions.enableLoader();
 			if (sessionStorage.getItem("exercises") && newEl == null) {
 				ocdWebApp.Exercise.content = JSON.parse(sessionStorage.getItem("exercises"));				
 				SHOTGUN.fire('getExercises');
@@ -68,6 +71,7 @@ var ocdWebApp = ocdWebApp || {};
 				  	SHOTGUN.fire('getExercises');
 				  },
 				  error: function(exercises, error) {
+				  	myFunctions.disableLoader();
 				    console.log('get exercises failed ' + error.message);
 				  }
 				});
@@ -76,7 +80,8 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		finish: function (id) {
 			var exerciseId = id;
-			var finish = function () {				
+			var finish = function () {
+				myFunctions.enableLoader();				
 				var Exercise = Parse.Object.extend("exerciseFinished");
 				var exercise = new Exercise();		
 
@@ -97,9 +102,11 @@ var ocdWebApp = ocdWebApp || {};
 					    // Execute any logic that should take place after the object is saved.
 					    alert('exercise was finished: ' + exercise.exerciseId);
 					    myFunctions.clearForm(document.postExposureForm);
+					    myFunctions.disableLoader();
 					    window.location.replace("http://localhost:8080/4fed/Webapp/#exercises/exercisesSummary");
 			 		},
 					error: function(exercise, error) {
+						myFunctions.disableLoader();
 					    // Execute any logic that should take place if the save fails.
 					    // error is a Parse.Error with an error code and message.
 					    alert('Failed to create new object, with error code: ' + error.message);
