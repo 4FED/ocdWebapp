@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "OCDWebApp": {
+            "applicationId": "e2pCNYD20d5ynvUPKyUud5G20evDRI4pmHiqrvPw", 
+            "masterKey": "5cZPRqmnxXOb1Ad3imtI3hCOJUOKEwNESQICU3Yl"
+        }, 
+        "_default": {
+            "link": "OCDWebApp"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.1"
+    }
+}

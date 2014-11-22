@@ -25,8 +25,15 @@
 					placeholder="Emailadres/ID" required>
 					<input type="password" name="password" placeholder="Wachtwoord" requierd>
 					<input type="button" value="Log in" id="loginButton" class="button eventButton">
-				<button>Wachtwoord vergeten?</button>
+					<a href="#user/forgot">Wachtwoord vergeten?</a>
 				</form>
+
+				<form name="forgotForm" class="forgot userForm">
+					<input type="text" name="email"
+					placeholder="Emailadres" required>
+					<input type="button" value="Send new password" id="forgotPasswordButton" class="button eventButton">
+				</form>
+
 			<div id="registreer">
 			<img src="images/loader.gif" class="loaderIcon">
 				<form name="registerForm" class="register userForm">

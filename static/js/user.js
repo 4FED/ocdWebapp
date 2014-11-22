@@ -62,11 +62,37 @@ var ocdWebApp = ocdWebApp || {};
 		update: function () {
 			// body...
 		},
+		forgotPassword: function () {
+			myFunctions.enableLoader();
+			emailAdress = document.forgotForm.email.value;
+			newPassword = this.generatePassword();
+			this.update("password", newPassword);
+			Parse.Cloud.run('sendNewPassword', { email: emailAdress, password: newPassword }, {
+				success: function(succes) {
+					alert(succes);
+					myFunctions.disableLoader();
+				},
+					error: function(error) { 
+					alert(error);
+					myFunctions.disableLoader();
+				}
+			});
+		},
 		logout: function () {
 			Parse.User.logOut();
 			window.location.href = "http://localhost:8080/4fed/Webapp/#startScreen";
 			sessionStorage.clear();
 			localStorage.clear();
+		},
+		generatePassword: function () {
+	        var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+	        var string_length = 8;
+	        var newPassword = '';
+	        for (var i=0; i<string_length; i++) {
+	            var rnum = Math.floor(Math.random() * chars.length);
+	            newPassword += chars.substring(rnum,rnum+1);
+	        }
+	        return newPassword;
 		},
 		directives: {
 		    myLink:{

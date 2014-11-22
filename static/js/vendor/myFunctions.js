@@ -21,6 +21,9 @@ var myFunctions = {
 			case "logoutButton":
 				ocdWebApp.User.logout();
 				break;
+			case "forgotPasswordButton":
+				ocdWebApp.User.forgotPassword();
+				break;
 			case "newExerciseButton":
 				ocdWebApp.Exercise.create();
 				break;
