@@ -103,7 +103,7 @@ var ocdWebApp = ocdWebApp || {};
 					    alert('exercise was finished: ' + exercise.exerciseId);
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
-					    window.location.replace("http://localhost:8080/4fed/Webapp/#exercises/exercisesSummary");
+					    window.location.href  "https://oege.ie.hva.nl/~schrava001/4FED/webApp/#exercises/exercisesSummary";
 			 		},
 					error: function(exercise, error) {
 						myFunctions.disableLoader();
