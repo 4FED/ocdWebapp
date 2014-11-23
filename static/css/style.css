@@ -155,7 +155,7 @@ input:focus{
 		background-color:rgba(0,0,0,0);
 		border:none;
 	}
-	#login > .login > a{
+	#login > .login > a, #login > .forgot > a{
 		display: block;
 		text-decoration: none;
 		font-size:10pt;
