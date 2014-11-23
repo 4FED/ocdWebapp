@@ -81,7 +81,7 @@ var ocdWebApp = ocdWebApp || {};
 			Parse.User.logIn(email, password, {
 			  success: function(user) {
 			  	console.log("succes" + user);
-				    window.location.href = "https://oege.ie.hva.nl/~schrava001/4FED/webApp/#home";
+				    window.location.href = "http://localhost:8080/4fed/Webapp/#home";
 			  },
 			  error: function(user, error) {
 			    console.log('login Failed ' + error.message);
@@ -122,7 +122,7 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		logout: function () {
 			Parse.User.logOut();
-			window.location.href = "https://oege.ie.hva.nl/~schrava001/4FED/webApp/#startScreen";
+			window.location.href = "http://localhost:8080/4fed/Webapp/#startScreen";
 			sessionStorage.clear();
 			localStorage.clear();
 		},
