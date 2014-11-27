@@ -44,7 +44,7 @@
 					<input type="text" name="email" placeholder="Emailadres" required>
 					<input type="password" name="password" placeholder="Wachtwoord" requierd>
 					<input type="password" name="passwordChecker" placeholder="Wachtwoord bevestigen" requierd>
-					<input type="file" name="profilePicture" id="profilePicture">
+					<input type="file" accept="image/*;capture=camera" name="profilePicture" id="profilePicture">
 					<input type="button" value="ACCOUNT AANMAKEN" id="registreerButton" class="button eventButton">
 				</form>
 			</div>
@@ -245,40 +245,17 @@
 					</ul>
 				</nav>
 				<div>
-					<ul>
-						<li>
-							<div class="voortgang_brons"></div>
-
-								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
+					<ul class="progressExercise">
+						<li id="" data-bind="myId">
+							<div class="voortgang brons"></div>
+							<div class="voortgang silver"></div>
+							<div class="voortgang goud"></div>
+							<div class="voortgang platinum"></div>
+							<div class="voortgang diamand"></div>
+								<span class="graad_oefening" data-bind="fearFactor"></span><p data-bind="title">[Titel exposure oefening]</p>
 						</li>
-						<li>
-							<div class="voortgang_brons"></div>
-
-								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
-						</li>
-						<li>
-							<div class="voortgang_brons"></div>
-
-								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
-						</li>
-						<li>
-							<div class="voortgang_brons"></div>
-
-								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
-						</li>
-						<li>
-							<div class="voortgang_brons"></div>
-
-								<span class="graad_oefening">100</span><p>[Titel exposure oefening]</p>
-						</li>
-
 					</ul>
 				</div>
-					<!-- <header>
-						<a href="#home"><i class="icon-chevron-left"></i></a>
-						<h1>voortgang</h1>
-					</header>.
-					<canvas id="progressChart"></canvas> -->
 			</section>
 			
 			<script src="static/js/vendor/underscore-min.js"></script>

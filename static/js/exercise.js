@@ -25,6 +25,7 @@ var ocdWebApp = ocdWebApp || {};
 		    exercise.set("responsePrevention", responsePrevention);
 		    exercise.set("category", category);
 		    exercise.set("fearFactor", fearFactor);
+		    exercise.set("finished", 0);
 
 		    exercise.save(null, {
 			  success: function(exercise) {
@@ -60,8 +61,8 @@ var ocdWebApp = ocdWebApp || {};
 				  	_.each(exercises, function (exercise) {
 				  		ocdWebApp.Exercise.content.push(exercise);
 				  	});
-				 //    ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
-			  //  			 return -sorted.fearFactor;
+				    // ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
+			  			// return -sorted.fearFactor;
 					// });
 				    var content  = JSON.stringify(ocdWebApp.Exercise.content);
 				    sessionStorage.setItem("exercises", content);
@@ -81,6 +82,17 @@ var ocdWebApp = ocdWebApp || {};
 		finish: function (id) {
 			var exerciseId = id;
 			var finish = function () {
+				var exerciseQuery = ocdWebApp.Exercise.init("get");
+				exerciseQuery.get(id, {
+					success: function(exercise) {
+						var amount = exercise.get("finished") + 1;
+					   	exercise.set("finished", amount);
+					   	exercise.save();
+					},
+					error: function(error) {
+					  console.log("object with id: " + id + "not found"); 
+					}
+				});
 				myFunctions.enableLoader();				
 				var Exercise = Parse.Object.extend("exerciseFinished");
 				var exercise = new Exercise();		
@@ -100,10 +112,10 @@ var ocdWebApp = ocdWebApp || {};
 				exercise.save(null, {
 			  		success: function(exercise) {
 					    // Execute any logic that should take place after the object is saved.
-					    alert('exercise was finished: ' + exercise.exerciseId);
+					    alert('exercise was finished... Well Done!!!');
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
-					    window.location.href  "http://localhost:8080/4fed/Webapp/#exercises/exercisesSummary";
+					    window.location.href = "http://localhost:8080/4fed/Webapp/#exercises/exercisesSummary";
 			 		},
 					error: function(exercise, error) {
 						myFunctions.disableLoader();
@@ -118,6 +130,9 @@ var ocdWebApp = ocdWebApp || {};
 		content: [
 		],
 		directives: {
+			myId:{
+				id: function () { return this.objectId; }
+			},
 		    myLink:{
 		    	href: function() { return "#exercises/detail/" + this.objectId; }
 		    },

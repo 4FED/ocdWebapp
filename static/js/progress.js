@@ -4,60 +4,45 @@ var ocdWebApp = ocdWebApp || {};
 
 	ocdWebApp.Progress = {
 		init: function () {
-			this.setData();
+			SHOTGUN.listen('getExercises', this.setProgress);
+			ocdWebApp.Exercise.read(true);
 		},
-		setData: function () {		
-			var Exercise = Parse.Object.extend("exerciseFinished");
-			var exerciseQuery = new Parse.Query(Exercise);
-			exerciseQuery.equalTo("userID", Parse.User.current().id);			
-			exerciseQuery.find({
-				success: function(exercises) {		
-					for (var i = 0; exercises.length > i; i++) {
-						ocdWebApp.Progress.dataSetPre[i] = exercises[i].get("fearFactorPre");
-						ocdWebApp.Progress.dataSetPost[i] = exercises[i].get("fearFactorPost");
+		setProgress: function () {
+			var difficulty = 1;				
+			var exercises = JSON.parse(sessionStorage.getItem("exercises"));
+			_.each(exercises, function (exercise) {
+				if (document.getElementById(exercise.objectId)) {
+					var exerciseEl 	= document.getElementById(exercise.objectId);
+					var brons		= exerciseEl.getElementsByClassName("brons"); 	// 0
+					var silver		= exerciseEl.getElementsByClassName("silver"); 	// 2
+					var goud		= exerciseEl.getElementsByClassName("goud");	// 5
+					var platinum	= exerciseEl.getElementsByClassName("platinum");// 9
+					var diamand		= exerciseEl.getElementsByClassName("diamand");	// 16
+					var finished 	= exercise.finished;
+					var level = (difficulty + Math.sqrt(difficulty * difficulty - 4 * difficulty * (-finished) ))/ (2 * difficulty);
+					var percentage = (level - Math.floor(level))*100;		
+					if (level > 0) {
+						brons[0].style.height = percentage + "%";
 					};
-					ocdWebApp.Progress.drawChart();
-			  	},
-			  	error: function(exercises, error) {
-			    	console.log('get exercises failed ' + error.message);
-			  	}
+					if (level > 1) {
+						brons[0].style.height = "100%";
+						silver[0].style.height = percentage + "%";
+					};
+					if (level > 2) {
+						silver[0].style.height = "100%";
+						goud[0].style.height = percentage + "%";
+					};
+					if (level > 3) {
+						goud[0].style.height ="100%";
+						platinum[0].style.height = percentage + "%";
+					};
+					if (level > 4) {
+						platinum[0].style.height = "100%";
+						diamand[0].style.height = percentage + "%";
+					};
+
+				};
 			});
 		},
-		drawChart: function (){		
-			var canvas  = document.getElementById("progressChart").getContext("2d");
-			var options = {
-				 scaleShowGridLines : false,
-			}
-			var data = {
-			    labels: ["1", "2", "3", "4", "5", "6", "7"], 
-			    datasets: [
-				    {
-			            label: "angst score pre exposure",
-			            fillColor: "rgba(220,220,220,0.2)",
-			            strokeColor: "rgba(220,220,220,1)",
-			            pointColor: "rgba(220,220,220,1)",
-			            pointStrokeColor: "#fff",
-			            pointHighlightFill: "#fff",
-			            pointHighlightStroke: "rgba(220,220,220,1)",
-			            data: ocdWebApp.Progress.dataSetPre
-			        },
-			        {
-			            label: "angst score post exposure",
-			            fillColor: "rgba(151,187,205,0.2)",
-			            strokeColor: "rgba(151,187,205,1)",
-			            pointColor: "rgba(151,187,205,1)",
-			            pointStrokeColor: "#fff",
-			            pointHighlightFill: "#fff",
-			            pointHighlightStroke: "rgba(151,187,205,1)",
-			            data: ocdWebApp.Progress.dataSetPost
-			        }
-	            ]
-			}
-			var progressLineChart = new Chart(canvas).Line(data, options);
-		},
-		dataSetPre: [
-		],
-		dataSetPost:[
-		]
 	}
 })();

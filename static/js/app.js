@@ -32,6 +32,7 @@ window.onload = function (){
 			Transparency.render(myFunctions.getOneEl(".doctorsResultTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
 		},
 		progress: function() {
+			Transparency.render(myFunctions.getOneEl(".progressExercise"), JSON.parse(sessionStorage.getItem("exercises")), ocdWebApp.Exercise.directives);
 			ocdWebApp.Progress.init();
 		},
 		toggle: function (show, hide) {

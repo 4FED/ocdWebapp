@@ -660,19 +660,33 @@ input:focus{
 		font-size:36pt;
 		font-weight:700;
 	}
-
-	#voortgang .voortgang_brons{
+/*--Bronz-Silver-Goud-Platinum-Diamand--*/
+	.progressExercise li{
+		position: relative;
+	}
+	#voortgang .voortgang{
 		float:left;
-		background-image: linear-gradient(to top, #b97433 0%, #b4835a 100%);
 		width:10%;
-		height:100%;
 		bottom:0;
 		border:0.1em solid rgba(255,255,255,1);
 		border-bottom:0em;
+		position: absolute;
 	}
-	#voortgang .voortgang_brons{
+	#voortgang .brons{		
+		background-image: linear-gradient(to top, #b97433 0%, #b4835a 100%);
 	}
-
+	#voortgang .silver{
+		background-image: linear-gradient(to top, #989ea0 0%, #777D80 100%);
+	}
+	#voortgang .goud{
+		background-image: linear-gradient(to top, #ffe18f 0%, #ffd04b 100%);
+	}
+	#voortgang .platinum{
+		background-image: linear-gradient(to top, #f0efed 0%, #d7d3cc 100%);
+	}
+	#voortgang .diamand{
+		background-image: linear-gradient(to top, #d9e8eb 0%, #acd4dd 100%);
+	}
 /*---------- VOORTGANG END ---------*/
 /*---------- EXPOSURES ---------*/
 	#beheerders nav ul{
