@@ -49,13 +49,13 @@ window.onload = function (){
 	ocdWebApp.router = {
 		init: function () {
 			myFunctions.disableLoader();
-			var reroute = window.location.href = "http://dev.arthurvs.com/webapp/#startScreen";
+			var reroute = window.location.href = "http://localhost:8080/4fed/Webapp/#startScreen";
 			routie({
 	    		'user/:type': function (type) {
 	    			sections.toggle("user", "content");
 	    			sections.toggle(type, "userForm");
 	    			if (type == "login" && Parse.User.current()) {	    				
-				    	window.location.href = "http://dev.arthurvs.com/webapp/#home";
+				    	window.location.href = "http://localhost:8080/4fed/Webapp/#home";
 	    			};
 	    		},
 	    		home: function() {	
@@ -107,7 +107,7 @@ window.onload = function (){
 	    		},
 	    		startScreen: function() {
 		    		if (Parse.User.current()) {
-		    			window.location.href = "http://dev.arthurvs.com/webapp/#home";
+		    			window.location.href = "http://localhost:8080/4fed/Webapp/#home";
 		    		} else {
 		    			sections.toggle("startScreen", "content")
 		    		}

@@ -115,7 +115,7 @@ var ocdWebApp = ocdWebApp || {};
 					    alert('exercise was finished... Well Done!!!');
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
-					    window.location.href = "http://dev.arthurvs.com/webapp/#exercises/exercisesSummary";
+					    window.location.href = "http://localhost:8080/4fed/Webapp/#exercises/exercisesSummary";
 			 		},
 					error: function(exercise, error) {
 						myFunctions.disableLoader();
