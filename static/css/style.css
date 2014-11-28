@@ -652,7 +652,9 @@ input:focus{
 	}
 
 	#voortgang > div li p{
+		padding: 0.5em;
 		font-size:10pt;
+		display: block;
 		margin:0;
 	}
 

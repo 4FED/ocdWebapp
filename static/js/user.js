@@ -22,8 +22,8 @@ var ocdWebApp = ocdWebApp || {};
 			  		var parseFile = new Parse.File(name, file);		
 
 				  	parseFile.save().then(function(profilePicture) {			  
-					    user.set("username", email);
-					    user.set("email", email);
+					    user.set("username", email.toLowerCase());
+					    user.set("email", email.toLowerCase());
 					    user.set("password", password);
 					    user.set("initials", initials);
 					    user.set("firstname", firstname);
