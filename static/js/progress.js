@@ -15,12 +15,13 @@ var ocdWebApp = ocdWebApp || {};
 					var exerciseEl 	= document.getElementById(exercise.objectId);
 					var brons		= exerciseEl.getElementsByClassName("brons"); 	// 0
 					var silver		= exerciseEl.getElementsByClassName("silver"); 	// 2
-					var goud		= exerciseEl.getElementsByClassName("goud");	// 5
-					var platinum	= exerciseEl.getElementsByClassName("platinum");// 9
-					var diamand		= exerciseEl.getElementsByClassName("diamand");	// 16
+					var goud		= exerciseEl.getElementsByClassName("goud");	// 6
+					var platinum	= exerciseEl.getElementsByClassName("platinum");// 12
+					var diamand		= exerciseEl.getElementsByClassName("diamand");	// 20
 					var finished 	= exercise.finished;
 					var level = (difficulty + Math.sqrt(difficulty * difficulty - 4 * difficulty * (-finished) ))/ (2 * difficulty);
-					var percentage = (level - Math.floor(level))*100;		
+					var percentage = (level - Math.floor(level))*100;
+					// console.log("percentage: "+percentage+" level: "+level);		
 					if (level > 0) {
 						brons[0].style.height = percentage + "%";
 					};
