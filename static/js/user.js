@@ -8,6 +8,7 @@ var ocdWebApp = ocdWebApp || {};
 			myFunctions.enableLoader();	
 			
 		    var email = document.registerForm.email.value;
+		    var email = email.toLowerCase();
 		    var password = document.registerForm.password.value;
 		    var initials = document.registerForm.initials.value;
 		    var firstname = document.registerForm.firstname.value;
@@ -22,8 +23,8 @@ var ocdWebApp = ocdWebApp || {};
 			  		var parseFile = new Parse.File(name, file);		
 
 				  	parseFile.save().then(function(profilePicture) {			  
-					    user.set("username", email.toLowerCase());
-					    user.set("email", email.toLowerCase());
+					    user.set("username", email);
+					    user.set("email", email);
 					    user.set("password", password);
 					    user.set("initials", initials);
 					    user.set("firstname", firstname);
