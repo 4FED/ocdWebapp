@@ -115,7 +115,7 @@ var ocdWebApp = ocdWebApp || {};
 					    alert('exercise was finished... Well Done!!!');
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
-					    window.location.href = "http://localhost:8080/4fed/Webapp/#exercises/exercisesSummary";
+					    window.location.hash = "#exercises/exercisesSummary";
 			 		},
 					error: function(exercise, error) {
 						myFunctions.disableLoader();
@@ -123,7 +123,7 @@ var ocdWebApp = ocdWebApp || {};
 					    // error is a Parse.Error with an error code and message.
 					    alert('Failed to create new object, with error code: ' + error.message);
 					}
-			});
+				});
 			}
 			SHOTGUN.listen('finishExercise', finish);
 		},
