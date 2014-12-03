@@ -100,7 +100,10 @@ var ocdWebApp = ocdWebApp || {};
 				var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
 				var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
 				var tijdAfronding = myFunctions.getOneEl('input[name = "tijdAfronding"]:checked').id;
-				var ervaring = myFunctions.getOneEl("#postExposureErvaring").value;
+				var ervaring = "lukte het om de angst te verdragen?<br />" + document.postExposureForm.ervaring1.value + "<br /><br />"
+								+ "Is de verwachte ramp uitgekomen?<br />" + document.postExposureForm.ervaring2.value + "<br /><br />"
+								+ "Wat gebeurde er met je angst?<br />" +document.postExposureForm.ervaring3.value + "<br /><br />";
+				console.log(ervaring); 
 
 				exercise.set("exerciseId", exerciseId);
 				exercise.set("fearFactorPre", fearFactorPre);
