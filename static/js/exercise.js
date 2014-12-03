@@ -103,7 +103,6 @@ var ocdWebApp = ocdWebApp || {};
 				var ervaring = "lukte het om de angst te verdragen?<br />" + document.postExposureForm.ervaring1.value + "<br /><br />"
 								+ "Is de verwachte ramp uitgekomen?<br />" + document.postExposureForm.ervaring2.value + "<br /><br />"
 								+ "Wat gebeurde er met je angst?<br />" +document.postExposureForm.ervaring3.value + "<br /><br />";
-				console.log(ervaring); 
 
 				exercise.set("exerciseId", exerciseId);
 				exercise.set("fearFactorPre", fearFactorPre);
