@@ -17,13 +17,13 @@ var ocdWebApp = ocdWebApp || {};
 		    var userID =  Parse.User.current().id;
 		    var title = document.newExerciseForm.title.value;
 		    var responsePrevention =  document.newExerciseForm.responsePrevention.value;
-		    var category = document.newExerciseForm.category.value;
+		    // var category = document.newExerciseForm.category.value;
 		    var fearFactor =  document.newExerciseForm.fearFactor.value;
 
 		    exercise.set("userID", userID);
 		    exercise.set("title", title);
 		    exercise.set("responsePrevention", responsePrevention);
-		    exercise.set("category", category);
+		    // exercise.set("category", category);
 		    exercise.set("fearFactor", fearFactor);
 		    exercise.set("finished", 0);
 
@@ -99,7 +99,7 @@ var ocdWebApp = ocdWebApp || {};
 
 				var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
 				var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
-				var tijdAfronding = myFunctions.getOneEl('input[name = "tijdAfronding"]:checked').id;
+				// var tijdAfronding = myFunctions.getOneEl('input[name = "tijdAfronding"]:checked').id;
 				var ervaring = "lukte het om de angst te verdragen?<br />" + document.postExposureForm.ervaring1.value + "<br /><br />"
 								+ "Is de verwachte ramp uitgekomen?<br />" + document.postExposureForm.ervaring2.value + "<br /><br />"
 								+ "Wat gebeurde er met je angst?<br />" +document.postExposureForm.ervaring3.value + "<br /><br />";
@@ -107,7 +107,7 @@ var ocdWebApp = ocdWebApp || {};
 				exercise.set("exerciseId", exerciseId);
 				exercise.set("fearFactorPre", fearFactorPre);
 				exercise.set("fearFactorPost", fearFactorPost);
-				exercise.set("tijdAfronding", tijdAfronding);
+				// exercise.set("tijdAfronding", tijdAfronding);
 				exercise.set("ervaring", ervaring);
 				exercise.set("userID", Parse.User.current().id);
 

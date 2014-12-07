@@ -62,10 +62,10 @@
 			
 				<ul class="hoofdmenu">	
 					<li><span id="user" data-bind="profilePicture"></span><i data-bind="firstname"></i><span class="arrow"></span></li>
-					<li><span id="exposures"></span><a href="#exercises/exercisesSummary">Exposures</a><span class="arrow"></span></li>
-					<li><span id="progress"></span><a href="#progress">Voortgang</a><span class="arrow"></span></li>
-					<li><span id="administrators"></span><a href="#doctors/doctorsSummary">Beheerders</a><span class="arrow"></span></li>
-					<!-- <li><span id="settings"></span><a href="#settings">Instellingen</a><span class="arrow"></span></li> -->
+					<a href="#exercises/exercisesSummary"><li><span id="exposures"></span>Exposures<span class="arrow"></span></li></a>
+					<a href="#progress"><li><span id="progress"></span>Voortgang<span class="arrow"></span></li></a>
+					<a href="#doctors/doctorsSummary"><li><span id="administrators"></span>Beheerders<span class="arrow"></span></li></a>
+					<!-- <li><span id="about"></span><a href="#about">About</a><span class="arrow"></span></li> -->
 					<li><button class="eventButton" id="logoutButton"><i class=icon-sign-out></i></button></li>
 				</ul>
 			</section>
@@ -74,8 +74,8 @@
 				<section id="exposures" class="exercisesSummary exercisesEl">
 					<nav>
 						<ul>
-							<li><a href="#home"><span id="back"></span></a></li>
-							<li><h2>Exposures</h2></li>
+							<a href="#home"><li><span id="back"></span></li>
+							<li><h2>Exposures</h2></li></a>
 							<li><a href="#exercises/newExercises"><span id="add_exposure"></a></span></li>
 							<hr />
 						</ul>
@@ -86,7 +86,7 @@
 					<ul class="exercises">
 					    	<li>TITEL<span class="graad">GRAAD &#x025BE;</span></li>
 					  	<div class="exercisesList">
-					  	<li><a data-bind="myLink"><i data-bind="title"></i></a><span class="graad" data-bind="fearFactor"></span></li>
+					  	<a data-bind="myLink"><li><i data-bind="title"></i><span class="graad" data-bind="fearFactor"></span></li></a>
 					  	</div> 
 					</ul>
 				</section>
@@ -94,8 +94,8 @@
 				<section id="exposures" class="detailExercise exercisesEL">
 					<nav>
 						<ul>
-							<li><a href="#exercises/exercisesSummary" onclick="SHOTGUN.remove('finishExercise');"><span id="back"></span></a></li>
-							<li><h2 id="oefening" data-bind="title"></h2></li>
+							<a href="#exercises/exercisesSummary" onclick="SHOTGUN.remove('finishExercise');"><li><span id="back"></span></li>
+							<li><h2 id="oefening" data-bind="title"></h2></li></a>
 							<hr />
 						</ul>
 					</nav>
@@ -120,31 +120,32 @@
 				<img src="images/loader.gif" class="loaderIcon">
 					<nav>
 						<ul>
-							<li><a data-bind="myLink"><span id="back"></span></a></li>
+							<!-- <li><a data-bind="myLink"><span id="back"></span></a></li> -->
 							<li><h2 id="oefening" data-bind="title"><h2></li>
 							<hr id="no_margin_bottom"/>		
 						</ul>
 					</nav>
-					<div id="success_box">
+				<!-- 	<div id="success_box">
 						<ul>
 							<li><div><p class="success">GELUKT</p></div></li>
 							<li><div><p>NIET GELUKT</p></div></li>
 						</ul>
-					</div>
+					</div> -->
 					<div>
 						<form name="postExposureForm" id="postExposureForm">
 							<h3>Plaats in hierarchie na oefening</h3>
+							<i>0</i>
 					      	<input id="postExposureSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput"></span>
-					      	<hr />
-						    <fieldset id="time_needed">
+					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput">50</span>
+					      	<!-- <hr /> -->
+						    <!-- <fieldset id="time_needed">
 						    	<legend>Benodigde tijd tot afronding</legend>
 						         	<input type="radio" name="tijdAfronding" id="0-1 minuut" checked="checked" />0 - 1 minuut<br />
 
 						         	<input type="radio" name="tijdAfronding" id="1-5 minuten"  />1 - 5 minuten<br />
 
 						         	<input type="radio" name="tijdAfronding" id="5+ minuten"  />5+ minuten
-						    </fieldset>
+						    </fieldset> -->
 							<hr />
 							<h3>Ervaring oefening</h3>
 							<label for="ervaring1">Lukte het om de angst te verdragen?</label>
@@ -172,30 +173,30 @@
 					<div>
 						<nav>
 							<ul>
-								<li><a href="#exercises/exercisesSummary"><span id="back"></span></a></li>
-								<li><h2 id="oefening">Nieuwe oefening toevoegen</h2></li>
+								<a href="#exercises/exercisesSummary"><li><span id="back"></span></li>
+								<li><h2 id="oefening">Nieuwe oefening toevoegen</h2></li></a>
 								<hr />
 							</ul>
 						</nav>	
 
 						<form class="newExercisesForm" name="newExerciseForm">
 							<h3>Naam exposure</h3>	
-							<input type="text" name="title" placeholder="[naam  exposure]" requierd>
+							<input type="text" name="title" required>
 							<hr />
-							<h3>Categorie</h3>
+							<!-- <h3>Categorie</h3>
 							<select class="category" id="category" name="category">
 								<option value="0">Niet controleren</option>
 								<option value="1">Niet handen wassen</option>
 								<option value="2">Genormaliseerd uitvoeren</option>
 							</select>
-							<hr />
+							<hr /> -->
 							<h3>Responsepreventie</h3>	
-							<input type="text" name="responsePrevention" placeholder="[beschrijving responsepreventie]">
+							<input type="text" name="responsePrevention">
 							<hr />
 							<h3>Plaats in hierarchie</h3>
-
+								<i>0</i>
 						      	<input id="newExercisesSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-						      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput"></span>
+						      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput">50</span>
 							<hr />
 				      		<input type="button" class="eventButton footerButton" id="newExerciseButton"  data-inline="true" value="Oefening toevoegen">
 						</form>
@@ -206,8 +207,8 @@
 			<section id="beheerders" class="doctors content">
 				<nav>
 					<ul>
-						<li><a href="#home"><span id="back"></span></a></li>
-						<li><h2>Beheerders</h2></li>	
+						<a href="#home"><li><span id="back"></span></li>
+						<li><h2>Beheerders</h2></li></a>
 						<li><a href="#doctors/newDoctor"><span id="add_exposure"></a></span></li>
 						<hr id="no_margin_bottom"/>	
 					</ul>
@@ -245,8 +246,8 @@
 			<section id="voortgang" class="progress content">
 				<nav>
 					<ul>
-						<li><a href="#home"><span id="back"></span></a></li>
-						<li><h2>Voortgang<h2></li>
+						<a href="#home"><li><span id="back"></span></li>
+						<li><h2>Voortgang<h2></li></a>
 						<hr id="no_margin_bottom"/>		
 					</ul>
 				</nav>
