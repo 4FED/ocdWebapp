@@ -32,7 +32,7 @@ var myFunctions = {
 				SHOTGUN.remove("finishExercise");
 				break;
 			case "searchDoctorButton":
-				ocdWebApp.Doctor.get('search');
+				ocdWebApp.Doctor.get('new');
 				break;
 			case "inviteDoctorButton":
 				ocdWebApp.Doctor.set();

@@ -64,7 +64,7 @@
 					<li><span id="user" data-bind="profilePicture"></span><i data-bind="firstname"></i><span class="arrow"></span></li>
 					<a href="#exercises/exercisesSummary"><li><span id="exposures"></span>Exposures<span class="arrow"></span></li></a>
 					<a href="#progress"><li><span id="progress"></span>Voortgang<span class="arrow"></span></li></a>
-					<a href="#doctors/doctorsSummary"><li><span id="administrators"></span>Beheerders<span class="arrow"></span></li></a>
+					<a href="#doctors/doctorsSummary"><li><span id="administrators"></span>Behandelaren<span class="arrow"></span></li></a>
 					<!-- <li><span id="about"></span><a href="#about">About</a><span class="arrow"></span></li> -->
 					<li><button class="eventButton" id="logoutButton"><i class=icon-sign-out></i></button></li>
 				</ul>
@@ -219,7 +219,7 @@
 				<section class="doctorsSummary doctorEl">
 				<ul>
 					<li>
-						<span class="remove eventButton" id="removeDoctorButton">&times;</span>
+						<span data-bind="myRemoveFunction" onClick="" class="remove">&times;</span>
 						<img class="profileImg"src="">
 						<h4 data-bind="firstname"></h4>
 						<p>[Beschrijving beheerder]</p>

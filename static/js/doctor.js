@@ -13,15 +13,15 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		set: function () {
 			var userDoctor = this.init("post");
-			var order = document.getElementById("doctorOrderNumber").value 
+			var doctorID = document.getElementById("doctorOrderNumber").value 
 			var currentUser = Parse.User.current();
-			var doctorID = this.content[order].id;
 
 			userDoctor.set("doctor", doctorID);
 			userDoctor.set("patient", currentUser.id);
 		    userDoctor.save(null, {
 				success: function(doctor) {
-					alert('doctor added' + ocdWebApp.Doctor.content[order]);
+					console.log(doctor);
+					alert('doctor added');
 				},
 				error: function(doctor, error) {
 					alert('Failed to create new object, with error code: ' + error.message);
@@ -29,7 +29,7 @@ var ocdWebApp = ocdWebApp || {};
 			});
 		},
 		get: function (type) {		
-			if (type == "search") {
+			if (type == "new") {
 				ocdWebApp.Doctor.content = [];
 
 				var doctorQuery = new Parse.Query(Parse.User);
@@ -38,13 +38,12 @@ var ocdWebApp = ocdWebApp || {};
 				doctorQuery.equalTo("username", username);
 				doctorQuery.find({
 					success: function(doctors) {
-					  	for (var i = 0; i < doctors.length; i++) {
-					  		var doctor = new Object();
-					  		doctor.order = i;
-						    doctor.firstname = doctors[i].get("firstname");
-						    doctor.id = doctors[i].id;
-						   	ocdWebApp.Doctor.content.push(doctor);
-						}
+						_.each(doctors, function (doctor) {
+							var doctorDetails = new Object();
+							doctorDetails.firstname = doctor.get("firstname");
+							doctorDetails.id = doctor.id;
+						   	ocdWebApp.Doctor.content.push(doctorDetails);
+						});
 				  		myFunctions.disableLoader();
 						SHOTGUN.fire("getDoctors");
 					},
@@ -64,14 +63,20 @@ var ocdWebApp = ocdWebApp || {};
 							doctorQuery.equalTo("objectId", doctor.get("doctor"));
 							doctorQuery.find({
 								success: function(doctors) {
-								  	for (var i = 0; i < doctors.length; i++) {
-								  		var doctor = new Object();
-								  		doctor.order = i;
-									    doctor.firstname = doctors[i].get("firstname");
-									    doctor.id = doctors[i].get("objectId");
-									    ocdWebApp.Doctor.content.push(doctor);
-									    console.log(doctor.firstname);
-									}
+									_.each(doctors, function (doctor) {
+										var doctorDetails = new Object();
+									    doctorDetails.firstname = doctor.get("firstname");
+									    doctorDetails.id = doctor.id;
+									    ocdWebApp.Doctor.content.push(doctorDetails);
+									})
+								 //  	for (var i = 0; i < doctors.length; i++) {
+								 //  		var doctor = new Object();
+								 //  		doctor.order = i;
+									//     doctor.firstname = doctors[i].get("firstname");
+									//     doctor.id = doctors[i].get("objectId");
+									//     ocdWebApp.Doctor.content.push(doctor);
+									//     console.log(doctor.firstname);
+									// }
 							  		myFunctions.disableLoader();
 									SHOTGUN.fire("getDoctors");
 								},
@@ -87,11 +92,16 @@ var ocdWebApp = ocdWebApp || {};
 				});
 			}
 		},
-		remove: function () {
+		remove: function (id) {
 			var user = Parse.User.current();
-			user.set("hasDoctor", "");
-			user.save(null, {
-				success: function(user) {
+			var userDoctorQuery = this.init("get");
+			userDoctorQuery.equalTo("patient", user.id);
+			userDoctorQuery.equalTo("doctor", id);
+			userDoctorQuery.find({
+				success: function(rows) {
+					_.each(rows, function (row) {
+						row.destroy({});
+					});
 					alert("doctor is removed");
 					window.location.reload();
 				},
@@ -104,10 +114,13 @@ var ocdWebApp = ocdWebApp || {};
 		],
 		directives: {
 		    doctorID: { 
-		        value: function() { return this.order; }
-		     },
+		        value: function() { return this.id; }
+		    },
 		    myLink:{
 		    	href: function() { return "#movies/" + myFunctions.cleanStrings(this.title); }
+		    },
+		    myRemoveFunction:{
+		    	onClick: function () { return "ocdWebApp.Doctor.remove('"+this.id+"')" }
 		    }
   		}
 	};
