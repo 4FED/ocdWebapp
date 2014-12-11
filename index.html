@@ -84,7 +84,11 @@
 							<hr />
 						</ul>
 					</nav>				
-					
+					<div id="scroller">
+						<span id="back" onclick="" data-bind="previous"></span>
+						<i data-bind="date">datum</i>
+						<span id="forward" onclick="" data-bind="next"></span>	
+					</div>
 					<img src="images/loader.gif" class="loaderIcon">
 
 					<ul class="exercises">
@@ -184,7 +188,7 @@
 						</nav>	
 
 						<form class="newExercisesForm" name="newExerciseForm">
-							<h3>Naam exposure</h3>	
+							<h3>Titel</h3>	
 							<input type="text" name="title" required>
 							<hr />
 							<!-- <h3>Categorie</h3>
@@ -194,8 +198,18 @@
 								<option value="2">Genormaliseerd uitvoeren</option>
 							</select>
 							<hr /> -->
+							<h3>Toevoegen aan week</h3>
+							<select class="category" id="category" name="week" required>
+								<option value="0">Huidige week</option>
+								<option value="1">volgende week</option>
+								<option value="2">week daarna</option>
+							</select>
+							<hr />
+							<h3>Week target</h3>
+							<input type="number" value="1" name="weekTarget" />
+							<hr />
 							<h3>Responsepreventie</h3>	
-							<input type="text" name="responsePrevention">
+							<input type="text" name="responsePrevention" required>
 							<hr />
 							<h3>Hoe hoog is je angst?</h3>
 								<i>0</i>

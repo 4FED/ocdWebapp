@@ -400,9 +400,9 @@ input:focus{
 	}
 
 	#exposures select{
-		background-color:rgba(124,166,164,0.5);
+		background-color:rgba(171,166,164,1);
 		border:0em;
-		width:80%;
+		width:100%;
 		height:5%;
 		color:rgba(255,255,255, 0.6);
 	}
@@ -444,8 +444,8 @@ input:focus{
 		font-size:10pt;
 	}
 	#exposures h3{
-		font-size:10pt;
-		margin:0;
+		font-size:14pt;
+		/*margin:0;*/
 	}
 
 	#exposures #tag_category_name{
@@ -482,7 +482,24 @@ input:focus{
 	#exposures > div{
 		padding:0em 1em 1em 1em
 	}
+	#exposures #scroller{
+		display: block;
+		text-align: center;
+	}
+	#exposures span#back, #exposures span#forward{
+		background-image: url(../../images/icon_back.svg);
+		background-repeat: no-repeat;
+		background-size: 1em;
+		height: 1.5em;
+		width: 1em;
+		float: left;
+		vertical-align: middle;
 
+	}
+	#exposures span#forward{
+		float: right;
+		background-image:url(../../images/icon_forward.svg);
+	}
 	#exposures #oefening{
 /*		font-size:18pt;
 		font-weight:300;
@@ -599,6 +616,11 @@ input:focus{
 		height:1.2em;
 		float:right;
 		margin-right:0.3em;
+	}
+	#exposures .newExercisesForm input[type="number"]{
+		padding: 0 0 0 1em; 
+		text-align: left;
+		font-size: 2em;
 	}
 /*---------- EXPOSURES END ---------*/
 

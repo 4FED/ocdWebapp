@@ -10,13 +10,37 @@ window.onload = function (){
 
 	// Router object
 	// sets router parameters
-	var sections = {
+	ocdWebApp.sections = {
 		mainMenu: function (){
 			userData = [{profilePicture: Parse.User.current().get("profilePicture"), firstname: Parse.User.current().get("firstname")}];
 			Transparency.render(myFunctions.getOneEl(".hoofdmenu"), userData, ocdWebApp.User.directives);
 		},
-		exercisesSummary: function (){
-			Transparency.render(myFunctions.getOneEl(".exercisesList"), JSON.parse(sessionStorage.getItem("exercises")), ocdWebApp.Exercise.directives);
+		exercisesSummary: function (weekNumber){
+			var exercisesData = JSON.parse(sessionStorage.getItem("exercises"));
+			
+			if (!weekNumber) {
+				var weekNumber = myFunctions.getCurrentWeek()
+			};
+
+			var weekdata = {
+				content: {
+					date: "De week van " + myFunctions.WeekToDate(weekNumber).getDate() + " " + myFunctions.getMonthName(myFunctions.WeekToDate(weekNumber).getMonth()),
+				},
+				directives: {
+					previous:{
+						onClick: function () { return "ocdWebApp.sections.exercisesSummary(" + (weekNumber - 1) + ")"; }
+					},	
+					next: {
+						onClick: function () { return "ocdWebApp.sections.exercisesSummary(" + (weekNumber + 1) + ")"; }
+					}
+				}
+			}
+
+			Transparency.render(document.getElementById("scroller"), weekdata.content, weekdata.directives);
+
+			var exercisesSummary = exercisesData[weekNumber];
+
+			Transparency.render(myFunctions.getOneEl(".exercisesList"), exercisesSummary, ocdWebApp.Exercise.directives);
 		},
 		exerciseDetail: function  (id){
 			var detailExercise = [];
@@ -52,27 +76,27 @@ window.onload = function (){
 			var reroute = window.location.hash = "#user/login";
 			routie({
 	    		'user/:type': function (type) {
-	    			sections.toggle("user", "content");
-	    			sections.toggle(type, "userForm");
+	    			ocdWebApp.sections.toggle("user", "content");
+	    			ocdWebApp.sections.toggle(type, "userForm");
 	    			if (type == "login" && Parse.User.current()) {	    				
 				    	window.location.hash = "#home";
 	    			};
 	    		},
 	    		home: function() {	
 	    			if (Parse.User.current()) {
-	    				sections.mainMenu();
-	    				sections.toggle("home", "content");
+	    				ocdWebApp.sections.mainMenu();
+	    				ocdWebApp.sections.toggle("home", "content");
 	    			}else{
 	    				reroute;
 	    			};
 	    		},
 	    		'exercises/:type': function(type) {
 	    			if (Parse.User.current()) {
-		    			sections.toggle("exercises", "content");
-		    			sections.toggle(type, "exercisesEl");
+		    			ocdWebApp.sections.toggle("exercises", "content");
+		    			ocdWebApp.sections.toggle(type, "exercisesEl");
 		    			myFunctions.showSliderVal("#newExercisesSlider","#newExercisesSliderOutput");
 		    			if ("exercisesSummary") {
-		    				SHOTGUN.listen('getExercises', sections.exercisesSummary);
+		    				SHOTGUN.listen('getExercises', ocdWebApp.sections.exercisesSummary);
 		    				ocdWebApp.Exercise.read();
 		    			}
 	    			}else{
@@ -80,36 +104,36 @@ window.onload = function (){
 	    			};
 	    		},
 	    		'exercises/detail/:id': function(id){
-	    			sections.exerciseDetail(id);
-		    		sections.toggle("exercises", "content");
-		    		sections.toggle("detailExercise", "exercisesEl");
+	    			ocdWebApp.sections.exerciseDetail(id);
+		    		ocdWebApp.sections.toggle("exercises", "content");
+		    		ocdWebApp.sections.toggle("detailExercise", "exercisesEl");
 					ocdWebApp.Exercise.finish(id);
 					myFunctions.showSliderVal("#postExposureSlider", "#postExposureSliderOutput");
 	    		},
 	    		'doctors/:type': function(type) {
 	    			if (Parse.User.current()) {
-		    			sections.toggle("doctors", "content");
-		    			sections.toggle(type, "doctorEl");
+		    			ocdWebApp.sections.toggle("doctors", "content");
+		    			ocdWebApp.sections.toggle(type, "doctorEl");
 		    			if (type == "doctorsSummary") {	    				
-		    				SHOTGUN.listen('getDoctors', sections.doctorsSummary);
+		    				SHOTGUN.listen('getDoctors', ocdWebApp.sections.doctorsSummary);
 		    				ocdWebApp.Doctor.get("this");
 		    			} else if (type == "newDoctor") {
-		    				sections.doctorsResult();
-		    				SHOTGUN.listen('getDoctors', sections.doctorsResult);
+		    				ocdWebApp.sections.doctorsResult();
+		    				SHOTGUN.listen('getDoctors', ocdWebApp.sections.doctorsResult);
 		    			}
 	    			}else{
 	    				reroute;
 	    			};
 	    		},
 	    		progress: function () {
-	    			sections.toggle("progress", "content");
-	    			sections.progress();
+	    			ocdWebApp.sections.toggle("progress", "content");
+	    			ocdWebApp.sections.progress();
 	    		},
 	    		startScreen: function() {
 		    		if (Parse.User.current()) {
 		    			window.location.hash = "#home";
 		    		} else {
-		    			sections.toggle("startScreen", "content")
+		    			ocdWebApp.sections.toggle("startScreen", "content")
 		    		}
 	    		},
 	    		'': function () {

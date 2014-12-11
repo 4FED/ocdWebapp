@@ -17,13 +17,28 @@ var ocdWebApp = ocdWebApp || {};
 		    var userID =  Parse.User.current().id;
 		    var title = document.newExerciseForm.title.value;
 		    var responsePrevention =  document.newExerciseForm.responsePrevention.value;
+		    var week = document.newExerciseForm.week.value;
 		    // var category = document.newExerciseForm.category.value;
 		    var fearFactor =  document.newExerciseForm.fearFactor.value;
+		    var weekTarget = document.newExerciseForm.weekTarget.value	
+
+		    switch(week){
+		   		case "0":
+		   		var weekNumber = myFunctions.getCurrentWeek(); 
+		   			break;
+		   		case "1":
+		   			var weekNumber = myFunctions.getCurrentWeek() + 1;
+		   			break;
+		   		case "2":
+		   			var weekNumber = myFunctions.getCurrentWeek() + 2;
+		   			break;		
+		   	};
 
 		    exercise.set("userID", userID);
 		    exercise.set("title", title);
 		    exercise.set("responsePrevention", responsePrevention);
-		    exercise.set("weekNumber", myFunctions.getCurrentweek())
+		    exercise.set("weekNumber", weekNumber);
+		    exercise.set("weekTarget", weekTarget)
 		    // exercise.set("category", category);
 		    exercise.set("fearFactor", fearFactor);
 		    exercise.set("finished", 0);
@@ -58,13 +73,27 @@ var ocdWebApp = ocdWebApp || {};
 
 				exerciseQuery.find({
 				  success: function(exercises) {
+				  	exercises = _.sortBy(exercises, function(sorted){
+			  			return -sorted.get("weekNumber");
+					});
 
-				  	_.each(exercises, function (exercise) {
-				  		ocdWebApp.Exercise.content.push(exercise);
-				  	});
-				    // ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
-			  			// return -sorted.fearFactor;
-					// });
+				  	var weekNumber = exercises[0].get("weekNumber"); // save first weeknumber
+				  	var weekArray = [];
+				  	for (var i = 0; exercises.length >= i; i++) {
+				  		if (exercises[i]) {
+					  		if(weekNumber == exercises[i].get("weekNumber")){
+					  			weekArray.push(exercises[i]);
+					  		} else {
+					  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
+					  			weekArray = [];
+					  			weekNumber = exercises[i].get("weekNumber");
+					  			weekArray.push(exercises[i]);
+					  		}
+				  		} else {
+				  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
+				  		}
+				  	};
+				  					    
 				    var content  = JSON.stringify(ocdWebApp.Exercise.content);
 				    sessionStorage.setItem("exercises", content);
 

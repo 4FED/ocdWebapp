@@ -59,7 +59,7 @@ var myFunctions = {
 		_.each(form.elements, function(el){
 			    	if (el.type == "range") {
 			    		el.value = 50;
-			    	} else if(el.type != "button") {			    		
+			    	}else if(el.type != "button" && el.type != "select") {			    		
 			    		el.value = null;
 			    	}
 			    })
@@ -75,6 +75,11 @@ var myFunctions = {
 		_.each(loaderIcons, function (loaderIcon) {
 			loaderIcon.style.display = "block";
 		})	
+	},
+	getMonthName: function (month) {
+		var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    	return monthNames[month];
 	},
 	WeekToDate: function (w) {
 		var simple = new Date((new Date).getFullYear(), 0, 1 + (w - 1) * 7);
