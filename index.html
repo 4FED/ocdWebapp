@@ -94,7 +94,20 @@
 					<ul class="exercises">
 					    	<li>TITEL<span class="graad">GRAAD &#x025BE;</span></li>
 					  	<div class="exercisesList">
-					  	<a data-bind="myLink"><li><i data-bind="title"></i><span class="graad" data-bind="fearFactor"></span></li></a>
+						  	<a data-bind="">
+							  	<li>
+								  	<i data-bind="title"></i>
+								  	<span class="graad" data-bind="myTotal"></span>
+							  	</li>
+						  	</a>
+						  	<div id="progressData">
+						  		<canvas data-bind="myId" id="" width="200" height="150"></canvas>
+						  		<p>
+						  			<i>Angstniveau</i>
+						  			<span data-bind="fearFactor"></span>						  			
+						  		</p>
+						  		<a data-bind="myLink"></a>
+						  	</div>
 					  	</div> 
 					</ul>
 				</section>
@@ -261,7 +274,7 @@
 					</ul>
 				</section>
 			</section>
-			<section id="voortgang" class="progress content">
+			<!-- <section id="voortgang" class="progress content">
 				<nav>
 					<ul>
 						<a href="#home"><li><span id="back"></span></li>
@@ -281,7 +294,7 @@
 						</li>
 					</ul>
 				</div>
-			</section>
+			</section> -->
 			
 			<script src="static/js/vendor/underscore-min.js"></script>
 			<script src="static/js/vendor/myFunctions.js"></script>		

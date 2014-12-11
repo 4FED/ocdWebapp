@@ -72,39 +72,39 @@ var ocdWebApp = ocdWebApp || {};
 				exerciseQuery.equalTo("userID", Parse.User.current().id);
 
 				exerciseQuery.find({
-				  success: function(exercises) {
-				  	exercises = _.sortBy(exercises, function(sorted){
-			  			return -sorted.get("weekNumber");
-					});
+				  	success: function(exercises) {
+					  	exercises = _.sortBy(exercises, function(sorted){
+				  			return -sorted.get("weekNumber");
+						});
 
-				  	var weekNumber = exercises[0].get("weekNumber"); // save first weeknumber
-				  	var weekArray = [];
-				  	for (var i = 0; exercises.length >= i; i++) {
-				  		if (exercises[i]) {
-					  		if(weekNumber == exercises[i].get("weekNumber")){
-					  			weekArray.push(exercises[i]);
+					  	var weekNumber = exercises[0].get("weekNumber"); // save first weeknumber
+					  	var weekArray = [];
+					  	for (var i = 0; exercises.length >= i; i++) {
+					  		if (exercises[i]) {
+						  		if(weekNumber == exercises[i].get("weekNumber")){
+						  			weekArray.push(exercises[i]);
+						  		} else {
+						  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
+						  			weekArray = [];
+						  			weekNumber = exercises[i].get("weekNumber");
+						  			weekArray.push(exercises[i]);
+						  		}
 					  		} else {
 					  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
-					  			weekArray = [];
-					  			weekNumber = exercises[i].get("weekNumber");
-					  			weekArray.push(exercises[i]);
 					  		}
-				  		} else {
-				  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
-				  		}
-				  	};
-				  					    
-				    var content  = JSON.stringify(ocdWebApp.Exercise.content);
-				    sessionStorage.setItem("exercises", content);
+					  	};
 
-				  	myFunctions.disableLoader();
+					    var content  = JSON.stringify(ocdWebApp.Exercise.content);
+					    sessionStorage.setItem("exercises", content);
 
-				  	SHOTGUN.fire('getExercises');
-				  },
-				  error: function(exercises, error) {
-				  	myFunctions.disableLoader();
-				    console.log('get exercises failed ' + error.message);
-				  }
+					  	myFunctions.disableLoader();
+
+					  	SHOTGUN.fire('getExercises');
+				  	},
+				  	error: function(exercises, error) {
+					  	myFunctions.disableLoader();
+					    console.log('get exercises failed ' + error.message);
+				  	}
 				});
 			}
 			
@@ -171,19 +171,9 @@ var ocdWebApp = ocdWebApp || {};
 		    myValue:{
 		    	value: function() { return this.fearFactor; }
 		    },
-		    myCategory:{
+		    myTotal:{
 		    	text: function () {
-					switch(this.category){
-						case "0":
-							return "Niet controleren";
-							break;
-						case "1":
-							return "Niet handen wassen";
-							break;
-						case "2":
-							return "Genormaliseerd uitvoeren";
-							break;
-		    		};
+					return this.finished + "/" + this.weekTarget
 		    	}
   			}
   		}

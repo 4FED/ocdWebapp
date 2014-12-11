@@ -17,7 +17,7 @@ window.onload = function (){
 		},
 		exercisesSummary: function (weekNumber){
 			var exercisesData = JSON.parse(sessionStorage.getItem("exercises"));
-			
+
 			if (!weekNumber) {
 				var weekNumber = myFunctions.getCurrentWeek()
 			};
@@ -34,17 +34,26 @@ window.onload = function (){
 						onClick: function () { return "ocdWebApp.sections.exercisesSummary(" + (weekNumber + 1) + ")"; }
 					}
 				}
-			}
+			};
 
 			Transparency.render(document.getElementById("scroller"), weekdata.content, weekdata.directives);
-
 			var exercisesSummary = exercisesData[weekNumber];
 
 			Transparency.render(myFunctions.getOneEl(".exercisesList"), exercisesSummary, ocdWebApp.Exercise.directives);
+			ocdWebApp.Progress.init(exercisesSummary);
 		},
 		exerciseDetail: function  (id){
+			var exercisesData = JSON.parse(sessionStorage.getItem("exercises"));
 			var detailExercise = [];
-			detailExercise.push(_.find(ocdWebApp.Exercise.content, function (exercise) { return exercise.objectId == id }));
+			_.each(exercisesData, function (exercises) {
+				_.each(exercises, function (exercise) {
+					if(exercise.objectId == id){
+						detailExercise.push(exercise);
+					}
+				})
+			});
+			
+			console.log(detailExercise);
 
 			Transparency.render(myFunctions.getOneEl(".detailExercise"), detailExercise, ocdWebApp.Exercise.directives);
 			Transparency.render(myFunctions.getOneEl(".postExposure"), detailExercise, ocdWebApp.Exercise.directives);
@@ -124,10 +133,6 @@ window.onload = function (){
 	    			}else{
 	    				reroute;
 	    			};
-	    		},
-	    		progress: function () {
-	    			ocdWebApp.sections.toggle("progress", "content");
-	    			ocdWebApp.sections.progress();
 	    		},
 	    		startScreen: function() {
 		    		if (Parse.User.current()) {

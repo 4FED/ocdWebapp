@@ -500,6 +500,10 @@ input:focus{
 		float: right;
 		background-image:url(../../images/icon_forward.svg);
 	}
+	#exposures #progressData{
+		height: 10.5em;
+		padding: 1em;
+	}
 	#exposures #oefening{
 /*		font-size:18pt;
 		font-weight:300;
