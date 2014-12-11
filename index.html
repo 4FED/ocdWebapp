@@ -10,22 +10,25 @@
 	</head>
 	<body>
 		<div class="container">
-			<section id="login_registreer" class="startScreen content">
+		<!-- 	<section id="login_registreer" class="startScreen content">
 				<span id="logo_fidence"></span>			
 				<a href="#user/login"><button type="button" name="login">Log in<span class="arrow"></span></button></a>
 				<a href="#user/register"><button type="button" name="registreer">Registreer<span class="arrow"></span></button></a>
-			</section>
+			</section> -->
 
 			<section id="login" class="user content">
-				<hr />
-				<span class="exit"><a href="#startScreen">&times;</a></span>
+				<!-- <hr />
+				<span class="exit"><a href="#startScreen">&times;</a></span> -->
 				<span id="logo_fidence"></span>				
 				<form name="loginForm" class="login userForm">
 					<input type="text" name="email"
 					placeholder="Emailadres/ID" required>
 					<input type="password" name="password" placeholder="Wachtwoord" requierd>
+					<div>
+						<a href="#user/register">registreer</a>
+						<a href="#user/forgot">Wachtwoord vergeten?</a>
+					</div>
 					<input type="button" value="Log in" id="loginButton" class="button eventButton">
-					<a href="#user/forgot">Wachtwoord vergeten?</a>
 				</form>
 
 				<form name="forgotForm" class="forgot userForm">
@@ -35,19 +38,20 @@
 					<a href="#user/login">Login</a>
 				</form>
 
-			<div id="registreer">
-			<img src="images/loader.gif" class="loaderIcon">
-				<form name="registerForm" class="register userForm">
-					<input type="text" name="initials" placeholder="Initialen" requierd>
-					<input type="text" name="firstname" placeholder="Voornaam" requierd>
-					<input type="text" name="surname" placeholder="Achternaam" requierd>
-					<input type="text" name="email" placeholder="Emailadres" required>
-					<input type="password" name="password" placeholder="Wachtwoord" requierd>
-					<input type="password" name="passwordChecker" placeholder="Wachtwoord bevestigen" requierd>
-					<input type="file" accept="image/*;capture=camera" name="profilePicture" id="profilePicture">
-					<input type="button" value="ACCOUNT AANMAKEN" id="registreerButton" class="button eventButton">
-				</form>
-			</div>
+				<div id="registreer">
+				<img src="images/loader.gif" class="loaderIcon">
+					<form name="registerForm" class="register userForm">
+						<input type="text" name="initials" placeholder="Initialen" requierd>
+						<input type="text" name="firstname" placeholder="Voornaam" requierd>
+						<input type="text" name="surname" placeholder="Achternaam" requierd>
+						<input type="text" name="email" placeholder="Emailadres" required>
+						<input type="password" name="password" placeholder="Wachtwoord" requierd>
+						<input type="password" name="passwordChecker" placeholder="Wachtwoord bevestigen" requierd>
+						<!-- <input type="file" accept="image/*;capture=camera" name="profilePicture" id="profilePicture"> -->
+						<input type="button" value="ACCOUNT AANMAKEN" id="registreerButton" class="button eventButton">
+						<a href="#user/login">Login</a>
+					</form>
+				</div>
 			</section>
 
 
@@ -133,7 +137,7 @@
 					</div> -->
 					<div>
 						<form name="postExposureForm" id="postExposureForm">
-							<h3>Plaats in hierarchie na oefening</h3>
+							<h3>Hoe hoog is je angst na oefening?</h3>
 							<i>0</i>
 					      	<input id="postExposureSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
 					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput">50</span>
@@ -193,7 +197,7 @@
 							<h3>Responsepreventie</h3>	
 							<input type="text" name="responsePrevention">
 							<hr />
-							<h3>Plaats in hierarchie</h3>
+							<h3>Hoe hoog is je angst?</h3>
 								<i>0</i>
 						      	<input id="newExercisesSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
 						      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput">50</span>

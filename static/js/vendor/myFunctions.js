@@ -75,6 +75,20 @@ var myFunctions = {
 		_.each(loaderIcons, function (loaderIcon) {
 			loaderIcon.style.display = "block";
 		})	
-	}	
+	},
+	WeekToDate: function (w) {
+		var simple = new Date((new Date).getFullYear(), 0, 1 + (w - 1) * 7);
+	    var dow = simple.getDay();
+	    var ISOweekStart = simple;
+	    if (dow <= 4)
+	        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+	    else
+	        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+	    return ISOweekStart;
+	},
+	getCurrentWeek: function() {
+        var onejan = new Date((new Date).getFullYear(), 0, 1);
+        return Math.ceil((((new Date - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    }
 
 };	

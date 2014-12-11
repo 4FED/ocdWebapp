@@ -49,7 +49,7 @@ window.onload = function (){
 	ocdWebApp.router = {
 		init: function () {
 			myFunctions.disableLoader();
-			var reroute = window.location.hash = "#startScreen";
+			var reroute = window.location.hash = "#user/login";
 			routie({
 	    		'user/:type': function (type) {
 	    			sections.toggle("user", "content");

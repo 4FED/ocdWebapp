@@ -23,6 +23,7 @@ var ocdWebApp = ocdWebApp || {};
 		    exercise.set("userID", userID);
 		    exercise.set("title", title);
 		    exercise.set("responsePrevention", responsePrevention);
+		    exercise.set("weekNumber", myFunctions.getCurrentweek())
 		    // exercise.set("category", category);
 		    exercise.set("fearFactor", fearFactor);
 		    exercise.set("finished", 0);
