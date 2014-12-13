@@ -43,43 +43,19 @@ var ocdWebApp = ocdWebApp || {};
 
 		// 		};
 		// 	});
-		// },
+		// // },
 		setProgress: function (exercises) {
-			var x = 0;
-			var loopArray = function(arr) {
-			    customAlert(arr[x],function(){
-			        // set x to next item
-			        x++;
-			        // any more items in array? continue loop
-			        if(x < arr.length) {
-			            loopArray(arr);   
-			        }
-			    }); 
-			}
-			function customAlert(exercise, callback) {
-			    // code to show your custom alert
-			    // in this case its just a console log
-			    SHOTGUN.listen("getExerciseDetails", function () {
-			    		var ctx = document.getElementById(exercise.objectId).getContext("2d");
-						var BarChart = new Chart(ctx).Bar(ocdWebApp.Progress.content, ocdWebApp.Progress.options);
-			    		callback();
+			var exercisesData = exercises;
+
+			_.each(exercisesData, function (exercise) {			
+				
+					SHOTGUN.listen("getExerciseDetails", function () {
+						var ctx = document.getElementById(exercise.objectId);
 					});
-					ocdWebApp.Progress.content.datasets[0].data = [];
-					ocdWebApp.Progress.getData(exercise.objectId);
-			    // do callback when ready
-			}
-				var exercisesData = exercises;
-				loopArray(exercises);
-				// _.each(exercisesData, function (exercise) {
-				// 	for(var exercise in exercises){
-				// 	var ctx = document.getElementById(exercise.objectId).getContext("2d");
-				// 	SHOTGUN.listen("getExerciseDetails", function () {
-				// 		var BarChart = new Chart(ctx).Bar(ocdWebApp.Progress.content, ocdWebApp.Progress.options);
-				// 	});
-				// 	ocdWebApp.Progress.content.datasets[0].data = [];
-				// 	ocdWebApp.Progress.getData(exercise.objectId);
-					
-				// });
+				ocdWebApp.Progress.content = [];
+				ocdWebApp.Progress.getData(exercise.objectId);
+				
+			});
 		},
 		getData: function (id) {
 			var exerciseFinished = Parse.Object.extend("exerciseFinished");
@@ -88,38 +64,116 @@ var ocdWebApp = ocdWebApp || {};
 			exerciseFinishedQuery.find({
 				  	success: function(exercises) {
 				  		if (exercises.length > 0) {
+				  			var x = 1
 							_.each(exercises ,function (exercise) {
-						  		var average = (parseInt(exercise.get("fearFactorPre")) + parseInt(exercise.get("fearFactorPost"))) / 2;
-						  		ocdWebApp.Progress.content.datasets[0].data.push(average);
+								var obj = {};
+								obj.letter = x;
+						  		obj.frequency = (parseInt(exercise.get("fearFactorPre")) + parseInt(exercise.get("fearFactorPost"))) / 2;
+						  		ocdWebApp.Progress.content.push(obj);
+						  		x++
 						  	});
-						  	SHOTGUN.fire("getExerciseDetails");
-						  	SHOTGUN.remove("getExerciseDetails");
-						  	ocdWebApp.Progress.content.datasets[0].data = [];
-						  } else{
-						  	ocdWebApp.Progress.content.datasets[0].data.push(0);
-						  	SHOTGUN.fire("getExerciseDetails");
-						  	SHOTGUN.remove("getExerciseDetails");
-						  	ocdWebApp.Progress.content.datasets[0].data = [];
-						  };
+						} else {
+						 	ocdWebApp.Progress.content = [];
+						};	
+						ocdWebApp.Progress.draw(id);					
+						SHOTGUN.fire("getExerciseDetails");
+						// SHOTGUN.remove("getExerciseDetails");
 				  	},
 				  	error: function(exercises, error) {
-					  	
+					  	console.log("error loading data" + error.message);
 				  	}
 				});
 		},
-		content: {
-		    labels: ["January", "February", "March", "April", "May", "June", "July"],
-		    datasets: [
-		        {
-		            label: "My First dataset",
-		            fillColor: "rgba(220,220,220,0.5)",
-		            strokeColor: "rgba(220,220,220,0.8)",
-		            highlightFill: "rgba(220,220,220,0.75)",
-		            highlightStroke: "rgba(220,220,220,1)",
-		            data: []
-		        },
-		    ]
+		draw: function(id){
+			var data = ocdWebApp.Progress.content;
+			var margin,
+			    width,
+			    height;
+
+			margin = {
+			    'top': 20,
+			    'right': 20,
+			    'bottom': 30,
+			    'left': 50
+			};
+
+			width = 200 - margin.left - margin.right;
+			height = 150 - margin.top - margin.bottom;
+
+
+			var x = d3.scale.ordinal()
+			    .rangeRoundBands([0, width], 0.1);
+			var y = d3.scale.linear()
+    			.range([height, 0]);
+
+    		var xAxis = d3.svg.axis()
+			    .scale(x)
+			    .orient('bottom');
+
+			var yAxis = d3.svg.axis()
+			    .scale(y)
+			    .orient('left');
+
+			var $svg = d3.select('#'+id)
+			    .append('svg')
+			    .attr('width', width + margin.left + margin.right)
+			    .attr('height', height + margin.top + margin.bottom)
+			    .attr('class', id)
+			    .append('g')
+			    .attr(
+			        'transform',
+			        'translate(' + margin.left + ',' + margin.top + ')'
+			    );
+			
+			function clean(d) {
+			    d.frequency = Number(d.frequency);
+			    return d;
+			}
+
+			 x.domain(data.map(function (d) {
+		        return d.letter;
+		    }));
+
+			y.domain([0, d3.max(data, function (d) {
+        		return d.frequency;
+    		})]);
+
+    		$svg
+		        .append('g')
+		        .attr('class', 'axis axis-x')
+		        .attr('transform', 'translate(0,' + height + ')')
+		        .call(xAxis);
+
+		    $svg
+		        .append('g')
+		        .attr('class', 'axis axis-y')
+		        .call(yAxis)
+		        .append('text')
+		        .attr('transform', 'rotate(-90)')
+		        .attr('y', 6)
+		        .attr('dy', '.71em')
+		        .style('text-anchor', 'end')
+		    $svg
+		        .selectAll('.bar')
+		        .data(data)
+		        .enter()
+		            .append('rect')
+		            .attr('class', 'bar')
+		            .attr('x', function (d) {
+		                return x(d.letter);
+		            })
+		            .attr('width', x.rangeBand())
+		            .attr('y', function (d) {
+		                return y(d.frequency);
+		            })
+		            .attr('height', function (d) {
+		                return height - y(d.frequency);
+		            });
+
 		},
+		content: [
+	
+		],
 		options: {
 		    //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
 		    scaleBeginAtZero : true,

@@ -15,8 +15,12 @@ window.onload = function (){
 			userData = [{profilePicture: Parse.User.current().get("profilePicture"), firstname: Parse.User.current().get("firstname")}];
 			Transparency.render(myFunctions.getOneEl(".hoofdmenu"), userData, ocdWebApp.User.directives);
 		},
-		exercisesSummary: function (weekNumber){
+		exercisesSummary: function (weekNumber, old){
 			var exercisesData = JSON.parse(sessionStorage.getItem("exercises"));
+			_.each(exercisesData[old], function (exercise) {
+				var elem = myFunctions.getOneEl("."+exercise.objectId);
+				elem.parentNode.removeChild(elem);
+			});
 
 			if (!weekNumber) {
 				var weekNumber = myFunctions.getCurrentWeek()
@@ -28,17 +32,16 @@ window.onload = function (){
 				},
 				directives: {
 					previous:{
-						onClick: function () { return "ocdWebApp.sections.exercisesSummary(" + (weekNumber - 1) + ")"; }
+						onClick: function () { return "ocdWebApp.sections.exercisesSummary(" + (weekNumber - 1) + ", "+ weekNumber +")"; }
 					},	
 					next: {
-						onClick: function () { return "ocdWebApp.sections.exercisesSummary(" + (weekNumber + 1) + ")"; }
+						onClick: function () { return "ocdWebApp.sections.exercisesSummary(" + (weekNumber + 1) + ", "+ weekNumber +")"; }
 					}
 				}
 			};
 
 			Transparency.render(document.getElementById("scroller"), weekdata.content, weekdata.directives);
 			var exercisesSummary = exercisesData[weekNumber];
-
 			Transparency.render(myFunctions.getOneEl(".exercisesList"), exercisesSummary, ocdWebApp.Exercise.directives);
 			ocdWebApp.Progress.init(exercisesSummary);
 		},
