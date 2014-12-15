@@ -53,11 +53,11 @@ var ocdWebApp = ocdWebApp || {};
 						var ctx = document.getElementById(exercise.objectId);
 					});
 				ocdWebApp.Progress.content = [];
-				ocdWebApp.Progress.getData(exercise.objectId);
+				ocdWebApp.Progress.getData(exercise.objectId, exercise.fearFactor);
 				
 			});
 		},
-		getData: function (id) {
+		getData: function (id, startScore) {
 			var exerciseFinished = Parse.Object.extend("exerciseFinished");
 			var exerciseFinishedQuery = new Parse.Query(exerciseFinished);
 			exerciseFinishedQuery.equalTo("exerciseId", id);
@@ -68,14 +68,15 @@ var ocdWebApp = ocdWebApp || {};
 							_.each(exercises ,function (exercise) {
 								var obj = {};
 								obj.letter = x;
-						  		obj.frequency = (parseInt(exercise.get("fearFactorPre")) + parseInt(exercise.get("fearFactorPost"))) / 2;
+						  		obj.frequency = ((parseInt(exercise.get("fearFactorPre")) + parseInt(exercise.get("fearFactorPost"))) / 2) / 10;
+						  		obj.startScore = startScore;
 						  		ocdWebApp.Progress.content.push(obj);
 						  		x++
 						  	});
 						} else {
 						 	ocdWebApp.Progress.content = [];
 						};	
-						ocdWebApp.Progress.draw(id);					
+						ocdWebApp.Progress.draw("G" + id);					
 						SHOTGUN.fire("getExerciseDetails");
 						// SHOTGUN.remove("getExerciseDetails");
 				  	},
@@ -86,6 +87,12 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		draw: function(id){
 			var data = ocdWebApp.Progress.content;
+
+			var chartEl = document.getElementById(id);
+			while (chartEl.firstChild) {
+				chartEl.removeChild(chartEl.firstChild);
+			}
+
 			var margin,
 			    width,
 			    height;
@@ -118,17 +125,17 @@ var ocdWebApp = ocdWebApp || {};
 			    .append('svg')
 			    .attr('width', width + margin.left + margin.right)
 			    .attr('height', height + margin.top + margin.bottom)
-			    .attr('class', id)
+			    .attr('class', id + " svg")
 			    .append('g')
 			    .attr(
 			        'transform',
 			        'translate(' + margin.left + ',' + margin.top + ')'
 			    );
 			
-			function clean(d) {
-			    d.frequency = Number(d.frequency);
-			    return d;
-			}
+			// function clean(d) {
+			//     d.frequency = Number(d.frequency);
+			//     return d;
+			// }
 
 			 x.domain(data.map(function (d) {
 		        return d.letter;
@@ -153,6 +160,7 @@ var ocdWebApp = ocdWebApp || {};
 		        .attr('y', 6)
 		        .attr('dy', '.71em')
 		        .style('text-anchor', 'end')
+
 		    $svg
 		        .selectAll('.bar')
 		        .data(data)
@@ -169,6 +177,22 @@ var ocdWebApp = ocdWebApp || {};
 		            .attr('height', function (d) {
 		                return height - y(d.frequency);
 		            });
+
+
+		    var line = d3.svg.line()
+			    .x(function(d, i) { 
+			    	if (i == 1) {
+			    		return 127;
+			    	} else {
+			    		return 1;
+			    	} 
+			   	})
+			    .y(function(d, i) { return d.startScore }); 
+			  
+			$svg.append("path")
+			      .datum(data)
+			      .attr("class", "line")
+			      .attr("d", line);
 
 		},
 		content: [

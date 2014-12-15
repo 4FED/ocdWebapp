@@ -116,7 +116,11 @@ var ocdWebApp = ocdWebApp || {};
 				exerciseQuery.get(id, {
 					success: function(exercise) {
 						var amount = exercise.get("finished") + 1;
+						var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
+						var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
 					   	exercise.set("finished", amount);
+					   	exercise.set("fearFactorPre", fearFactorPre);
+					   	exercise.set("fearFactorPost", fearFactorPost);
 					   	exercise.save();
 					},
 					error: function(error) {
@@ -147,6 +151,7 @@ var ocdWebApp = ocdWebApp || {};
 					    alert('exercise was finished... Well Done!!!');
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
+					    ocdWebApp.Exercise.read(true);
 					    window.location.hash = "#exercises/exercisesSummary";
 			 		},
 					error: function(exercise, error) {
@@ -163,7 +168,13 @@ var ocdWebApp = ocdWebApp || {};
 		],
 		directives: {
 			myId:{
-				id: function () { return this.objectId; }
+				id: function () { return "G" + this.objectId; }
+			},
+			myExpandId:{
+				id: function () { return "ex" + this.objectId; }
+			},
+			myExpand:{
+				onclick: function () { return "myFunctions.expand('ex" + this.objectId + "');"; }
 			},
 		    myLink:{
 		    	href: function() { return "#exercises/detail/" + this.objectId; }

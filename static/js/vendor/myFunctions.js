@@ -40,6 +40,9 @@ var myFunctions = {
 			case "removeDoctorButton":
 				ocdWebApp.Doctor.remove();
 				break;
+			case "changePictureButton":
+				ocdWebApp.User.update("profielpicture");
+				break;
 		}
 	},
 	AddClickEvent: function(el){
@@ -94,6 +97,9 @@ var myFunctions = {
 	getCurrentWeek: function() {
         var onejan = new Date((new Date).getFullYear(), 0, 1);
         return Math.ceil((((new Date - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    },
+    expand: function (id) {
+		var el = document.getElementById(id);
+		el.classList.toggle("active");
     }
-
 };	

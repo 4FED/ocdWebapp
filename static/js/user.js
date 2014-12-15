@@ -89,12 +89,45 @@ var ocdWebApp = ocdWebApp || {};
 			});
 			
 		},
-		update: function () {
-			// body...
+		update: function (item) {
+			var userQuery = new Parse.Query(Parse.User);
+			var currentUser = Parse.User.current();
+				userQuery.get(currentUser.id, {
+					success: function(user) {
+						var fileUploadControl = myFunctions.getOneEl("#changePictureButton");
+						fileUploadControl.onchange = function () {
+							if (fileUploadControl.files.length > 0) {
+						    	var file = fileUploadControl.files[0];
+						  		var name = "profilePicture.png";		 
+						  		var parseFile = new Parse.File(name, file);		
+
+							  	parseFile.save().then(function(profilePicture) {
+							  		user.set("profilePicture", profilePicture);
+							  		user.save(null, {
+										  success: function(user) {
+										    // Execute any logic that should take place after the object is saved.
+										    alert("Nieuwe profiel foto is geupload en zal te zien zijn wanneer je opnieuw inloged");
+										  },
+										  error: function(user, error) {
+										    alert('Uploaden van profiel foto is mislukt: ' + error.message);
+										  }
+										});
+							  	});
+							}
+						}
+					},
+					error: function(error) {
+					  console.log("object with id: " + id + "not found"); 
+					}
+				});
 		},
-		forgotPassword: function () {
+		forgotPassword: function (currentUser) {
 			myFunctions.enableLoader();
-			var emailAdress = document.forgotForm.email.value;
+			if (currentUser) {
+				var emailAdress = Parse.User.current().get('email')
+			} else {
+				var emailAdress = document.forgotForm.email.value;
+			};	
 			var userQuery = new Parse.Query(Parse.User);
 			userQuery.equalTo("email", emailAdress);
 			userQuery.find({
@@ -136,6 +169,11 @@ var ocdWebApp = ocdWebApp || {};
 		    			var backgroundImage = "url(" + this.profilePicture.url() + ")";
 		    			target.element.style.backgroundImage= backgroundImage;
 		    		}
+		    	}
+		    },
+		    myName:{
+		    	text: function () {
+		    		return this.firstname + " " + this.surname
 		    	}
 		    }
 		}

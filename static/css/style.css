@@ -1,22 +1,3 @@
-bar {
-  fill: steelblue;
-}
-
-.bar:hover {
-  fill: brown;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.axis-x path {
-  display: none;
-}
-
 
 button{
 	font-family: 'Oxygen', sans-serif;
@@ -214,6 +195,106 @@ input:focus{
 	}
 
 	/*---------- LOGIN, REGISTREER & LOGIN-REGISTER END---------*/
+	/*profiel pagina*/
+	.profiel li{
+		list-style: none;
+		margin: 1em;
+		margin-left: 0;
+	}
+	.profiel #back{
+		width: 2em;
+		height: 2em;
+		background-size: 1em;
+		background-image: url(../../images/icon_back.svg);
+		display: block;
+		background-repeat: no-repeat;
+	}
+	.profiel{
+		padding-left: 1em;
+		padding-right: 1em; 
+	}
+
+	.profiel img{
+		margin-top: 4em;
+		background-size: 6.9em;
+		width: 7em;
+		height: 7em;
+		border-radius: 4em;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel h1{
+		display: block;
+		font-weight: normal;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel #fileUploader{
+		position: relative;
+		height: 4em;
+	}
+	.profiel > #fileUploader > input{
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel input[type="file"]{
+		opacity: 0;
+		height: 3em;
+	}
+	.profiel input[type="button"]:nth-of-type(1){
+		background-color: transparent;
+		border: 1px solid white;
+		width: 10em;
+		height: 3em;
+		line-height: 3em;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel h3{
+		display: block;
+		font-weight: normal;
+		border-bottom: 1px solid #b2b2b2;
+		font-size: 10pt;
+		color: #b2b2b2;
+		margin-bottom: 0; 
+	}
+	.profiel input[type="text"]{
+		background-color: transparent;
+		border: none;
+		width: 100%;
+		border-bottom: 1px solid #b2b2b2;
+		color: white;
+		font-size: 14pt;
+		padding-top: 1em;
+		padding-bottom: 1em;
+	}
+	.profiel #buttons{
+		display: block;
+		text-align: center;
+	}
+	.profiel #buttons input[type="button"]{
+		border: none;
+		width: 10em;
+		height: 3em;
+		line-height: 3em;
+		text-align: center;
+		display: inline-block;
+	}
+	.profiel #buttons input[type="button"]:nth-of-type(1){
+		background-color: #7ca6a4;	
+	}
+	.profiel #buttons input[type="button"]:nth-of-type(2){
+		background-color: #e55354;
+	}
+	/*/--einde profiel pagina--/*/
+
 
 	/*---------- HOOFDMENU ---------*/
 
@@ -301,13 +382,15 @@ input:focus{
 		vertical-align: middle;
 		margin-right:1em;	
 	}
-
+	a[href="#progress"] li{
+		padding: 1.5em !important;
+	}
 	#hoofdmenu #progress{
 		display:inline-block;
-		background-image:url(../../images/icon_progress.svg);
+		background-image:url(../../images/informatie.svg);
 		background-repeat:no-repeat;
 		background-size:3.5em;
-		height:1.5em;
+		height:3.5em;
 		width:3.5em;
 		vertical-align: middle;
 		margin-right:1em;	
@@ -337,7 +420,25 @@ input:focus{
 	/*---------- HOOFDMENU END ---------*/
 
 	/*---------- EXPOSURES ---------*/
-
+	#duringExercise > img{
+		width: 3em;
+		display: block;
+		top: 40%;
+		margin-top: 2em;
+		margin-bottom: 2em;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#duringExercise > img + h3{
+		font-size: 15pt;
+		font-weight: normal;
+		margin-top: 3em;
+		margin-bottom: 3em;
+		text-align: center;
+	}
+	#duringExercise > p{
+		font-size: 12pt;
+	}
 	#exposures nav ul{
 		list-style-type: none;
 		padding:1em 1em 0em 1em;
@@ -368,7 +469,13 @@ input:focus{
 		height:1em;
 		float:right;
 	}	
-
+	#exposures nav ul li{
+		display: inline-block;
+	}
+	#exposures nav ul a + li{
+		display: inline;
+	}
+	}
 	#exposures nav ul li h2{
 		font-size:18pt;
 		font-weight:300;
@@ -505,7 +612,19 @@ input:focus{
 	#exposures #scroller{
 		display: block;
 		text-align: center;
+		padding: 0;
+		height: 2em;
+		line-height: 2em;
+		margin-top: -1em;
+		background-color: rgba(0, 0, 0, 0.1);
+		border-top: 1px solid #fff ;
+		border-bottom: 1px solid #fff;
 	}
+	#scroller span#back, #scroller span#forward{
+		background-size: 0.7em !important;
+		background-position: center;
+		height: 100% !important;
+	} 
 	#exposures span#back, #exposures span#forward{
 		background-image: url(../../images/icon_back.svg);
 		background-repeat: no-repeat;
@@ -522,8 +641,60 @@ input:focus{
 	}
 	#exposures .progressData{
 		height: 10.5em;
-		padding: 1em;
+		margin: 0 1em 2em 1em;
+		background-color: rgba(0, 0, 0, 0.1);
 	}
+	.progressData p, .progressData div{
+		margin: 0 0 0 1em;
+	}
+	.progressData p:nth-child(1){
+		float: right;
+		width: 30%;
+	}
+	.progressData p:nth-child(3){
+		margin-top: 0.8em;
+		margin-bottom: 0.8em;
+	}
+	.progressData a{
+		display: block;
+		text-align: center;
+		width: 100%;
+		height: 3em;
+		line-height: 3em;
+		border-top: 1px solid #b7b7b7;
+		border-bottom: 1px solid #b7b7b7;
+		background-color: #8f7d7d;
+		font-size: 10pt;
+		font-weight: bold;
+	}
+	.progressData i{
+		font-size: 10pt;
+	}
+	.bar {
+	  fill: none;
+	  stroke: #fff;
+	}
+
+	/*.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}*/
+	path.line{
+		stroke: red;
+	}
+	.axis {
+	  display: none;
+	}
+
+	.progressData svg{
+		margin: -10px -10px -40px -50px;
+	}
+	.progressData svg text{
+		display: none;
+	}
+
 	#exposures #oefening{
 /*		font-size:18pt;
 		font-weight:300;

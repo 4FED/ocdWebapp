@@ -11,14 +11,15 @@ window.onload = function (){
 	// Router object
 	// sets router parameters
 	ocdWebApp.sections = {
-		mainMenu: function (){
-			userData = [{profilePicture: Parse.User.current().get("profilePicture"), firstname: Parse.User.current().get("firstname")}];
-			Transparency.render(myFunctions.getOneEl(".hoofdmenu"), userData, ocdWebApp.User.directives);
+		userData: function (el){
+			userData = [{profilePicture: Parse.User.current().get("profilePicture"), firstname: Parse.User.current().get("firstname"), surname: Parse.User.current().get("surname")}];
+			Transparency.render(myFunctions.getOneEl(el), userData, ocdWebApp.User.directives);
 		},
 		exercisesSummary: function (weekNumber, old){
 			var exercisesData = JSON.parse(sessionStorage.getItem("exercises"));
+			
 			_.each(exercisesData[old], function (exercise) {
-				var elem = myFunctions.getOneEl("."+exercise.objectId);
+				var elem = myFunctions.getOneEl(".G"+exercise.objectId);
 				elem.parentNode.removeChild(elem);
 			});
 
@@ -42,6 +43,14 @@ window.onload = function (){
 
 			Transparency.render(document.getElementById("scroller"), weekdata.content, weekdata.directives);
 			var exercisesSummary = exercisesData[weekNumber];
+			var el = document.getElementById("noResultsExposure");
+			
+			if (exercisesData[weekNumber] == null) {
+				el.classList.add("active");
+			} else{
+				el.classList.remove("active");
+			};
+
 			Transparency.render(myFunctions.getOneEl(".exercisesList"), exercisesSummary, ocdWebApp.Exercise.directives);
 			ocdWebApp.Progress.init(exercisesSummary);
 		},
@@ -56,10 +65,9 @@ window.onload = function (){
 				})
 			});
 			
-			console.log(detailExercise);
-
 			Transparency.render(myFunctions.getOneEl(".detailExercise"), detailExercise, ocdWebApp.Exercise.directives);
 			Transparency.render(myFunctions.getOneEl(".postExposure"), detailExercise, ocdWebApp.Exercise.directives);
+			Transparency.render(myFunctions.getOneEl(".duringExercise"), detailExercise, ocdWebApp.Exercise.directives);
 		},
 		doctorsSummary: function (){			
 			Transparency.render(myFunctions.getOneEl(".doctorsSummary"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
@@ -96,8 +104,16 @@ window.onload = function (){
 	    		},
 	    		home: function() {	
 	    			if (Parse.User.current()) {
-	    				ocdWebApp.sections.mainMenu();
+	    				ocdWebApp.sections.userData(".hoofdmenu");
 	    				ocdWebApp.sections.toggle("home", "content");
+	    			}else{
+	    				reroute;
+	    			};
+	    		},
+	    		profiel: function () {
+	    			if (Parse.User.current()) {
+	    				ocdWebApp.sections.userData(".profiel");
+	    				ocdWebApp.sections.toggle("profiel", "content");
 	    			}else{
 	    				reroute;
 	    			};
@@ -106,6 +122,8 @@ window.onload = function (){
 	    			if (Parse.User.current()) {
 		    			ocdWebApp.sections.toggle("exercises", "content");
 		    			ocdWebApp.sections.toggle(type, "exercisesEl");
+		    			var thirdWeek = myFunctions.getCurrentWeek() + 1;
+		    			document.getElementById("thirdWeek").innerHTML = "De week van " + myFunctions.WeekToDate(thirdWeek).getDate() + " " + myFunctions.getMonthName(myFunctions.WeekToDate(thirdWeek).getMonth());
 		    			myFunctions.showSliderVal("#newExercisesSlider","#newExercisesSliderOutput");
 		    			if ("exercisesSummary") {
 		    				SHOTGUN.listen('getExercises', ocdWebApp.sections.exercisesSummary);
