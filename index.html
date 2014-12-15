@@ -10,22 +10,25 @@
 	</head>
 	<body>
 		<div class="container">
-			<section id="login_registreer" class="startScreen content">
+		<!-- 	<section id="login_registreer" class="startScreen content">
 				<span id="logo_fidence"></span>			
 				<a href="#user/login"><button type="button" name="login">Log in<span class="arrow"></span></button></a>
 				<a href="#user/register"><button type="button" name="registreer">Registreer<span class="arrow"></span></button></a>
-			</section>
+			</section> -->
 
 			<section id="login" class="user content">
-				<hr />
-				<span class="exit"><a href="#startScreen">&times;</a></span>
+				<!-- <hr />
+				<span class="exit"><a href="#startScreen">&times;</a></span> -->
 				<span id="logo_fidence"></span>				
 				<form name="loginForm" class="login userForm">
 					<input type="text" name="email"
 					placeholder="Emailadres/ID" required>
 					<input type="password" name="password" placeholder="Wachtwoord" requierd>
+					<div>
+						<a href="#user/register">registreer</a>
+						<a href="#user/forgot">Wachtwoord vergeten?</a>
+					</div>
 					<input type="button" value="Log in" id="loginButton" class="button eventButton">
-					<a href="#user/forgot">Wachtwoord vergeten?</a>
 				</form>
 
 				<form name="forgotForm" class="forgot userForm">
@@ -35,19 +38,20 @@
 					<a href="#user/login">Login</a>
 				</form>
 
-			<div id="registreer">
-			<img src="images/loader.gif" class="loaderIcon">
-				<form name="registerForm" class="register userForm">
-					<input type="text" name="initials" placeholder="Initialen" requierd>
-					<input type="text" name="firstname" placeholder="Voornaam" requierd>
-					<input type="text" name="surname" placeholder="Achternaam" requierd>
-					<input type="text" name="email" placeholder="Emailadres" required>
-					<input type="password" name="password" placeholder="Wachtwoord" requierd>
-					<input type="password" name="passwordChecker" placeholder="Wachtwoord bevestigen" requierd>
-					<input type="file" accept="image/*;capture=camera" name="profilePicture" id="profilePicture">
-					<input type="button" value="ACCOUNT AANMAKEN" id="registreerButton" class="button eventButton">
-				</form>
-			</div>
+				<div id="registreer">
+				<img src="images/loader.gif" class="loaderIcon">
+					<form name="registerForm" class="register userForm">
+						<input type="text" name="initials" placeholder="Initialen" requierd>
+						<input type="text" name="firstname" placeholder="Voornaam" requierd>
+						<input type="text" name="surname" placeholder="Achternaam" requierd>
+						<input type="text" name="email" placeholder="Emailadres" required>
+						<input type="password" name="password" placeholder="Wachtwoord" requierd>
+						<input type="password" name="passwordChecker" placeholder="Wachtwoord bevestigen" requierd>
+						<!-- <input type="file" accept="image/*;capture=camera" name="profilePicture" id="profilePicture"> -->
+						<input type="button" value="ACCOUNT AANMAKEN" id="registreerButton" class="button eventButton">
+						<a href="#user/login">Login</a>
+					</form>
+				</div>
 			</section>
 
 
@@ -61,32 +65,80 @@
 				</nav>
 			
 				<ul class="hoofdmenu">	
-					<li><span id="user" data-bind="profilePicture"></span><i data-bind="firstname"></i><span class="arrow"></span></li>
-					<li><span id="exposures"></span><a href="#exercises/exercisesSummary">Exposures</a><span class="arrow"></span></li>
-					<li><span id="progress"></span><a href="#progress">Voortgang</a><span class="arrow"></span></li>
-					<li><span id="administrators"></span><a href="#doctors/doctorsSummary">Beheerders</a><span class="arrow"></span></li>
-					<!-- <li><span id="settings"></span><a href="#settings">Instellingen</a><span class="arrow"></span></li> -->
+					<a href="#profiel"><li><span id="user" data-bind="profilePicture"></span><i data-bind="firstname"></i><span class="arrow"></span></li></a>
+					<a href="#exercises/exercisesSummary"><li><span id="exposures"></span>Exposures<span class="arrow"></span></li></a>
+					<a href="#progress"><li><span id="progress"></span>Informatie<span class="arrow"></span></li></a>
+					<a href="#doctors/doctorsSummary"><li><span id="administrators"></span>Behandelaren<span class="arrow"></span></li></a>
+					<!-- <li><span id="about"></span><a href="#about">About</a><span class="arrow"></span></li> -->
 					<li><button class="eventButton" id="logoutButton"><i class=icon-sign-out></i></button></li>
 				</ul>
 			</section>
 
+			<section class="profiel content">
+				<a href="#home"><li><span id="back"></span></li>
+				<img data-bind="profilePicture" src="" alt="">
+				<h1 data-bind="myName"></h1>
+				<div id="fileUploader">
+					<input type="button" value="Profielfoto wijzigen">
+					<input type="file" accept="image/*;capture=camera"  class="eventbutton" id="changePictureButton">
+				</div>
+				<form name="profielForm">
+					<h3>VOORNAAM</h3>
+					<input type="text" name="firstname" data-bind="firstname" />
+					<h3>ACHTERNAAM</h3>
+					<input type="text" name="surname" data-bind="surname">
+				</form>
+				<div id="buttons">
+					<input type="button" class="eventbutton footerbutton" onclick="ocdWebApp.User.forgotPassword(true);" value="Reset wachtwoord" id="resetPasswordButton" />
+					<input type="button" class="eventbutton footerbutton" value="Uitloggen" id="logoutButton" />
+				</div>
+			</section>
+			
 			<section class="exercises content">
 				<section id="exposures" class="exercisesSummary exercisesEl">
 					<nav>
 						<ul>
-							<li><a href="#home"><span id="back"></span></a></li>
-							<li><h2>Exposures</h2></li>
+							<a href="#home"><li><span id="back"></span></li>
+							<li><h2>Exposures</h2></li></a>
 							<li><a href="#exercises/newExercises"><span id="add_exposure"></a></span></li>
 							<hr />
 						</ul>
 					</nav>				
-					
+					<div id="scroller">
+						<span id="back" onclick="" data-bind="previous"></span>
+						<i data-bind="date">datum</i>
+						<span id="forward" onclick="" data-bind="next"></span>	
+					</div>
 					<img src="images/loader.gif" class="loaderIcon">
 
 					<ul class="exercises">
-					    	<li>TITEL<span class="graad">GRAAD &#x025BE;</span></li>
+					    	<li>TITEL<span class="graad">WEEKTARGET &#x025BE;</span></li>
+					    	<div id="noResultsExposure" class="dummy">
+					    		<span id="add"></span>
+					    		<p>
+					    			Klik op het plus icoon om een exposure oefening aan te maken.
+					    		</p>
+					    	</div>
 					  	<div class="exercisesList">
-					  	<li><a data-bind="myLink"><i data-bind="title"></i></a><span class="graad" data-bind="fearFactor"></span></li>
+						  	<a data-bind="myExpand">
+							  	<li>
+								  	<i data-bind="title"></i>
+								  	<span class="graad" data-bind="myTotal"></span>
+							  	</li>
+						  	</a>
+						  	<div data-bind="myExpandId" class="progressData">
+						  		<p>
+						  			<i><strong>Angstniveau</strong> laatse oefening</i><br /><br />
+						  			<i>Voor </i><i data-bind="fearFactorPre"></i><br />
+						  			<i>Na </i><i data-bind="fearFactorPost"></i>
+						  		</p>
+						  		<div data-bind="myId"></div>
+						  		<p>
+						  			<i>Startniveau angst</i>
+						  			<span data-bind="fearFactor"></span>						  			
+						  		</p>
+						  		<a data-bind="myLink">StartExposure</a>
+						  	</div>
 					  	</div> 
 					</ul>
 				</section>
@@ -94,8 +146,8 @@
 				<section id="exposures" class="detailExercise exercisesEL">
 					<nav>
 						<ul>
-							<li><a href="#exercises/exercisesSummary" onclick="SHOTGUN.remove('finishExercise');"><span id="back"></span></a></li>
-							<li><h2 id="oefening" data-bind="title"></h2></li>
+							<a href="#exercises/exercisesSummary" onclick="SHOTGUN.remove('finishExercise');"><li><span id="back"></span></li>
+							<li><h2 id="oefening" data-bind="title"></h2></li></a>
 							<hr />
 						</ul>
 					</nav>
@@ -111,7 +163,35 @@
 								- Dr. Jansen
 							</p>
 
-							<a href="#exercises/postExposure"><input type="button" class="footerbutton" value="Begin exposure"></a>
+							<a href="#exercises/duringExercise"><input type="button" class="footerbutton" value="Begin exposure"></a>
+						</form>			
+					</div>	
+				</section>
+
+				<section id="exposures" class="duringExercise exercisesEL">
+					<nav>
+						<ul>
+							<a href="#exercises/exercisesSummary" onclick="SHOTGUN.remove('finishExercise');"><li><span id="back"></span></li>
+							<li><h2 id="oefening" data-bind="title"></h2></li></a>
+							<hr />
+						</ul>
+					</nav>
+					<div>
+						<form id="duringExercise" action="">
+							<img src="images/loader2.gif" alt="">
+							<h3>Succes!</h3>
+							<h3>Responsepreventie</h3>
+							<p>
+								test taralalalalal.
+							</p>
+							<hr />
+							<h3>Motivatie Bericht</h3>
+							<p>
+								"Vertrouw op je eigen handelen en laat de gedachten varen. erken je handeling en ga door met waar je mee bezig was."<br />
+								- Dr. Jansen
+							</p>
+							<hr />
+							<a href="#exercises/postExposure"><input type="button" class="footerbutton" value="Afronden"></a>
 						</form>			
 					</div>	
 				</section>
@@ -120,31 +200,32 @@
 				<img src="images/loader.gif" class="loaderIcon">
 					<nav>
 						<ul>
-							<li><a data-bind="myLink"><span id="back"></span></a></li>
+							<!-- <li><a data-bind="myLink"><span id="back"></span></a></li> -->
 							<li><h2 id="oefening" data-bind="title"><h2></li>
 							<hr id="no_margin_bottom"/>		
 						</ul>
 					</nav>
-					<div id="success_box">
+				<!-- 	<div id="success_box">
 						<ul>
 							<li><div><p class="success">GELUKT</p></div></li>
 							<li><div><p>NIET GELUKT</p></div></li>
 						</ul>
-					</div>
+					</div> -->
 					<div>
 						<form name="postExposureForm" id="postExposureForm">
-							<h3>Plaats in hierarchie na oefening</h3>
+							<h3>Hoe hoog is je angst na oefening?</h3>
+							<i>0</i>
 					      	<input id="postExposureSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput"></span>
-					      	<hr />
-						    <fieldset id="time_needed">
+					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput">50</span>
+					      	<!-- <hr /> -->
+						    <!-- <fieldset id="time_needed">
 						    	<legend>Benodigde tijd tot afronding</legend>
 						         	<input type="radio" name="tijdAfronding" id="0-1 minuut" checked="checked" />0 - 1 minuut<br />
 
 						         	<input type="radio" name="tijdAfronding" id="1-5 minuten"  />1 - 5 minuten<br />
 
 						         	<input type="radio" name="tijdAfronding" id="5+ minuten"  />5+ minuten
-						    </fieldset>
+						    </fieldset> -->
 							<hr />
 							<h3>Ervaring oefening</h3>
 							<label for="ervaring1">Lukte het om de angst te verdragen?</label>
@@ -172,30 +253,40 @@
 					<div>
 						<nav>
 							<ul>
-								<li><a href="#exercises/exercisesSummary"><span id="back"></span></a></li>
-								<li><h2 id="oefening">Nieuwe oefening toevoegen</h2></li>
+								<a href="#exercises/exercisesSummary"><li><span id="back"></span></li>
+								<li><h2 id="oefening">Nieuwe oefening toevoegen</h2></li></a>
 								<hr />
 							</ul>
 						</nav>	
 
 						<form class="newExercisesForm" name="newExerciseForm">
-							<h3>Naam exposure</h3>	
-							<input type="text" name="title" placeholder="[naam  exposure]" requierd>
+							<h3>Titel</h3>	
+							<input type="text" name="title" required>
 							<hr />
-							<h3>Categorie</h3>
+							<!-- <h3>Categorie</h3>
 							<select class="category" id="category" name="category">
 								<option value="0">Niet controleren</option>
 								<option value="1">Niet handen wassen</option>
 								<option value="2">Genormaliseerd uitvoeren</option>
 							</select>
+							<hr /> -->
+							<h3>Toevoegen aan week</h3>
+							<select class="category" id="category" name="week" required>
+								<option value="0">Huidige week</option>
+								<option value="1">volgende week</option>
+								<option id="thirdWeek" value="2">week daarna</option>
+							</select>
+							<hr />
+							<h3>Week target</h3>
+							<input type="number" value="1" name="weekTarget" />
 							<hr />
 							<h3>Responsepreventie</h3>	
-							<input type="text" name="responsePrevention" placeholder="[beschrijving responsepreventie]">
+							<input type="text" name="responsePrevention" required>
 							<hr />
-							<h3>Plaats in hierarchie</h3>
-
+							<h3>Hoe hoog is je angst?</h3>
+								<i>0</i>
 						      	<input id="newExercisesSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-						      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput"></span>
+						      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput">50</span>
 							<hr />
 				      		<input type="button" class="eventButton footerButton" id="newExerciseButton"  data-inline="true" value="Oefening toevoegen">
 						</form>
@@ -206,8 +297,8 @@
 			<section id="beheerders" class="doctors content">
 				<nav>
 					<ul>
-						<li><a href="#home"><span id="back"></span></a></li>
-						<li><h2>Beheerders</h2></li>	
+						<a href="#home"><li><span id="back"></span></li>
+						<li><h2>Beheerders</h2></li></a>
 						<li><a href="#doctors/newDoctor"><span id="add_exposure"></a></span></li>
 						<hr id="no_margin_bottom"/>	
 					</ul>
@@ -218,7 +309,7 @@
 				<section class="doctorsSummary doctorEl">
 				<ul>
 					<li>
-						<span class="remove eventButton" id="removeDoctorButton">&times;</span>
+						<span data-bind="myRemoveFunction" onClick="" class="remove">&times;</span>
 						<img class="profileImg"src="">
 						<h4 data-bind="firstname"></h4>
 						<p>[Beschrijving beheerder]</p>
@@ -242,11 +333,11 @@
 					</ul>
 				</section>
 			</section>
-			<section id="voortgang" class="progress content">
+			<!-- <section id="voortgang" class="progress content">
 				<nav>
 					<ul>
-						<li><a href="#home"><span id="back"></span></a></li>
-						<li><h2>Voortgang<h2></li>
+						<a href="#home"><li><span id="back"></span></li>
+						<li><h2>Voortgang<h2></li></a>
 						<hr id="no_margin_bottom"/>		
 					</ul>
 				</nav>
@@ -262,8 +353,9 @@
 						</li>
 					</ul>
 				</div>
-			</section>
+			</section> -->
 			
+			<script src="http://d3js.org/d3.v3.min.js"></script>
 			<script src="static/js/vendor/underscore-min.js"></script>
 			<script src="static/js/vendor/myFunctions.js"></script>		
 	        <script src="static/js/vendor/shotgun.min.js"></script>

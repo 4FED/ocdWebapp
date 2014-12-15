@@ -1,3 +1,4 @@
+
 button{
 	font-family: 'Oxygen', sans-serif;
 	font-weight:300;
@@ -97,9 +98,17 @@ input:focus{
 		float:right;
 		margin-right:0.3em;
 	}
-
+	#login form{
+		width: 65%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#login > form > div{
+		display: block;
+		width: 100%;
+	}
 	#login input[type="text"], #registreer input[type="text"], #login input[type="password"], #registreer input[type="password"]  {
-	    width: 65%;
+	    width: 100%;
 	    height:2.8em;
 	    display: block;
 	    margin:0 auto;	    
@@ -107,26 +116,32 @@ input:focus{
 	    margin-bottom: 1em;
 	    background-color: rgba(255, 255, 255, 0.15);
 	    text-align:left;
-	   
 	    padding-left:1em;
 		font-size:14pt;
 	}
-	
-	#login input[type="button"] {
-		width: 65%;
+	#login .forgot input[type="button"] {
+		width: 100%;
 	    height:2.8em;
+	    text-align:center;
+	   	font-weight:700;
+		font-size:14pt;
+	}
+	#login input[type="button"] {
+		float: right;
+		width: 50%;
+	    height:2em;
 	    display: block;
 	    margin:0 auto;	    
 	    border:0;
 	    margin-bottom: 1em;
 	    background-color:#e55354;
 	    text-align:center;
-	   	font-weight:700;
+	   	font-weight:600;
 		font-size:14pt;
 	}
 
 	#registreer input[type="button"] {
-		width: 65%;
+		width: 100%;
 	    height:4em;
 	    display: block;
 	    margin:0 auto;	    
@@ -155,16 +170,19 @@ input:focus{
 		background-color:rgba(0,0,0,0);
 		border:none;
 	}
-	#login > .login > a, #login > .forgot > a{
-		display: block;
+	#login > .login > div > a, #login > .forgot > a, #login > #registreer > form > a{
+		display: inline-block;
 		text-decoration: none;
 		font-size:10pt;
 		color:rgba(255,255,255,0.6);
 		background-color:rgba(0,0,0,0);
 		border:none;
-		width: 65%;
 		margin-left: auto;
 		margin-right: auto; 
+		margin-bottom: 1em;
+	}
+	#login > .login > div > a:last-child{
+		float: right;
 	}
 
 	#more-info{
@@ -177,6 +195,106 @@ input:focus{
 	}
 
 	/*---------- LOGIN, REGISTREER & LOGIN-REGISTER END---------*/
+	/*profiel pagina*/
+	.profiel li{
+		list-style: none;
+		margin: 1em;
+		margin-left: 0;
+	}
+	.profiel #back{
+		width: 2em;
+		height: 2em;
+		background-size: 1em;
+		background-image: url(../../images/icon_back.svg);
+		display: block;
+		background-repeat: no-repeat;
+	}
+	.profiel{
+		padding-left: 1em;
+		padding-right: 1em; 
+	}
+
+	.profiel img{
+		margin-top: 4em;
+		background-size: 6.9em;
+		width: 7em;
+		height: 7em;
+		border-radius: 4em;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel h1{
+		display: block;
+		font-weight: normal;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel #fileUploader{
+		position: relative;
+		height: 4em;
+	}
+	.profiel > #fileUploader > input{
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel input[type="file"]{
+		opacity: 0;
+		height: 3em;
+	}
+	.profiel input[type="button"]:nth-of-type(1){
+		background-color: transparent;
+		border: 1px solid white;
+		width: 10em;
+		height: 3em;
+		line-height: 3em;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.profiel h3{
+		display: block;
+		font-weight: normal;
+		border-bottom: 1px solid #b2b2b2;
+		font-size: 10pt;
+		color: #b2b2b2;
+		margin-bottom: 0; 
+	}
+	.profiel input[type="text"]{
+		background-color: transparent;
+		border: none;
+		width: 100%;
+		border-bottom: 1px solid #b2b2b2;
+		color: white;
+		font-size: 14pt;
+		padding-top: 1em;
+		padding-bottom: 1em;
+	}
+	.profiel #buttons{
+		display: block;
+		text-align: center;
+	}
+	.profiel #buttons input[type="button"]{
+		border: none;
+		width: 10em;
+		height: 3em;
+		line-height: 3em;
+		text-align: center;
+		display: inline-block;
+	}
+	.profiel #buttons input[type="button"]:nth-of-type(1){
+		background-color: #7ca6a4;	
+	}
+	.profiel #buttons input[type="button"]:nth-of-type(2){
+		background-color: #e55354;
+	}
+	/*/--einde profiel pagina--/*/
+
 
 	/*---------- HOOFDMENU ---------*/
 
@@ -264,13 +382,15 @@ input:focus{
 		vertical-align: middle;
 		margin-right:1em;	
 	}
-
+	a[href="#progress"] li{
+		padding: 1.5em !important;
+	}
 	#hoofdmenu #progress{
 		display:inline-block;
-		background-image:url(../../images/icon_progress.svg);
+		background-image:url(../../images/informatie.svg);
 		background-repeat:no-repeat;
 		background-size:3.5em;
-		height:1.5em;
+		height:3.5em;
 		width:3.5em;
 		vertical-align: middle;
 		margin-right:1em;	
@@ -300,7 +420,25 @@ input:focus{
 	/*---------- HOOFDMENU END ---------*/
 
 	/*---------- EXPOSURES ---------*/
-
+	#duringExercise > img{
+		width: 3em;
+		display: block;
+		top: 40%;
+		margin-top: 2em;
+		margin-bottom: 2em;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#duringExercise > img + h3{
+		font-size: 15pt;
+		font-weight: normal;
+		margin-top: 3em;
+		margin-bottom: 3em;
+		text-align: center;
+	}
+	#duringExercise > p{
+		font-size: 12pt;
+	}
 	#exposures nav ul{
 		list-style-type: none;
 		padding:1em 1em 0em 1em;
@@ -331,7 +469,13 @@ input:focus{
 		height:1em;
 		float:right;
 	}	
-
+	#exposures nav ul li{
+		display: inline-block;
+	}
+	#exposures nav ul a + li{
+		display: inline;
+	}
+	}
 	#exposures nav ul li h2{
 		font-size:18pt;
 		font-weight:300;
@@ -383,9 +527,9 @@ input:focus{
 	}
 
 	#exposures select{
-		background-color:rgba(124,166,164,0.5);
+		background-color:rgba(171,166,164,1);
 		border:0em;
-		width:80%;
+		width:100%;
 		height:5%;
 		color:rgba(255,255,255, 0.6);
 	}
@@ -414,19 +558,21 @@ input:focus{
 		font-weight:300;
 		margin:0;
 		background-color: transparent;
-		border: none;
-		width: 100%;
-	}
-	#exposures textarea.ervaring{
-		background-color: rgba(255, 0, 0, 0.26);
+		border: 1px solid white;
+		height: 2em;
 		border-radius: 5px;
-		font-size:10pt;
-		margin-top:0.5em;
 		width: 100%; 
 	}
-	#exposures h3{
+	#exposures textarea.ervaring{
+		background-color: transparent;
+		border-radius: 5px;
+		width: 100%; 
+		margin-top:0.5em;
 		font-size:10pt;
-		margin:0;
+	}
+	#exposures h3{
+		font-size:14pt;
+		/*margin:0;*/
 	}
 
 	#exposures #tag_category_name{
@@ -462,6 +608,91 @@ input:focus{
 
 	#exposures > div{
 		padding:0em 1em 1em 1em
+	}
+	#exposures #scroller{
+		display: block;
+		text-align: center;
+		padding: 0;
+		height: 2em;
+		line-height: 2em;
+		margin-top: -1em;
+		background-color: rgba(0, 0, 0, 0.1);
+		border-top: 1px solid #fff ;
+		border-bottom: 1px solid #fff;
+	}
+	#scroller span#back, #scroller span#forward{
+		background-size: 0.7em !important;
+		background-position: center;
+		height: 100% !important;
+	} 
+	#exposures span#back, #exposures span#forward{
+		background-image: url(../../images/icon_back.svg);
+		background-repeat: no-repeat;
+		background-size: 1em;
+		height: 1.5em;
+		width: 1em;
+		float: left;
+		vertical-align: middle;
+
+	}
+	#exposures span#forward{
+		float: right;
+		background-image:url(../../images/icon_forward.svg);
+	}
+	#exposures .progressData{
+		height: 10.5em;
+		margin: 0 1em 2em 1em;
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+	.progressData p, .progressData div{
+		margin: 0 0 0 1em;
+	}
+	.progressData p:nth-child(1){
+		float: right;
+		width: 30%;
+	}
+	.progressData p:nth-child(3){
+		margin-top: 0.8em;
+		margin-bottom: 0.8em;
+	}
+	.progressData a{
+		display: block;
+		text-align: center;
+		width: 100%;
+		height: 3em;
+		line-height: 3em;
+		border-top: 1px solid #b7b7b7;
+		border-bottom: 1px solid #b7b7b7;
+		background-color: #8f7d7d;
+		font-size: 10pt;
+		font-weight: bold;
+	}
+	.progressData i{
+		font-size: 10pt;
+	}
+	.bar {
+	  fill: none;
+	  stroke: #fff;
+	}
+
+	/*.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}*/
+	path.line{
+		stroke: red;
+	}
+	.axis {
+	  display: none;
+	}
+
+	.progressData svg{
+		margin: -10px -10px -40px -50px;
+	}
+	.progressData svg text{
+		display: none;
 	}
 
 	#exposures #oefening{
@@ -580,6 +811,11 @@ input:focus{
 		height:1.2em;
 		float:right;
 		margin-right:0.3em;
+	}
+	#exposures .newExercisesForm input[type="number"]{
+		padding: 0 0 0 1em; 
+		text-align: left;
+		font-size: 2em;
 	}
 /*---------- EXPOSURES END ---------*/
 

@@ -17,13 +17,29 @@ var ocdWebApp = ocdWebApp || {};
 		    var userID =  Parse.User.current().id;
 		    var title = document.newExerciseForm.title.value;
 		    var responsePrevention =  document.newExerciseForm.responsePrevention.value;
-		    var category = document.newExerciseForm.category.value;
+		    var week = document.newExerciseForm.week.value;
+		    // var category = document.newExerciseForm.category.value;
 		    var fearFactor =  document.newExerciseForm.fearFactor.value;
+		    var weekTarget = document.newExerciseForm.weekTarget.value	
+
+		    switch(week){
+		   		case "0":
+		   		var weekNumber = myFunctions.getCurrentWeek(); 
+		   			break;
+		   		case "1":
+		   			var weekNumber = myFunctions.getCurrentWeek() + 1;
+		   			break;
+		   		case "2":
+		   			var weekNumber = myFunctions.getCurrentWeek() + 2;
+		   			break;		
+		   	};
 
 		    exercise.set("userID", userID);
 		    exercise.set("title", title);
 		    exercise.set("responsePrevention", responsePrevention);
-		    exercise.set("category", category);
+		    exercise.set("weekNumber", weekNumber);
+		    exercise.set("weekTarget", weekTarget)
+		    // exercise.set("category", category);
 		    exercise.set("fearFactor", fearFactor);
 		    exercise.set("finished", 0);
 
@@ -56,25 +72,39 @@ var ocdWebApp = ocdWebApp || {};
 				exerciseQuery.equalTo("userID", Parse.User.current().id);
 
 				exerciseQuery.find({
-				  success: function(exercises) {
+				  	success: function(exercises) {
+					  	exercises = _.sortBy(exercises, function(sorted){
+				  			return -sorted.get("weekNumber");
+						});
 
-				  	_.each(exercises, function (exercise) {
-				  		ocdWebApp.Exercise.content.push(exercise);
-				  	});
-				    // ocdWebApp.Exercise.content = _.sortBy(ocdWebApp.Exercise.content, function(sorted){
-			  			// return -sorted.fearFactor;
-					// });
-				    var content  = JSON.stringify(ocdWebApp.Exercise.content);
-				    sessionStorage.setItem("exercises", content);
+					  	var weekNumber = exercises[0].get("weekNumber"); // save first weeknumber
+					  	var weekArray = [];
+					  	for (var i = 0; exercises.length >= i; i++) {
+					  		if (exercises[i]) {
+						  		if(weekNumber == exercises[i].get("weekNumber")){
+						  			weekArray.push(exercises[i]);
+						  		} else {
+						  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
+						  			weekArray = [];
+						  			weekNumber = exercises[i].get("weekNumber");
+						  			weekArray.push(exercises[i]);
+						  		}
+					  		} else {
+					  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
+					  		}
+					  	};
 
-				  	myFunctions.disableLoader();
+					    var content  = JSON.stringify(ocdWebApp.Exercise.content);
+					    sessionStorage.setItem("exercises", content);
 
-				  	SHOTGUN.fire('getExercises');
-				  },
-				  error: function(exercises, error) {
-				  	myFunctions.disableLoader();
-				    console.log('get exercises failed ' + error.message);
-				  }
+					  	myFunctions.disableLoader();
+
+					  	SHOTGUN.fire('getExercises');
+				  	},
+				  	error: function(exercises, error) {
+					  	myFunctions.disableLoader();
+					    console.log('get exercises failed ' + error.message);
+				  	}
 				});
 			}
 			
@@ -86,7 +116,11 @@ var ocdWebApp = ocdWebApp || {};
 				exerciseQuery.get(id, {
 					success: function(exercise) {
 						var amount = exercise.get("finished") + 1;
+						var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
+						var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
 					   	exercise.set("finished", amount);
+					   	exercise.set("fearFactorPre", fearFactorPre);
+					   	exercise.set("fearFactorPost", fearFactorPost);
 					   	exercise.save();
 					},
 					error: function(error) {
@@ -99,7 +133,7 @@ var ocdWebApp = ocdWebApp || {};
 
 				var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
 				var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
-				var tijdAfronding = myFunctions.getOneEl('input[name = "tijdAfronding"]:checked').id;
+				// var tijdAfronding = myFunctions.getOneEl('input[name = "tijdAfronding"]:checked').id;
 				var ervaring = "lukte het om de angst te verdragen?<br />" + document.postExposureForm.ervaring1.value + "<br /><br />"
 								+ "Is de verwachte ramp uitgekomen?<br />" + document.postExposureForm.ervaring2.value + "<br /><br />"
 								+ "Wat gebeurde er met je angst?<br />" +document.postExposureForm.ervaring3.value + "<br /><br />";
@@ -107,7 +141,7 @@ var ocdWebApp = ocdWebApp || {};
 				exercise.set("exerciseId", exerciseId);
 				exercise.set("fearFactorPre", fearFactorPre);
 				exercise.set("fearFactorPost", fearFactorPost);
-				exercise.set("tijdAfronding", tijdAfronding);
+				// exercise.set("tijdAfronding", tijdAfronding);
 				exercise.set("ervaring", ervaring);
 				exercise.set("userID", Parse.User.current().id);
 
@@ -117,6 +151,7 @@ var ocdWebApp = ocdWebApp || {};
 					    alert('exercise was finished... Well Done!!!');
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
+					    ocdWebApp.Exercise.read(true);
 					    window.location.hash = "#exercises/exercisesSummary";
 			 		},
 					error: function(exercise, error) {
@@ -133,7 +168,13 @@ var ocdWebApp = ocdWebApp || {};
 		],
 		directives: {
 			myId:{
-				id: function () { return this.objectId; }
+				id: function () { return "G" + this.objectId; }
+			},
+			myExpandId:{
+				id: function () { return "ex" + this.objectId; }
+			},
+			myExpand:{
+				onclick: function () { return "myFunctions.expand('ex" + this.objectId + "');"; }
 			},
 		    myLink:{
 		    	href: function() { return "#exercises/detail/" + this.objectId; }
@@ -141,19 +182,9 @@ var ocdWebApp = ocdWebApp || {};
 		    myValue:{
 		    	value: function() { return this.fearFactor; }
 		    },
-		    myCategory:{
+		    myTotal:{
 		    	text: function () {
-					switch(this.category){
-						case "0":
-							return "Niet controleren";
-							break;
-						case "1":
-							return "Niet handen wassen";
-							break;
-						case "2":
-							return "Genormaliseerd uitvoeren";
-							break;
-		    		};
+					return this.finished + "/" + this.weekTarget
 		    	}
   			}
   		}

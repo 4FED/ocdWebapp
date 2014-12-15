@@ -17,38 +17,38 @@ var ocdWebApp = ocdWebApp || {};
 		    var password = document.registerForm.password.value;
 		    var fileUploadControl = document.getElementById("profilePicture");
 			if (passwordChecker == password) {				
-			    if (fileUploadControl.files.length > 0) {
-			    	var file = fileUploadControl.files[0];
-			  		var name = "profilePicture.png";		 
-			  		var parseFile = new Parse.File(name, file);		
+			 //    if (fileUploadControl.files.length > 0) {
+			 //    	var file = fileUploadControl.files[0];
+			 //  		var name = "profilePicture.png";		 
+			 //  		var parseFile = new Parse.File(name, file);		
 
-				  	parseFile.save().then(function(profilePicture) {			  
-					    user.set("username", email);
-					    user.set("email", email);
-					    user.set("password", password);
-					    user.set("initials", initials);
-					    user.set("firstname", firstname);
-					    user.set("surname", surname);
-					    user.set("profilePicture", profilePicture);
-					    user.set("isDoctor", false);
+				//   	parseFile.save().then(function(profilePicture) {			  
+				// 	    user.set("username", email);
+				// 	    user.set("email", email);
+				// 	    user.set("password", password);
+				// 	    user.set("initials", initials);
+				// 	    user.set("firstname", firstname);
+				// 	    user.set("surname", surname);
+				// 	    user.set("profilePicture", profilePicture);
+				// 	    user.set("isDoctor", false);
 
-					    user.signUp(null, {
-						    success: function(object) {
-							    alert("nieuwe gebruiker is aangemaakt, vergeet niet je email te verifiseren");
-							    ocdWebApp.User.logout();
-							    myFunctions.clearForm(document.registerForm);
-							    myFunctions.disableLoader();
-						    },
-						    error: function(model, error) {
-						    	myFunctions.disableLoader();
-						    	alert('Failed to create new object, with error code: ' + error.message);
-						    }
-						});
-					}, function(error) {
-						alert("something went wrong");
-						console.log(error);
-					});
-				} else {
+				// 	    user.signUp(null, {
+				// 		    success: function(object) {
+				// 			    alert("nieuwe gebruiker is aangemaakt, vergeet niet je email te verifiseren");
+				// 			    ocdWebApp.User.logout();
+				// 			    myFunctions.clearForm(document.registerForm);
+				// 			    myFunctions.disableLoader();
+				// 		    },
+				// 		    error: function(model, error) {
+				// 		    	myFunctions.disableLoader();
+				// 		    	alert('Failed to create new object, with error code: ' + error.message);
+				// 		    }
+				// 		});
+				// 	}, function(error) {
+				// 		alert("something went wrong");
+				// 		console.log(error);
+				// 	});
+				// } else {
 						user.set("username", email);
 					    user.set("email", email);
 					    user.set("password", password);
@@ -69,7 +69,6 @@ var ocdWebApp = ocdWebApp || {};
 						    	alert('Failed to create new object, with error code: ' + error.message);
 						    }
 						});
-				};
 			} else {
 				myFunctions.disableLoader();
 				alert("The two passwords are not the same");
@@ -90,12 +89,45 @@ var ocdWebApp = ocdWebApp || {};
 			});
 			
 		},
-		update: function () {
-			// body...
+		update: function (item) {
+			var userQuery = new Parse.Query(Parse.User);
+			var currentUser = Parse.User.current();
+				userQuery.get(currentUser.id, {
+					success: function(user) {
+						var fileUploadControl = myFunctions.getOneEl("#changePictureButton");
+						fileUploadControl.onchange = function () {
+							if (fileUploadControl.files.length > 0) {
+						    	var file = fileUploadControl.files[0];
+						  		var name = "profilePicture.png";		 
+						  		var parseFile = new Parse.File(name, file);		
+
+							  	parseFile.save().then(function(profilePicture) {
+							  		user.set("profilePicture", profilePicture);
+							  		user.save(null, {
+										  success: function(user) {
+										    // Execute any logic that should take place after the object is saved.
+										    alert("Nieuwe profiel foto is geupload en zal te zien zijn wanneer je opnieuw inloged");
+										  },
+										  error: function(user, error) {
+										    alert('Uploaden van profiel foto is mislukt: ' + error.message);
+										  }
+										});
+							  	});
+							}
+						}
+					},
+					error: function(error) {
+					  console.log("object with id: " + id + "not found"); 
+					}
+				});
 		},
-		forgotPassword: function () {
+		forgotPassword: function (currentUser) {
 			myFunctions.enableLoader();
-			var emailAdress = document.forgotForm.email.value;
+			if (currentUser) {
+				var emailAdress = Parse.User.current().get('email')
+			} else {
+				var emailAdress = document.forgotForm.email.value;
+			};	
 			var userQuery = new Parse.Query(Parse.User);
 			userQuery.equalTo("email", emailAdress);
 			userQuery.find({
@@ -123,7 +155,7 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		logout: function () {
 			Parse.User.logOut();
-			window.location.hash = "#startScreen";
+			window.location.hash = "#user/login";
 			sessionStorage.clear();
 			localStorage.clear();
 		},
@@ -137,6 +169,11 @@ var ocdWebApp = ocdWebApp || {};
 		    			var backgroundImage = "url(" + this.profilePicture.url() + ")";
 		    			target.element.style.backgroundImage= backgroundImage;
 		    		}
+		    	}
+		    },
+		    myName:{
+		    	text: function () {
+		    		return this.firstname + " " + this.surname
 		    	}
 		    }
 		}

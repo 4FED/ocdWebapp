@@ -32,13 +32,16 @@ var myFunctions = {
 				SHOTGUN.remove("finishExercise");
 				break;
 			case "searchDoctorButton":
-				ocdWebApp.Doctor.get('search');
+				ocdWebApp.Doctor.get('new');
 				break;
 			case "inviteDoctorButton":
 				ocdWebApp.Doctor.set();
 				break;
 			case "removeDoctorButton":
 				ocdWebApp.Doctor.remove();
+				break;
+			case "changePictureButton":
+				ocdWebApp.User.update("profielpicture");
 				break;
 		}
 	},
@@ -59,7 +62,7 @@ var myFunctions = {
 		_.each(form.elements, function(el){
 			    	if (el.type == "range") {
 			    		el.value = 50;
-			    	} else if(el.type != "button") {			    		
+			    	}else if(el.type != "button" && el.type != "select") {			    		
 			    		el.value = null;
 			    	}
 			    })
@@ -75,6 +78,28 @@ var myFunctions = {
 		_.each(loaderIcons, function (loaderIcon) {
 			loaderIcon.style.display = "block";
 		})	
-	}	
-
+	},
+	getMonthName: function (month) {
+		var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    	return monthNames[month];
+	},
+	WeekToDate: function (w) {
+		var simple = new Date((new Date).getFullYear(), 0, 1 + (w - 1) * 7);
+	    var dow = simple.getDay();
+	    var ISOweekStart = simple;
+	    if (dow <= 4)
+	        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+	    else
+	        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+	    return ISOweekStart;
+	},
+	getCurrentWeek: function() {
+        var onejan = new Date((new Date).getFullYear(), 0, 1);
+        return Math.ceil((((new Date - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    },
+    expand: function (id) {
+		var el = document.getElementById(id);
+		el.classList.toggle("active");
+    }
 };	
