@@ -223,6 +223,8 @@ input:focus{
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 	.profiel h1{
 		display: block;
@@ -358,6 +360,7 @@ input:focus{
 		height:1.5em;
 		vertical-align: middle;
 		float:right;
+		background-position: center;
 		
 	}
 	#hoofdmenu #user{
@@ -707,7 +710,7 @@ input:focus{
 		width:12.5em;
 	}
 	#exposures input[type="number"]{
-		margin-top: 0.25em;
+		margin-top: 0.65em;
 		background-color: transparent;
 		border: none;
 		text-align: center;
@@ -1049,6 +1052,13 @@ input:focus{
 		background-color:rgba(0,0,0,0);
 		border:0;
 		font-size:11pt;
+	}
+	#beheerders input[type=button]{
+		width: 5em;
+		height: 3em;
+		display: block;
+		background-color: transparent;
+		border: 1px solid white;
 	}
 
 

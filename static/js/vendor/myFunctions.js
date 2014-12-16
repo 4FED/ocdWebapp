@@ -101,5 +101,24 @@ var myFunctions = {
     expand: function (id) {
 		var el = document.getElementById(id);
 		el.classList.toggle("active");
+    },
+    alert: function (title, icon, content, hash, tekst){
+    	var alertDiv = document.getElementById("alert");
+    	alertDiv.classList.add("active");
+
+    	var alertTitle = document.getElementById("alertTitle");
+    	alertTitle.innerHTML = title;
+
+    	var alertIcon = document.getElementById("alertIcon");
+    	alertIcon.style.backgroundImage="url('" + icon + "')";
+
+    	var alertContent = document.getElementById("alertContent");
+    	alertContent.innerHTML = content;
+
+    	var alertButton = document.getElementById("alertButton");
+    	alertButton.onclick = "function(){document.getElementById('alert').classlist.remove('active'); window.location.hash = hash;}";
+    	alertButton.innerHTML = tekst;
+
+    	console.log(alert);
     }
 };	

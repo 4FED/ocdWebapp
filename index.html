@@ -16,6 +16,13 @@
 				<a href="#user/register"><button type="button" name="registreer">Registreer<span class="arrow"></span></button></a>
 			</section> -->
 
+			<div id="alert" class="dummy">
+				<h3 id="alertTitle"></h3>
+				<span id="alertIcon"></span>
+				<p id="alertContent"></p>
+				<a onclick="" id="alertButton" href="">ok</a>
+			</div>
+
 			<section id="login" class="user content">
 				<!-- <hr />
 				<span class="exit"><a href="#startScreen">&times;</a></span> -->
@@ -58,9 +65,7 @@
 			<section id="hoofdmenu" class="home content">
 				<nav>
 					<ul>
-						<li><span id="search"></span></li>
 						<li><span id="logo_fidence"></span></li>
-						<li><span id="menu"></span></li>
 					</ul>
 				</nav>
 			
@@ -70,7 +75,6 @@
 					<a href="#progress"><li><span id="progress"></span>Informatie<span class="arrow"></span></li></a>
 					<a href="#doctors/doctorsSummary"><li><span id="administrators"></span>Behandelaren<span class="arrow"></span></li></a>
 					<!-- <li><span id="about"></span><a href="#about">About</a><span class="arrow"></span></li> -->
-					<li><button class="eventButton" id="logoutButton"><i class=icon-sign-out></i></button></li>
 				</ul>
 			</section>
 
@@ -113,10 +117,10 @@
 
 					<ul class="exercises">
 					    	<li>TITEL<span class="graad">WEEKTARGET &#x025BE;</span></li>
-					    	<div id="noResultsExposure" class="dummy">
+					    	<div id="noResultsExposure" class="noResults">
 					    		<span id="add"></span>
 					    		<p>
-					    			Klik op het plus icoon om een exposure oefening aan te maken.
+					    			Klik op het plus icoon rechtsboven om een exposure oefening aan te maken.
 					    		</p>
 					    	</div>
 					  	<div class="exercisesList">
@@ -157,10 +161,13 @@
 								<h3 id="tag_category_name" data-bind="myCategory"></h3>
 								<input id="fearFactorPre" data-bind="myValue" type="number" value="" min="0" max="100">
 							</div>
+							<h3>Responsepreventie</h3>
+							<p data-bind="responsePrevention">								
+							</p>
+							<hr />
 							<h3>Motivatie Bericht</h3>
-							<p>
-								"Vertrouw op je eigen handelen en laat de gedachten varen. erken je handeling en ga door met waar je mee bezig was."<br />
-								- Dr. Jansen
+							<p data-bind="motivationMessage">
+							
 							</p>
 
 							<a href="#exercises/duringExercise"><input type="button" class="footerbutton" value="Begin exposure"></a>
@@ -181,14 +188,13 @@
 							<img src="images/loader2.gif" alt="">
 							<h3>Succes!</h3>
 							<h3>Responsepreventie</h3>
-							<p>
-								test taralalalalal.
+							<p data-bind="responsePrevention">
+								
 							</p>
 							<hr />
 							<h3>Motivatie Bericht</h3>
-							<p>
-								"Vertrouw op je eigen handelen en laat de gedachten varen. erken je handeling en ga door met waar je mee bezig was."<br />
-								- Dr. Jansen
+							<p data-bind="motivationMessage">
+								
 							</p>
 							<hr />
 							<a href="#exercises/postExposure"><input type="button" class="footerbutton" value="Afronden"></a>
@@ -305,21 +311,27 @@
 				</nav>
 				
 				<img src="images/loader.gif" class="loaderIcon">
-
+				<div id="noResultsDoctors" class="noResults">
+		    		<span id="add"></span>
+		    		<p>
+		    			Klik op het plus teken rechtsboven om een behandelaar toe te voegen of uit te nodigen.
+		    		</p>
+				</div>
 				<section class="doctorsSummary doctorEl">
 				<ul>
-					<li>
+					<li class="doctorData">
 						<span data-bind="myRemoveFunction" onClick="" class="remove">&times;</span>
 						<img class="profileImg"src="">
 						<h4 data-bind="firstname"></h4>
 						<p>[Beschrijving beheerder]</p>
 					</li>
 				</ul>
+				
 
 				</section>
 				<section class="newDoctor doctorEl">
 					<input type="text" id="searchField" name="searchField" placeholder="Zoek naar persoon"/>
-					<input type="button" class="eventButton" id="searchDoctorButton" name="search" value="Zoek">
+					<input type="button" class="eventButton" id="searchDoctorButton" name="search" value="Zoeken">
 					<ul>
 						<li class="doctorsResultTable">
 							<img class="profileImg"src="">

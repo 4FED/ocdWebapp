@@ -69,8 +69,16 @@ window.onload = function (){
 			Transparency.render(myFunctions.getOneEl(".postExposure"), detailExercise, ocdWebApp.Exercise.directives);
 			Transparency.render(myFunctions.getOneEl(".duringExercise"), detailExercise, ocdWebApp.Exercise.directives);
 		},
-		doctorsSummary: function (){			
+		doctorsSummary: function (){
+			var el = document.getElementById("noResultsDoctors");
+			if (ocdWebApp.Doctor.content.length < 1) {
+				el.classList.add("active");
+			} else{
+				el.classList.remove("active");
+			};			
+
 			Transparency.render(myFunctions.getOneEl(".doctorsSummary"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);
+			
 		},
 		doctorsResult: function (){
 			Transparency.render(myFunctions.getOneEl(".doctorsResultTable"), ocdWebApp.Doctor.content, ocdWebApp.Doctor.directives);

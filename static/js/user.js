@@ -136,7 +136,11 @@ var ocdWebApp = ocdWebApp || {};
 			    		Parse.User.requestPasswordReset(emailAdress, {
 							success: function() {
 								myFunctions.disableLoader();
-								alert("An email to reset your new password was sent to " + emailAdress);
+								myFunctions.alert("EEN EMAIL IS VERSTUURD NAAR<br /><u>"+emailAdress+"</u>", 
+						    	"images/envelop.svg", 
+						    	"Binnen enkele minuten ontvang je een e-mail waarin je je wachtwoord kunt ressetten", 
+						    	"home",
+						    	"terug naar home");
 							},
 							error: function(error) {
 							  // Show the error message somewhere

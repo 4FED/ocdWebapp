@@ -20,11 +20,10 @@ var ocdWebApp = ocdWebApp || {};
 			userDoctor.set("patient", currentUser.id);
 		    userDoctor.save(null, {
 				success: function(doctor) {
-					console.log(doctor);
-					alert('doctor added');
+					alert('Behandelaar is toegevoegd');
 				},
 				error: function(doctor, error) {
-					alert('Failed to create new object, with error code: ' + error.message);
+					console.log('Failed to add doctor: ' + error.message);
 				}
 			});
 		},
@@ -58,33 +57,29 @@ var ocdWebApp = ocdWebApp || {};
 				userDoctorQuery.equalTo("patient", user.id);
 				userDoctorQuery.find({
 					success: function (doctors) {
-						_.each(doctors, function (doctor) {
-					  		var doctorQuery = new Parse.Query(Parse.User);
-							doctorQuery.equalTo("objectId", doctor.get("doctor"));
-							doctorQuery.find({
-								success: function(doctors) {
-									_.each(doctors, function (doctor) {
-										var doctorDetails = new Object();
-									    doctorDetails.firstname = doctor.get("firstname");
-									    doctorDetails.id = doctor.id;
-									    ocdWebApp.Doctor.content.push(doctorDetails);
-									})
-								 //  	for (var i = 0; i < doctors.length; i++) {
-								 //  		var doctor = new Object();
-								 //  		doctor.order = i;
-									//     doctor.firstname = doctors[i].get("firstname");
-									//     doctor.id = doctors[i].get("objectId");
-									//     ocdWebApp.Doctor.content.push(doctor);
-									//     console.log(doctor.firstname);
-									// }
-							  		myFunctions.disableLoader();
-									SHOTGUN.fire("getDoctors");
-								},
-								error: function(doctors, error) {
-									console.log('get doctors failed ' + error.message);
-								}
+						if (doctors.length < 1) {
+							SHOTGUN.fire("getDoctors");
+						} else{
+							_.each(doctors, function (doctor) {
+						  		var doctorQuery = new Parse.Query(Parse.User);
+								doctorQuery.equalTo("objectId", doctor.get("doctor"));
+								doctorQuery.find({
+									success: function(doctors) {
+										_.each(doctors, function (doctor) {
+											var doctorDetails = new Object();
+										    doctorDetails.firstname = doctor.get("firstname");
+										    doctorDetails.id = doctor.id;
+										    ocdWebApp.Doctor.content.push(doctorDetails);
+										})
+								  		myFunctions.disableLoader();
+										SHOTGUN.fire("getDoctors");
+									},
+									error: function(doctors, error) {
+										console.log('get doctors failed ' + error.message);
+									}
+								});
 							});
-					  	});
+						}
 					},
 					error: function (doctor) {
 						console.log('getting join failed '+ error.message)

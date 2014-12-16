@@ -113,9 +113,12 @@ var ocdWebApp = ocdWebApp || {};
 			var exerciseId = id;
 			var finish = function () {
 				var exerciseQuery = ocdWebApp.Exercise.init("get");
+				var exerciseData = {};
 				exerciseQuery.get(id, {
 					success: function(exercise) {
 						var amount = exercise.get("finished") + 1;
+						exerciseData.weekTarget = exercise.get("weekTarget");
+						exerciseData.finished = amount;
 						var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
 						var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
 					   	exercise.set("finished", amount);
@@ -148,11 +151,14 @@ var ocdWebApp = ocdWebApp || {};
 				exercise.save(null, {
 			  		success: function(exercise) {
 					    // Execute any logic that should take place after the object is saved.
-					    alert('exercise was finished... Well Done!!!');
+					    myFunctions.alert("TOP!<br /> JE HEBT EEN OEFENING VOLBRACHT", 
+					    	"images/check.svg", 
+					    	"Je week target staat nu op<br />"+exerciseData.finished+"/"+exerciseData.weekTarget, 
+					    	"exercises/exercisesSummary", 
+					    	"terug naar home");
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
 					    ocdWebApp.Exercise.read(true);
-					    window.location.hash = "#exercises/exercisesSummary";
 			 		},
 					error: function(exercise, error) {
 						myFunctions.disableLoader();
