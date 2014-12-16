@@ -84,7 +84,7 @@ var ocdWebApp = ocdWebApp || {};
 				    window.location.hash = "#home";
 			  },
 			  error: function(user, error) {
-			    console.log('login Failed ' + error.message);
+			    alert('login Failed ' + error.message);
 			  }
 			});
 			
