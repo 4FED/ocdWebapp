@@ -76,30 +76,36 @@ var ocdWebApp = ocdWebApp || {};
 					  	exercises = _.sortBy(exercises, function(sorted){
 				  			return -sorted.get("weekNumber");
 						});
-
-					  	var weekNumber = exercises[0].get("weekNumber"); // save first weeknumber
-					  	var weekArray = [];
-					  	for (var i = 0; exercises.length >= i; i++) {
-					  		if (exercises[i]) {
-						  		if(weekNumber == exercises[i].get("weekNumber")){
-						  			weekArray.push(exercises[i]);
+					  	if (exercises.length < 1) {
+					  		myFunctions.disableLoader();
+					  		var content  = JSON.stringify(ocdWebApp.Exercise.content);
+						    sessionStorage.setItem("exercises", content);
+						  	SHOTGUN.fire('getExercises');
+					  	} else {
+						  	var weekNumber = exercises[0].get("weekNumber"); // save first weeknumber
+						  	var weekArray = [];
+						  	for (var i = 0; exercises.length >= i; i++) {
+						  		if (exercises[i]) {
+							  		if(weekNumber == exercises[i].get("weekNumber")){
+							  			weekArray.push(exercises[i]);
+							  		} else {
+							  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
+							  			weekArray = [];
+							  			weekNumber = exercises[i].get("weekNumber");
+							  			weekArray.push(exercises[i]);
+							  		}
 						  		} else {
 						  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
-						  			weekArray = [];
-						  			weekNumber = exercises[i].get("weekNumber");
-						  			weekArray.push(exercises[i]);
 						  		}
-					  		} else {
-					  			ocdWebApp.Exercise.content[weekNumber] = weekArray;
-					  		}
+						  	};
+
+						    var content  = JSON.stringify(ocdWebApp.Exercise.content);
+						    sessionStorage.setItem("exercises", content);
+
+						  	myFunctions.disableLoader();
+
+						  	SHOTGUN.fire('getExercises');
 					  	};
-
-					    var content  = JSON.stringify(ocdWebApp.Exercise.content);
-					    sessionStorage.setItem("exercises", content);
-
-					  	myFunctions.disableLoader();
-
-					  	SHOTGUN.fire('getExercises');
 				  	},
 				  	error: function(exercises, error) {
 					  	myFunctions.disableLoader();
