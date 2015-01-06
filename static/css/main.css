@@ -1,4 +1,4 @@
-section, .userForm, .doctorEl, .progressData, .noResults, #alert{
+section, .userForm, .doctorEl, .progressData, .noResults, #alert, .faq, .about{
 	display: none;
 }
 section.active, form.active, div.active{

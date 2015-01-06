@@ -2,16 +2,19 @@
 button{
 	font-family: 'Oxygen', sans-serif;
 	font-weight:300;
+	-webkit-appearance: none;
 }
 
 button:focus{
 	outline: none;
+	-webkit-appearance: none;
 }
 
 input{
 	font-family: 'Oxygen', sans-serif;
 	font-weight:300;
 	color:#ffffff;
+	-webkit-appearance: none;
 }
 
 input:focus{
@@ -36,7 +39,7 @@ input:focus{
 
 	#logo_fidence{
 		display:block;
-		background-image:url(../../images/logo_fidence_white.svg);
+		background-image:url(../../images/fenix_logo.png);
 		background-repeat:no-repeat;
 		background-size:12em;
 		height:4em;
@@ -321,10 +324,10 @@ input:focus{
 	}
 
 	#hoofdmenu nav li #logo_fidence{
-		background-image:url(../../images/logo_fidence_white.svg);
+		background-image:url(../../images/fenix_logo.png);
 		background-repeat:no-repeat;
 		background-size:7em;
-		height:2em;
+		height:3em;
 		width:7em;
 		margin:0 auto;
 		vertical-align: middle;
@@ -372,7 +375,8 @@ input:focus{
 		height:3.1em;
 		width:2.9em;
 		vertical-align: middle;
-		margin-right:1em;			
+		margin-right:1.5em;
+		background-position: center;			
 	}
 
 	#hoofdmenu #exposures{
@@ -390,10 +394,10 @@ input:focus{
 	}
 	#hoofdmenu #progress{
 		display:inline-block;
-		background-image:url(../../images/informatie.svg);
+		background-image:url(../../images/info-new.svg);
 		background-repeat:no-repeat;
 		background-size:3.5em;
-		height:3.5em;
+		height:3.6em;
 		width:3.5em;
 		vertical-align: middle;
 		margin-right:1em;	
@@ -424,11 +428,10 @@ input:focus{
 
 	/*---------- EXPOSURES ---------*/
 	#duringExercise > img{
-		width: 3em;
+		width: 7em;
 		display: block;
-		top: 40%;
-		margin-top: 2em;
-		margin-bottom: 2em;
+		margin-top: 1em;
+		margin-bottom: 1em;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -444,7 +447,7 @@ input:focus{
 	}
 	#exposures nav ul{
 		list-style-type: none;
-		padding:1em 1em 0em 1em;
+		padding:1em 0em 0em 0em;
 		margin:0;
 
 	}
@@ -461,6 +464,7 @@ input:focus{
 		width:1em;
 		float:left;
 		vertical-align: middle;
+		margin-left: 1em;
 	}
 
 	#exposures nav li #add_exposure{
@@ -471,6 +475,7 @@ input:focus{
 		width:1em;
 		height:1em;
 		float:right;
+		margin-right: 1em;
 	}	
 	#exposures nav ul li{
 		display: inline-block;
@@ -479,7 +484,11 @@ input:focus{
 		display: inline;
 	}
 	}
+	#exposureSummaryTitle{
+		width: 140% !important;
+	}
 	#exposures nav ul li h2{
+		text-overflow: ellipsis;
 		font-size:18pt;
 		font-weight:300;
 		margin-left:auto;
@@ -487,9 +496,9 @@ input:focus{
 		margin-top:0;
 		left:0;
 		right:0;
-		width:4em;
+		width: 150%;
+		text-align: center;
 	}
-
 	#exposures > ul{
 		list-style-type: none;
 		padding-left:0;	
@@ -509,18 +518,22 @@ input:focus{
 		font-size:10pt;
 		padding-bottom:0.5em;
 	}
-	#exposures > ul li .graad{
+	#exposures > ul li .graadTitle{
 		font-weight:700;
 		float:right;
 		margin:0em 1em 0em 0em;		
 	}
-
+	#exposures > ul li .graad{
+		font-weight:700;
+		float:right;
+		margin:0em 3em 0em 0em;		
+	}
 	#exposures select{
 		margin-top:1em;
 	}
 
 	#exposures input[type=range]{
-		width:80%;
+		width:100%;
 		-webkit-appearance: none;
 		background-color:#a5a1a0;
 		border:0.1em solid rgba(0,0,0,0.2);
@@ -556,15 +569,32 @@ input:focus{
 		font-weight:300;
 		margin:0;
 	}
-	#exposures input[type="text"]{
+	#exposures input[type=text]{
 		font-size:18pt;
 		font-weight:300;
 		margin:0;
 		background-color: transparent;
-		border: 1px solid white;
+		border: 1px solid rgba(255, 255, 255, 0.3);
 		height: 2em;
 		border-radius: 5px;
 		width: 100%; 
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+	#exposures textarea{
+		width: 100%;
+		background-color: transparent;
+		color: white;
+		resize: none;
+		height: 5em;
+		font-family: 'Oxygen', sans-serif;
+		font-size: 12pt;
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		border-radius: 0.5em;
+		padding: 0.5em;
+	}
+	#exposures textarea{
+		outline: none;
 	}
 	#exposures textarea.ervaring{
 		background-color: transparent;
@@ -572,6 +602,15 @@ input:focus{
 		width: 100%; 
 		margin-top:0.5em;
 		font-size:10pt;
+		color: white;
+		font-family: 'Oxygen', sans-serif;
+		font-size: 12pt;
+		resize: none;
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		padding: 0.5em;
+	}
+	#exposures textarea.ervaring:focus{
+		outline: none;
 	}
 	#exposures h3{
 		font-size:14pt;
@@ -594,7 +633,7 @@ input:focus{
 
 	#exposures hr{
 		opacity:0.4;
-		margin:2.5em 0em 1em 0em;
+		margin: 1em 0em 1em 0em;
 	}
 
 	#exposures section p{
@@ -613,15 +652,16 @@ input:focus{
 		padding:0em 1em 1em 1em
 	}
 	#exposures #scroller{
+		font-size: 11pt;
 		display: block;
 		text-align: center;
-		padding: 0;
+		padding: 0.2em 0 0.2em 0;
 		height: 2em;
 		line-height: 2em;
-		margin-top: -1em;
+		margin: 1em 1em 0 1em;
 		background-color: rgba(0, 0, 0, 0.1);
 		border-top: 1px solid #fff ;
-		border-bottom: 1px solid #fff;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.4);
 	}
 	#scroller span#back, #scroller span#forward{
 		background-size: 0.7em !important;
@@ -646,6 +686,9 @@ input:focus{
 		height: 10.5em;
 		margin: 0 1em 2em 1em;
 		background-color: rgba(0, 0, 0, 0.1);
+	}
+	#exposures .chartDiv{
+		padding-top: 0.5em;
 	}
 	.progressData p, .progressData div{
 		margin: 0 0 0 1em;
@@ -707,10 +750,9 @@ input:focus{
 		margin-top:-0.5em;
 		left:0;
 		right:0;*/
-		width:12.5em;
+		/*width:12.5em;*/
 	}
 	#exposures input[type="number"]{
-		margin-top: 0.65em;
 		background-color: transparent;
 		border: none;
 		text-align: center;
@@ -718,16 +760,17 @@ input:focus{
 	}
 	#exposures #exposure_tag{
 		display:block;
-		background-image:url(../../images/icon_exposure_tag.svg);
 		background-repeat:no-repeat;
 		background-size:7em;
-		width:7em;
+		width:80%;
 		height:10em;
 		margin:auto;
 		margin-top:3em;
 		margin-bottom:2em;
 	}
-
+	#fearfactortitle{
+		margin: 0;
+	}
 	#exposures #time_needed {
 		font-size:10pt;
 		width:100%;
@@ -745,7 +788,57 @@ input:focus{
 		margin:1em;
 		
 	}
-
+	#newExercisesSliderOutput{
+		font-weight: 700;
+		font-size: 40pt;
+		background-image: url(../../images/icon_fear_level.svg);
+		width: 2.27em;
+		height: 3em;
+		display: block;
+		background-size: 2.2em;
+		text-align: center;
+		padding-top: 0.28em;
+		background-repeat: no-repeat;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: -0.5em;
+		margin-top: 1em;
+	}
+	#fearFactorPreSliderOutput{
+		font-weight: 700;
+		font-size: 40pt;
+		background-image: url(../../images/icon_fear_level.svg);
+		width: 2.27em;
+		height: 3em;
+		display: block;
+		background-size: 2.2em;
+		text-align: center;
+		padding-top: 0.28em;
+		background-repeat: no-repeat;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: -0.5em;
+		margin-top: 1em;
+	}
+	#postExposureSliderOutput{
+		font-weight: 700;
+		font-size: 40pt;
+		background-image: url(../../images/icon_fear_level.svg);
+		width: 2.27em;
+		height: 3em;
+		display: block;
+		background-size: 2.2em;
+		text-align: center;
+		padding-top: 0.28em;
+		background-repeat: no-repeat;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: -0.5em;
+		margin-top: 1em;
+	}
+	#postExposureSlider{
+		margin-top: 0.5em !important;
+	}
 	#exposures #time_needed input[type=radio]:checked{
 		background-color:rgba(255,255,255,1);
 	}
@@ -966,7 +1059,9 @@ input:focus{
 		width:1em;
 		height:1em;
 		display:inline-block;
-		margin-left: 10em;
+		position: absolute;
+		margin-top: -0.5em;
+		right: 30;
 	}	
 
 	#beheerders nav ul li h2{
@@ -978,7 +1073,8 @@ input:focus{
 		margin-top:-0.5em;
 		left:0;
 		right:0;
-		width:4em;
+		text-align: center;
+		width: 60%;
 	}
 
 	#beheerders section{
@@ -992,7 +1088,6 @@ input:focus{
 	}
 
 	#beheerders section ul li{
-		border-bottom:0.1em solid rgba(255,255,255,0.4);
 		float:left;
 		clear:both;
 		width:100%;
@@ -1023,6 +1118,7 @@ input:focus{
 
 	#beheerders #no_margin_bottom{
 		margin-bottom:0;
+		margin-top: 0.8em;
 	}
 
 	#beheerders .invitation{
@@ -1046,21 +1142,70 @@ input:focus{
 		background-repeat:no-repeat;
 		background-size:2em;
 		background-position:0em, 1em;
-		
+		border:0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 		width:100%;
 		height:7%;
 		background-color:rgba(0,0,0,0);
-		border:0;
 		font-size:11pt;
 	}
 	#beheerders input[type=button]{
-		width: 5em;
+		width: 8em;
 		height: 3em;
 		display: block;
 		background-color: transparent;
 		border: 1px solid white;
+		margin-bottom: 1em;
+		margin-top: 0.8em;
+		float: right;
 	}
 
 
 	/*---------- EXPOSURES END ---------*/
+	/*----------Informatie--------------*/
+	.informatie nav ul{
+		list-style-type: none;
+		padding:1em 1em 0em 1em;
+		margin:0;
+	}
+
+	.informatie nav ul li{	
+		vertical-align: middle;
+	}
+	.informatie nav:nth-of-type(2) hr{
+		border: none;
+		border-bottom: 1px solid #b7b7b7;
+	} 
+	.informatie span#forward{
+		display:block-inline;
+		background-image:url(../../images/icon_forward.svg);
+		background-repeat:no-repeat;
+		background-size:0.8em;
+		width:1em;
+		height:1.2em;
+		float:right;
+		margin-right:0.3em;
+	}
+	.informatie nav li #back{		
+		background-image:url(../../images/icon_back.svg);
+		background-repeat:no-repeat;
+		background-size:1em;
+		height:1.5em;
+		width:1em;
+		float:left;
+		vertical-align: middle;
+	}
+	.informatie nav ul li h2{
+		font-size:18pt;
+		font-weight:300;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:-0.5em;
+		left:0;
+		right:0;
+		width:4em;
+	}
+	.informatie div{
+		padding: 1em;
+	}
 }

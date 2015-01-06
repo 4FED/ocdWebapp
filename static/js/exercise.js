@@ -39,6 +39,7 @@ var ocdWebApp = ocdWebApp || {};
 		    exercise.set("responsePrevention", responsePrevention);
 		    exercise.set("weekNumber", weekNumber);
 		    exercise.set("weekTarget", weekTarget)
+		    exercise.set("ervaring", "");
 		    // exercise.set("category", category);
 		    exercise.set("fearFactor", fearFactor);
 		    exercise.set("finished", 0);
@@ -46,10 +47,38 @@ var ocdWebApp = ocdWebApp || {};
 		    exercise.save(null, {
 			  success: function(exercise) {
 			    // Execute any logic that should take place after the object is saved.
-			    alert('New exercise created with name: ' + exercise.get("title"));
+			    myFunctions.alert("Nieuwe oefening is aangemaakt met de naam<br />'"  + exercise.get("title")+"'", 
+					    	"images/icon_check.svg",
+					    	"", 
+					    	"exercises/exercisesSummary", 
+					    	"Terug naar home");
 			    myFunctions.clearForm(document.newExerciseForm);
 				ocdWebApp.Exercise.read(true);
 				myFunctions.disableLoader();
+
+				var Exercisefinished = Parse.Object.extend("exerciseFinished");
+				var exercisefinished = new Exercisefinished();		
+
+				var ervaring = "";
+
+				exercisefinished.set("exerciseId", exercise.id);
+				exercisefinished.set("fearFactorPre", fearFactor);
+				exercisefinished.set("fearFactorPost", fearFactor);
+				exercisefinished.set("ervaring", ervaring);
+				exercisefinished.set("userID", Parse.User.current().id);
+
+				exercisefinished.save(null, {
+			  		success: function(exercise) {
+					    // Execute any logic that should take place after the object is saved.
+					    console.log("first exercise set");
+			 		},
+					error: function(exercise, error) {
+					    // Execute any logic that should take place if the save fails.
+					    // error is a Parse.Error with an error code and message.
+					    console.log('Failed to create new object, with error code: ' + error.message);
+					}
+				});
+
 			  },
 			  error: function(exercise, error) {
 			  	myFunctions.disableLoader();
@@ -67,6 +96,18 @@ var ocdWebApp = ocdWebApp || {};
 				myFunctions.disableLoader();
 
 			}else{
+				var Motivation = Parse.Object.extend("patientMotivation");
+				var motivationQuery = new Parse.Query(Motivation);
+				motivationQuery.equalTo("patient", Parse.User.current().id);
+				motivationQuery.find({
+					success: function(motivation) {
+					    var content  = JSON.stringify(motivation);
+						sessionStorage.setItem("motivation", content);
+					},
+					error: function(motivation, error) {
+			        	console.log("error getting motivation " + error.message);	
+			        }
+				});
 				ocdWebApp.Exercise.content = [];
 				var exerciseQuery = this.init("get");
 				exerciseQuery.equalTo("userID", Parse.User.current().id);
@@ -123,13 +164,19 @@ var ocdWebApp = ocdWebApp || {};
 				exerciseQuery.get(id, {
 					success: function(exercise) {
 						var amount = exercise.get("finished") + 1;
+						var fearFactorPre = myFunctions.getOneEl("#fearFactorPreSlider").value;
+						var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
+						var ervaring = "<h4>lukte het om de angst te verdragen?</h4>"+ document.postExposureForm.ervaring1.value + "<br /><br />"
+								+ "<h4>Is de verwachte ramp uitgekomen?</h4>"+ document.postExposureForm.ervaring2.value + "<br /><br />"
+								+ "<h4>Wat gebeurde er met je angst?</h4>"+document.postExposureForm.ervaring3.value + "<br /><br />";
+
+						console.log(ervaring);
 						exerciseData.weekTarget = exercise.get("weekTarget");
 						exerciseData.finished = amount;
-						var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
-						var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
 					   	exercise.set("finished", amount);
 					   	exercise.set("fearFactorPre", fearFactorPre);
 					   	exercise.set("fearFactorPost", fearFactorPost);
+					   	exercise.set("lastExperience", ervaring);
 					   	exercise.save();
 					},
 					error: function(error) {
@@ -140,7 +187,7 @@ var ocdWebApp = ocdWebApp || {};
 				var Exercise = Parse.Object.extend("exerciseFinished");
 				var exercise = new Exercise();		
 
-				var fearFactorPre = myFunctions.getOneEl("#fearFactorPre").value;
+				var fearFactorPre = myFunctions.getOneEl("#fearFactorPreSlider").value;
 				var fearFactorPost = myFunctions.getOneEl("#postExposureSlider").value;
 				// var tijdAfronding = myFunctions.getOneEl('input[name = "tijdAfronding"]:checked').id;
 				var ervaring = "lukte het om de angst te verdragen?<br />" + document.postExposureForm.ervaring1.value + "<br /><br />"
@@ -157,14 +204,14 @@ var ocdWebApp = ocdWebApp || {};
 				exercise.save(null, {
 			  		success: function(exercise) {
 					    // Execute any logic that should take place after the object is saved.
+					    ocdWebApp.Exercise.read(true);
 					    myFunctions.alert("TOP!<br /> JE HEBT EEN OEFENING VOLBRACHT", 
-					    	"images/check.svg", 
+					    	"images/icon_check.svg", 
 					    	"Je week target staat nu op<br />"+exerciseData.finished+"/"+exerciseData.weekTarget, 
 					    	"exercises/exercisesSummary", 
 					    	"terug naar home");
 					    myFunctions.clearForm(document.postExposureForm);
 					    myFunctions.disableLoader();
-					    ocdWebApp.Exercise.read(true);
 			 		},
 					error: function(exercise, error) {
 						myFunctions.disableLoader();

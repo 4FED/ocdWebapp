@@ -76,6 +76,7 @@ var ocdWebApp = ocdWebApp || {};
 		},
 		login: function () {	
 			var email = document.loginForm.email.value;
+			var email = email.toLowerCase();
 		    var password = document.loginForm.password.value;
 
 			Parse.User.logIn(email, password, {

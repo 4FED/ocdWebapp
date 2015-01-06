@@ -20,7 +20,8 @@ var ocdWebApp = ocdWebApp || {};
 			userDoctor.set("patient", currentUser.id);
 		    userDoctor.save(null, {
 				success: function(doctor) {
-					alert('Behandelaar is toegevoegd');
+					
+					myFunctions.alert("Behandelaar is toegevoegd", "images/icon_check.svg", "", "#home", "Terug naar home");
 				},
 				error: function(doctor, error) {
 					console.log('Failed to add doctor: ' + error.message);
@@ -97,8 +98,7 @@ var ocdWebApp = ocdWebApp || {};
 					_.each(rows, function (row) {
 						row.destroy({});
 					});
-					alert("doctor is removed");
-					window.location.reload();
+					myFunctions.alert("Behandelaar is verwijderd", "images/icon_check.svg", "", "#home", "Terug naar home");
 				},
 				error: function() {
 					alert("removing doctor failed " + error.message);

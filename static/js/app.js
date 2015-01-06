@@ -56,15 +56,23 @@ window.onload = function (){
 		},
 		exerciseDetail: function  (id){
 			var exercisesData = JSON.parse(sessionStorage.getItem("exercises"));
+			var motivation = JSON.parse(sessionStorage.getItem("motivation"));
+			var motivationNumber = Math.round(Math.random() * ((motivation.length-1) - 0) + 0);
 			var detailExercise = [];
 			_.each(exercisesData, function (exercises) {
 				_.each(exercises, function (exercise) {
 					if(exercise.objectId == id){
-						detailExercise.push(exercise);
+						if (motivation.length > 0) {
+							exercise.motivation = motivation[motivationNumber].motivation;
+							detailExercise.push(exercise);
+						} else{							
+							exercise.motivation = "";
+							detailExercise.push(exercise);
+						};
 					}
 				})
 			});
-			
+			console.log(detailExercise);
 			Transparency.render(myFunctions.getOneEl(".detailExercise"), detailExercise, ocdWebApp.Exercise.directives);
 			Transparency.render(myFunctions.getOneEl(".postExposure"), detailExercise, ocdWebApp.Exercise.directives);
 			Transparency.render(myFunctions.getOneEl(".duringExercise"), detailExercise, ocdWebApp.Exercise.directives);
@@ -93,7 +101,6 @@ window.onload = function (){
 			for (var i = 0; i < hide.length; i++) {
 				hide[i].classList.remove('active');
 			};
-
 			show.classList.add('active');				
 		} 
 	};
@@ -147,6 +154,8 @@ window.onload = function (){
 		    		ocdWebApp.sections.toggle("detailExercise", "exercisesEl");
 					ocdWebApp.Exercise.finish(id);
 					myFunctions.showSliderVal("#postExposureSlider", "#postExposureSliderOutput");
+					myFunctions.showSliderVal("#fearFactorPreSlider", "#fearFactorPreSliderOutput");
+					
 	    		},
 	    		'doctors/:type': function(type) {
 	    			if (Parse.User.current()) {
@@ -163,12 +172,11 @@ window.onload = function (){
 	    				reroute;
 	    			};
 	    		},
-	    		startScreen: function() {
-		    		if (Parse.User.current()) {
-		    			window.location.hash = "#home";
-		    		} else {
-		    			ocdWebApp.sections.toggle("startScreen", "content")
-		    		}
+	    		informatie: function () {
+	    			ocdWebApp.sections.toggle("informatie", "content");
+	    		},
+	    		'informatie/:type': function(type){
+	    			ocdWebApp.sections.toggle(type, "informatieContent");
 	    		},
 	    		'': function () {
 	    			reroute;

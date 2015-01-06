@@ -72,8 +72,8 @@
 				<ul class="hoofdmenu">	
 					<a href="#profiel"><li><span id="user" data-bind="profilePicture"></span><i data-bind="firstname"></i><span class="arrow"></span></li></a>
 					<a href="#exercises/exercisesSummary"><li><span id="exposures"></span>Exposures<span class="arrow"></span></li></a>
-					<a href="#progress"><li><span id="progress"></span>Informatie<span class="arrow"></span></li></a>
 					<a href="#doctors/doctorsSummary"><li><span id="administrators"></span>Behandelaren<span class="arrow"></span></li></a>
+					<a href="#informatie"><li><span id="progress"></span>Informatie<span class="arrow"></span></li></a>
 					<!-- <li><span id="about"></span><a href="#about">About</a><span class="arrow"></span></li> -->
 				</ul>
 			</section>
@@ -103,9 +103,8 @@
 					<nav>
 						<ul>
 							<a href="#home"><li><span id="back"></span></li>
-							<li><h2>Exposures</h2></li></a>
+							<li><h2 id="exposureSummaryTitle">Exposures</h2></li></a>
 							<li><a href="#exercises/newExercises"><span id="add_exposure"></a></span></li>
-							<hr />
 						</ul>
 					</nav>				
 					<div id="scroller">
@@ -116,11 +115,11 @@
 					<img src="images/loader.gif" class="loaderIcon">
 
 					<ul class="exercises">
-					    	<li>TITEL<span class="graad">WEEKTARGET &#x025BE;</span></li>
+					    	<li>TITEL<span class="graadTitle">WEEKTARGET</span></li>
 					    	<div id="noResultsExposure" class="noResults">
 					    		<span id="add"></span>
 					    		<p>
-					    			Klik op het plus icoon rechtsboven om een exposure oefening aan te maken.
+					    			Klik rechtsboven op het plusicoon om een behandelaar toe te voegen of uit te nodigen.
 					    		</p>
 					    	</div>
 					  	<div class="exercisesList">
@@ -130,7 +129,7 @@
 								  	<span class="graad" data-bind="myTotal"></span>
 							  	</li>
 						  	</a>
-						  	<div data-bind="myExpandId" class="progressData">
+						  	<div data-bind="myExpandId" class="progressData chartDiv">
 						  		<p>
 						  			<i><strong>Angstniveau</strong> laatse oefening</i><br /><br />
 						  			<i>Voor </i><i data-bind="fearFactorPre"></i><br />
@@ -141,7 +140,7 @@
 						  			<i>Startniveau angst</i>
 						  			<span data-bind="fearFactor"></span>						  			
 						  		</p>
-						  		<a data-bind="myLink">StartExposure</a>
+						  		<a data-bind="myLink">Start exposure</a>
 						  	</div>
 					  	</div> 
 					</ul>
@@ -157,16 +156,15 @@
 					</nav>
 					<div>
 						<form id="startExercise" action="">
-							<div id="exposure_tag">
-								<h3 id="tag_category_name" data-bind="myCategory"></h3>
-								<input id="fearFactorPre" data-bind="myValue" type="number" value="" min="0" max="100">
-							</div>
+								<span data-bind="fearFactor" id="fearFactorPreSliderOutput" id="fearFactorPre"></span>
+								<h3 id="fearfactortitle">Huidge angstniveau</h3>
+					      		<input id="fearFactorPreSlider" data-bind="fearFactor" type="range" step="10" name="fearFactor" value="50" min="0" max="100">	
 							<h3>Responsepreventie</h3>
 							<p data-bind="responsePrevention">								
 							</p>
 							<hr />
-							<h3>Motivatie Bericht</h3>
-							<p data-bind="motivationMessage">
+							<h3>Motivatiebericht</h3>
+							<p data-bind="motivation">
 							
 							</p>
 
@@ -193,7 +191,7 @@
 							</p>
 							<hr />
 							<h3>Motivatie Bericht</h3>
-							<p data-bind="motivationMessage">
+							<p data-bind="motivation">
 								
 							</p>
 							<hr />
@@ -219,10 +217,9 @@
 					</div> -->
 					<div>
 						<form name="postExposureForm" id="postExposureForm">
+					      	<span data-bind="fearFactor" name="postExposureSliderOutput" id="postExposureSliderOutput">50</span>
 							<h3>Hoe hoog is je angst na oefening?</h3>
-							<i>0</i>
 					      	<input id="postExposureSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-					      	<span name="postExposureSliderOutput" id="postExposureSliderOutput">50</span>
 					      	<!-- <hr /> -->
 						    <!-- <fieldset id="time_needed">
 						    	<legend>Benodigde tijd tot afronding</legend>
@@ -241,11 +238,11 @@
 							<label for="ervaring3">Wat gebeurde er met je angst?</label>
 							<textarea class="ervaring" name="ervaring3" rows="4" cols="42" placeholder=""></textarea>
 							<!-- <textarea name="ervaring" id="postExposureErvaring" rows="7" cols="42" placeholder="[beschrijving ervaring]"></textarea> -->
-							<hr />
+							<!-- <hr /> -->
 														
-							<div id="addFile">
+							<!-- <div id="addFile">
 								<h3>Videoboodschap toevoegen<span class="arrow"></span></h3>
-							</div>
+							</div> -->
 
 							<hr />
 							
@@ -260,14 +257,14 @@
 						<nav>
 							<ul>
 								<a href="#exercises/exercisesSummary"><li><span id="back"></span></li>
-								<li><h2 id="oefening">Nieuwe oefening toevoegen</h2></li></a>
+								<li><h2 id="oefening">Nieuwe exposure</h2></li></a>
 								<hr />
 							</ul>
 						</nav>	
 
 						<form class="newExercisesForm" name="newExerciseForm">
 							<h3>Titel</h3>	
-							<input type="text" name="title" required>
+							<input type="text" name="title" pattern=".{3,}" required title="3 characters minimum">
 							<hr />
 							<!-- <h3>Categorie</h3>
 							<select class="category" id="category" name="category">
@@ -283,16 +280,15 @@
 								<option id="thirdWeek" value="2">week daarna</option>
 							</select>
 							<hr />
-							<h3>Week target</h3>
+							<h3>Weektarget</h3>
 							<input type="number" value="1" name="weekTarget" />
 							<hr />
-							<h3>Responsepreventie</h3>	
-							<input type="text" name="responsePrevention" required>
+							<h3>Responspreventie</h3>	
+							<textarea name="responsePrevention" id="" rows="2"></textarea>
 							<hr />
-							<h3>Hoe hoog is je angst?</h3>
-								<i>0</i>
+						    <span name="newExercisesSliderOutput" id="newExercisesSliderOutput">50</span>
+							<h3>Schatting angstniveau</h3>
 						      	<input id="newExercisesSlider" type="range" step="10" name="fearFactor" value="50" min="0" max="100">
-						      	<span name="newExercisesSliderOutput" id="newExercisesSliderOutput">50</span>
 							<hr />
 				      		<input type="button" class="eventButton footerButton" id="newExerciseButton"  data-inline="true" value="Oefening toevoegen">
 						</form>
@@ -304,7 +300,7 @@
 				<nav>
 					<ul>
 						<a href="#home"><li><span id="back"></span></li>
-						<li><h2>Beheerders</h2></li></a>
+						<li><h2>Behandelaren</h2></li></a>
 						<li><a href="#doctors/newDoctor"><span id="add_exposure"></a></span></li>
 						<hr id="no_margin_bottom"/>	
 					</ul>
@@ -314,58 +310,77 @@
 				<div id="noResultsDoctors" class="noResults">
 		    		<span id="add"></span>
 		    		<p>
-		    			Klik op het plus teken rechtsboven om een behandelaar toe te voegen of uit te nodigen.
+		    			Klik rechtsboven op het plusicoon om een behandelaar toe te voegen of uit te nodigen.
 		    		</p>
 				</div>
 				<section class="doctorsSummary doctorEl">
 				<ul>
 					<li class="doctorData">
 						<span data-bind="myRemoveFunction" onClick="" class="remove">&times;</span>
-						<img class="profileImg"src="">
+						<img class="profileImg"src="images/img_patient_placeholder.svg">
 						<h4 data-bind="firstname"></h4>
-						<p>[Beschrijving beheerder]</p>
 					</li>
 				</ul>
 				
 
 				</section>
 				<section class="newDoctor doctorEl">
-					<input type="text" id="searchField" name="searchField" placeholder="Zoek naar persoon"/>
+					<input type="text" id="searchField" name="searchField" placeholder="Zoek op e-mailadres of AMC-ID"/>
 					<input type="button" class="eventButton" id="searchDoctorButton" name="search" value="Zoeken">
 					<ul>
 						<li class="doctorsResultTable">
-							<img class="profileImg"src="">
+							<img class="profileImg" src="images/img_patient_placeholder.svg">
 							<div class="beheerder">
 								<section id="doctorOrderNumber" data-bind="doctorID"></section>
 								<h4 data-bind="firstname"></h4>
-								<p>[Beschrijving beheerder]</p>
 								<div id="inviteDoctorButton" class="invitation eventButton">Uitnodiging versturen</div>
 							</div>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<!-- <section id="voortgang" class="progress content">
+			<section id="informatie" class="informatie content">
 				<nav>
 					<ul>
 						<a href="#home"><li><span id="back"></span></li>
-						<li><h2>Voortgang<h2></li></a>
-						<hr id="no_margin_bottom"/>		
+						<li><h2>Informatie</h2></li></a>
+						<hr id="no_margin_bottom"/>	
 					</ul>
 				</nav>
-				<div>
-					<ul class="progressExercise">
-						<li id="" data-bind="myId">
-							<div class="voortgang brons"></div>
-							<div class="voortgang silver"></div>
-							<div class="voortgang goud"></div>
-							<div class="voortgang platinum"></div>
-							<div class="voortgang diamand"></div>
-								<span class="graad_oefening" data-bind="fearFactor"></span><p data-bind="title">[Titel exposure oefening]</p>
-						</li>
+				<nav>
+					<ul>
+						<a href="#informatie/faq"><li>FAQ<span id="forward"></span</li></a>
+						<hr />
+						<a href="#informatie/about"><li>Over Ons<span id="forward"></span</li></a>
+						<hr />
 					</ul>
+				</nav>
+				<div class="faq informatieContent">
+					<h1>FAQ</h1>
+					<h3>Zijn mijn gegevens wel priv&#233;?</h3>
+					<p>Ja, uw gegevens worden alleen binnen het systeem gebruikt en zijn dus enkel zichtbaar voor uzelf en uw behandelaren.</p>
+
+					<h3>Wat gebeurd er met mijn gegevens wanneer ik die indien, bijvoorbeeld met het uitvoeren van een oefening?</h3>
+					<p>Uw gegevens worden beveiligd doorgestuurd naar uw behandelaren.</p>
+
+					<h3>Komen er nog nieuwe versies uit?</h3>
+					<p>Op dit moment is een nieuwe versie niet in ontwikkeling. Dit is een demo.Indien het AMC veel potentie in deze applicatie ziet zou de app als basisidee kunnen fungeren.</p>
+
+					<h3>Kan ik de applicatie beoordelen?</h3>
+					<p>Ja dat kan! Via deze <u><a href="https://docs.google.com/forms/d/1E4tnemHGqvwtrulOn_tu7NBqugBS6mji4YRSNPpzHzk/viewform?usp=send_form">link</a></u> kunt u een beoordeling geven en zo nodig feedback geven over onze applicatie.</p>
+
+					<h3>- Help, de applicatie werkt niet goedmeer. Bijvoorbeeld de oefeningen en de voortgang kloppen niet meer. Wat nu?</h3>
+					<p>U kunt altijd contact opnemen via ons e-mailadres: <u><a href="mailto:fourfed@gmail.com">fourfed@gmail.com</a></u>. Om het ons gemakkelijker te kunnen maken kunt u een screenshot meesturen van hetgevonden probleem. Dit zorgt ervoor dat wij sneller met het probleem aan degang kunnen.</p>
 				</div>
-			</section> -->
+				<div class="about informatieContent">
+					<h1>Over de makers</h1>
+					<p>Fenix, een app ontwikkelt door het team FOURFED bestaande uit derdejaars HvAstudenten: Arthur van Schravendijk, Lisa Greuter, Randy Huls en Tijn van Veen.Fenix is een exposure support app, een applicatie die pati&#235;nten met OCD kanhelpen in het zelfstandig uitvoeren van exposure-oefeningen. De makers hebbenin nauwe samenwerking met het AMC deze applicatie gemaakt en ervoor gezorgd datdeze nu testbaar is voor pati&#235;nten van het AMC om verder uitgewerkt te kunnenworden.</p>
+
+					<p>FOURFED is een gedreven team en staataltijd open voor opmerkingen, aanmerkingen, vragen of tips. U kunt ons bereikenvia ons e-mailadres: <u><a href="mailto:fourfed@gmail.com">fourfed@gmail.com.</a></u></p>
+
+					<p>Fenix &#169; 2014 Arthur vanSchravendijk, Lisa Greuter, Randy Huls en Tijn van Veen</p>
+				</div>
+			</section>
 			
 			<script src="http://d3js.org/d3.v3.min.js"></script>
 			<script src="static/js/vendor/underscore-min.js"></script>

@@ -179,20 +179,20 @@ var ocdWebApp = ocdWebApp || {};
 		            });
 
 
-		    var line = d3.svg.line()
-			    .x(function(d, i) { 
-			    	if (i == 1) {
-			    		return 127;
-			    	} else {
-			    		return 1;
-			    	} 
-			   	})
-			    .y(function(d, i) { return d.startScore }); 
+		 //    var line = d3.svg.line()
+			//     .x(function(d, i) { 
+			//     	if (i == 1) {
+			//     		return 127;
+			//     	} else {
+			//     		return 1;
+			//     	} 
+			//    	})
+			//     .y(function(d, i) { return d.startScore }); 
 			  
-			$svg.append("path")
-			      .datum(data)
-			      .attr("class", "line")
-			      .attr("d", line);
+			// $svg.append("path")
+			//       .datum(data)
+			//       .attr("class", "line")
+			//       .attr("d", line);
 
 		},
 		content: [

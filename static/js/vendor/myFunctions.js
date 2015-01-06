@@ -80,8 +80,8 @@ var myFunctions = {
 		})	
 	},
 	getMonthName: function (month) {
-		var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+		var monthNames = [ "januari", "februari", "maart", "april", "mei", "juni",
+    	"juli", "augustus", "september", "oktober", "november", "december" ];
     	return monthNames[month];
 	},
 	WeekToDate: function (w) {
