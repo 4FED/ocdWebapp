@@ -3,13 +3,20 @@ button{
 	font-family: 'Oxygen', sans-serif;
 	font-weight:300;
 	-webkit-appearance: none;
+	border-radius: 0;
+	-webkit-border-radius: 0;
 }
 
 button:focus{
 	outline: none;
 	-webkit-appearance: none;
+	border-radius: 0;
+	-webkit-border-radius: 0;
 }
-
+input[type="button"]{
+	border-radius: 0;
+	-webkit-border-radius: 0;
+}
 input{
 	font-family: 'Oxygen', sans-serif;
 	font-weight:300;
@@ -31,6 +38,7 @@ input:focus{
 		margin:0 auto;
 		width:100%;
 		min-height:100%;
+		background-image: -webkit-linear-gradient(right top, #C15A5C 0%, #7AA19E 100%);
 		background-image: linear-gradient(to right top, #C15A5C 0%, #7AA19E 100%);
 		border:1px solid transparent;
 	}
